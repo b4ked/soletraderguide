@@ -45,41 +45,94 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* ============================================================
+     BRAND COLOURS — registered in @theme for Tailwind v4 utility
+     generation (e.g. bg-brand, text-brand, border-brand-light)
+     ============================================================ */
+  --color-brand: #0d6e6e;
+  --color-brand-dark: #0a5858;
+  --color-brand-light: #e0f2f1;
+  --color-cta: #2563eb;
+  --color-cta-hover: #1d4ed8;
 }
 
+/* ============================================================
+   SHADCN / SITE PALETTE — SoleTraderGuide
+   Primary: Deep Teal #0d6e6e
+   Accent/CTA: Bright Blue #2563eb
+   ============================================================ */
+
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  /* Core background (#f8fafc — very slightly cool white) and text (#0f172a) */
+  --background: oklch(0.984 0.004 247.858);
+  --foreground: oklch(0.151 0.031 261.3);
+
+  /* Surface (cards, popovers) */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.151 0.031 261.3);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.151 0.031 261.3);
+
+  /* Primary = deep teal #0d6e6e */
+  --primary: oklch(0.468 0.087 193.7);
+  --primary-foreground: oklch(1 0 0);
+
+  /* Secondary = light teal surface */
+  --secondary: oklch(0.951 0.014 193.7);
+  --secondary-foreground: oklch(0.468 0.087 193.7);
+
+  /* Muted surfaces */
+  --muted: oklch(0.968 0.006 247.858);
+  /* #64748b — slate-500 */
+  --muted-foreground: oklch(0.554 0.023 264.4);
+
+  /* Accent = bright blue tinted surface */
+  --accent: oklch(0.951 0.025 264.4);
+  --accent-foreground: oklch(0.397 0.142 264.4);
+
+  /* Destructive = #dc2626 */
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+
+  /* Borders and inputs (#e2e8f0 — slate-200) */
+  --border: oklch(0.918 0.012 261.3);
+  --input: oklch(0.918 0.012 261.3);
+  --ring: oklch(0.468 0.087 193.7);
+
+  /* Radius */
+  --radius: 0.5rem;
+
+  /* Chart colours (keep existing) */
   --chart-1: oklch(0.809 0.105 251.813);
   --chart-2: oklch(0.623 0.214 259.815);
   --chart-3: oklch(0.546 0.245 262.881);
   --chart-4: oklch(0.488 0.243 264.376);
   --chart-5: oklch(0.424 0.199 265.638);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Sidebar */
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.151 0.031 261.3);
+  --sidebar-primary: oklch(0.468 0.087 193.7);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.951 0.014 193.7);
+  --sidebar-accent-foreground: oklch(0.468 0.087 193.7);
+  --sidebar-border: oklch(0.918 0.012 261.3);
+  --sidebar-ring: oklch(0.468 0.087 193.7);
+
+  /* ============================================================
+     Brand CSS custom properties (used via arbitrary Tailwind values
+     like bg-[var(--brand)] or var() in component styles)
+     ============================================================ */
+  --brand: #0d6e6e;
+  --brand-dark: #0a5858;
+  --brand-light: #e0f2f1;
+  --cta: #2563eb;
+  --cta-hover: #1d4ed8;
+
+  /* Semantic colours */
+  --color-success: #059669;
+  --color-warning: #d97706;
+  --color-danger: #dc2626;
 }
 
 .dark {
@@ -89,8 +142,8 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
+  --primary: oklch(0.578 0.087 193.7);
+  --primary-foreground: oklch(0.145 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -100,7 +153,7 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --ring: oklch(0.578 0.087 193.7);
   --chart-1: oklch(0.809 0.105 251.813);
   --chart-2: oklch(0.623 0.214 259.815);
   --chart-3: oklch(0.546 0.245 262.881);
@@ -108,12 +161,12 @@
   --chart-5: oklch(0.424 0.199 265.638);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary: oklch(0.578 0.087 193.7);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar-ring: oklch(0.578 0.087 193.7);
 }
 
 @layer base {
@@ -122,8 +175,98 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+  }
+
+  /* Heading styles — professional and approachable */
+  h1 {
+    @apply text-3xl font-bold tracking-tight leading-tight;
+  }
+  h2 {
+    @apply text-2xl font-semibold tracking-tight leading-snug;
+  }
+  h3 {
+    @apply text-xl font-semibold leading-snug;
+  }
+  h4 {
+    @apply text-lg font-medium;
+  }
+  h5 {
+    @apply text-base font-medium;
+  }
+  h6 {
+    @apply text-sm font-medium;
+  }
+}
+
+/* ============================================================
+   CUSTOM COMPONENT STYLES
+   Written in plain CSS (not @apply) to avoid unknown utility
+   errors with brand-specific classes.
+   ============================================================ */
+
+/* Hero gradient — subtle cool-to-teal */
+.brand-gradient {
+  background: linear-gradient(
+    135deg,
+    oklch(0.984 0.004 247.858) 0%,
+    oklch(0.951 0.014 193.7) 50%,
+    oklch(0.984 0.004 247.858) 100%
+  );
+}
+
+/* Skip to content — visible on focus for screen readers */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background-color: var(--brand);
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 1rem;
+}
+
+/* Card hover lift */
+.card-lift {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Page container shorthand */
+.page-container {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .page-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }

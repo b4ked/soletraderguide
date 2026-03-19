@@ -1,65 +1,355 @@
-import Image from "next/image";
+import Link from 'next/link'
+import { ArrowRight, BookOpen, Calendar, CheckCircle, FileText, Shield, RefreshCw } from 'lucide-react'
+import { generateMetadata as buildMetadata } from '@/lib/metadata'
+import { HeroSection } from '@/components/common/HeroSection'
+import { GuideCard } from '@/components/common/GuideCard'
+import { ProviderCard } from '@/components/comparison/ProviderCard'
+import { LastUpdated } from '@/components/trust/LastUpdated'
+import { allProviders } from '@/data/providers'
 
-export default function Home() {
+export const metadata = buildMetadata({
+  title: 'MTD for Income Tax: What Every Sole Trader Needs to Know',
+  description:
+    'Plain-English guidance on Making Tax Digital for Income Tax. Sole traders earning over £50,000 must use HMRC-approved software from April 2026. Compare MTD software, check your eligibility, and find the right solution.',
+  canonicalPath: '/',
+  pageType: 'homepage',
+  updatedDate: '2025-03-01',
+})
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <>
+      {/* Hero */}
+      <HeroSection
+        badge="UK Making Tax Digital Guide"
+        heading="MTD for Income Tax: What Every Sole Trader Needs to Know"
+        subheading="Sole traders earning over £50,000 must use HMRC-approved software from April 2026. We help you understand the rules and find the right software."
+        primaryCta={{ label: 'Am I Affected?', href: '/mtd-for-sole-traders/am-i-affected/' }}
+        secondaryCta={{ label: 'Compare Software', href: '/software/' }}
+        trustNote="Independent guidance. No financial advice. Updated March 2025."
+      />
+
+      {/* What is MTD? Section */}
+      <section className="page-container py-16" aria-labelledby="what-is-mtd">
+        <div className="max-w-3xl mx-auto text-center mb-10">
+          <h2 id="what-is-mtd" className="text-3xl font-bold text-slate-900 mb-4">
+            What is Making Tax Digital for Income Tax?
+          </h2>
+          <p className="text-slate-600 leading-relaxed">
+            Making Tax Digital (MTD) for Income Tax Self Assessment is HMRC&apos;s programme to
+            move sole traders and landlords away from annual paper returns and onto digital
+            record-keeping and quarterly reporting. Instead of filing once a year, you&apos;ll
+            submit a summary of your income and expenses to HMRC every quarter using compatible
+            software.
+          </p>
+          <p className="text-slate-600 leading-relaxed mt-3">
+            The change is mandatory for sole traders and landlords with qualifying income over
+            £50,000 from April 2026. A second wave follows in April 2027 for those with income
+            over £30,000.
+          </p>
+          <Link
+            href="/mtd-for-sole-traders/what-is-mtd-income-tax/"
+            className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
+          >
+            Read the full MTD guide <ArrowRight className="size-4" />
+          </Link>
+        </div>
+
+        {/* Key stat cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
+          <div className="rounded-xl border border-brand/20 bg-brand-light p-6 text-center">
+            <p className="text-4xl font-bold text-brand mb-2">£50,000</p>
+            <p className="text-sm font-semibold text-slate-700">Income threshold</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Annual qualifying income from April 2026
+            </p>
+          </div>
+          <div className="rounded-xl border border-brand/20 bg-brand-light p-6 text-center">
+            <p className="text-4xl font-bold text-brand mb-2">April 2026</p>
+            <p className="text-sm font-semibold text-slate-700">Mandatory start date</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              When MTD becomes compulsory for higher earners
+            </p>
+          </div>
+          <div className="rounded-xl border border-brand/20 bg-brand-light p-6 text-center">
+            <p className="text-4xl font-bold text-brand mb-2">4 per year</p>
+            <p className="text-sm font-semibold text-slate-700">Quarterly updates</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Replace the single annual Self Assessment return
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Eligibility Check CTA */}
+      <section className="bg-slate-50 border-y border-border py-12">
+        <div className="page-container">
+          <div className="max-w-2xl mx-auto rounded-2xl border-2 border-brand bg-white p-8 text-center shadow-sm">
+            <div className="mb-4 inline-flex size-12 items-center justify-center rounded-full bg-brand-light">
+              <CheckCircle className="size-6 text-brand" />
+            </div>
+            <h2 className="text-2xl font-bold text-slate-900 mb-3">
+              Not Sure if You&apos;re Affected?
+            </h2>
+            <p className="text-slate-600 mb-6 text-sm leading-relaxed">
+              Answer 4 quick questions about your income and we&apos;ll tell you exactly when MTD
+              applies to you — and what you need to do next.
+            </p>
+            <Link
+              href="/tools/mtd-eligibility-checker/"
+              className="inline-flex items-center gap-2 rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-white hover:bg-brand-dark transition-colors"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+              Check my eligibility <ArrowRight className="size-4" />
+            </Link>
+            <p className="mt-3 text-xs text-muted-foreground">Free tool. No sign-up required.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Key Guides Grid */}
+      <section className="page-container py-16" aria-labelledby="key-guides">
+        <div className="mb-10">
+          <h2 id="key-guides" className="text-3xl font-bold text-slate-900 mb-3">
+            MTD Guides for Sole Traders
+          </h2>
+          <p className="text-slate-600 max-w-2xl">
+            Everything you need to understand Making Tax Digital — from the basics through to
+            practical steps for getting your records and software in order before April 2026.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <GuideCard
+            title="What is MTD for Income Tax?"
+            description="A plain-English explanation of what Making Tax Digital for Income Tax means, how it works, and how it differs from Self Assessment."
+            href="/mtd-for-sole-traders/what-is-mtd-income-tax/"
+            category="MTD Guides"
+            icon={BookOpen}
+          />
+          <GuideCard
+            title="Am I Affected by MTD?"
+            description="Find out whether you need to comply with MTD, what counts towards the £50,000 threshold, and when you'll need to start."
+            href="/mtd-for-sole-traders/am-i-affected/"
+            category="MTD Guides"
+            icon={CheckCircle}
+          />
+          <GuideCard
+            title="MTD Deadlines Explained"
+            description="Key dates for quarterly submissions, End of Period Statements, and your Final Declaration — with a clear quarterly timeline."
+            href="/mtd-for-sole-traders/deadlines/"
+            category="MTD Guides"
+            icon={Calendar}
+          />
+          <GuideCard
+            title="Records You Need to Keep"
+            description="What digital records HMRC requires, how long to keep them, and whether photos of receipts count as digital records."
+            href="/mtd-for-sole-traders/records-you-need-to-keep/"
+            category="MTD Guides"
+            icon={FileText}
+          />
+          <GuideCard
+            title="MTD and Spreadsheets"
+            description="Can you still use a spreadsheet? Yes — but you'll need bridging software. Find out how bridging works and whether it's right for you."
+            href="/mtd-for-sole-traders/spreadsheets/"
+            category="MTD Guides"
+            badge="Popular"
+          />
+          <GuideCard
+            title="Sole Trader and Landlord Income"
+            description="If you have both self-employment and property income, find out how MTD applies and how to report both income streams correctly."
+            href="/mtd-for-sole-traders/sole-trader-and-landlord-income/"
+            category="MTD Guides"
+          />
         </div>
-      </main>
-    </div>
-  );
+        <div className="mt-8 text-center">
+          <Link
+            href="/mtd-for-sole-traders/"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
+          >
+            View all MTD guides <ArrowRight className="size-4" />
+          </Link>
+        </div>
+      </section>
+
+      {/* Software Comparison Section */}
+      <section
+        className="bg-slate-50 border-y border-border py-16"
+        aria-labelledby="software-comparison"
+      >
+        <div className="page-container">
+          <div className="mb-10">
+            <h2 id="software-comparison" className="text-3xl font-bold text-slate-900 mb-3">
+              Compare MTD Software for Sole Traders
+            </h2>
+            <p className="text-slate-600 max-w-2xl">
+              HMRC requires you to use compatible software to submit quarterly updates. Here are
+              the four most popular options for sole traders, compared side by side.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {allProviders.map((provider) => (
+              <ProviderCard key={provider.id} provider={provider} variant="summary" />
+            ))}
+          </div>
+          <div className="mt-8 text-center">
+            <Link
+              href="/comparisons/"
+              className="inline-flex items-center gap-2 rounded-lg border border-brand px-6 py-2.5 text-sm font-semibold text-brand hover:bg-brand-light transition-colors"
+            >
+              See Full Comparison <ArrowRight className="size-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust / About Section */}
+      <section className="page-container py-16" aria-labelledby="why-trust">
+        <div className="max-w-3xl mx-auto">
+          <h2 id="why-trust" className="text-3xl font-bold text-slate-900 mb-8 text-center">
+            Why Trust SoleTraderGuide?
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="text-center">
+              <div className="mb-4 inline-flex size-12 items-center justify-center rounded-full bg-brand-light">
+                <Shield className="size-6 text-brand" />
+              </div>
+              <h3 className="text-base font-semibold text-slate-900 mb-2">Fully Independent</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                We&apos;re not owned by any software company. Our editorial decisions are made
+                independently, and we always put reader value first.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="mb-4 inline-flex size-12 items-center justify-center rounded-full bg-brand-light">
+                <RefreshCw className="size-6 text-brand" />
+              </div>
+              <h3 className="text-base font-semibold text-slate-900 mb-2">Regularly Updated</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                MTD rules are evolving. We review every guide when HMRC guidance changes and
+                publish a clear &ldquo;Last updated&rdquo; date on every page.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="mb-4 inline-flex size-12 items-center justify-center rounded-full bg-brand-light">
+                <BookOpen className="size-6 text-brand" />
+              </div>
+              <h3 className="text-base font-semibold text-slate-900 mb-2">
+                Real Editorial Methodology
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Software recommendations are based on a published scoring framework covering MTD
+                compatibility, price, ease of use, and sole-trader suitability.
+              </p>
+            </div>
+          </div>
+          <p className="mt-8 text-center text-sm text-muted-foreground">
+            Read our{' '}
+            <Link href="/editorial-policy/" className="text-brand hover:underline">
+              editorial policy
+            </Link>{' '}
+            and{' '}
+            <Link href="/sources/" className="text-brand hover:underline">
+              sources &amp; methodology
+            </Link>
+            .
+          </p>
+        </div>
+      </section>
+
+      {/* Latest Blog / Updates Section */}
+      <section
+        className="bg-slate-50 border-t border-border py-16"
+        aria-labelledby="latest-updates"
+      >
+        <div className="page-container">
+          <div className="mb-10 flex items-end justify-between">
+            <div>
+              <h2 id="latest-updates" className="text-3xl font-bold text-slate-900 mb-2">
+                Latest MTD Updates
+              </h2>
+              <p className="text-slate-600">
+                Stay up to date as HMRC refines the MTD for Income Tax programme.
+              </p>
+            </div>
+            <Link
+              href="/blog/"
+              className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
+            >
+              All articles <ArrowRight className="size-4" />
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <article className="rounded-xl border border-border bg-white p-6 flex flex-col">
+              <span className="mb-3 rounded-full bg-brand-light px-2.5 py-0.5 text-xs font-medium text-brand self-start">
+                News
+              </span>
+              <h3 className="text-base font-semibold text-slate-900 mb-2 leading-snug">
+                April 2026 MTD Rollout Explained
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                Everything sole traders earning over £50,000 need to know about the April 2026
+                mandatory start date — from registration deadlines to software choices.
+              </p>
+              <Link
+                href="/blog/"
+                className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-brand hover:underline"
+              >
+                Read more <ArrowRight className="size-3.5" />
+              </Link>
+            </article>
+
+            <article className="rounded-xl border border-border bg-white p-6 flex flex-col">
+              <span className="mb-3 rounded-full bg-brand-light px-2.5 py-0.5 text-xs font-medium text-brand self-start">
+                Guide
+              </span>
+              <h3 className="text-base font-semibold text-slate-900 mb-2 leading-snug">
+                What to Do Before Your First Quarterly Update
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                A practical checklist for sole traders approaching their first MTD quarterly
+                submission — covering software setup, record organisation, and what to submit.
+              </p>
+              <Link
+                href="/blog/"
+                className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-brand hover:underline"
+              >
+                Read more <ArrowRight className="size-3.5" />
+              </Link>
+            </article>
+
+            <article className="rounded-xl border border-border bg-white p-6 flex flex-col">
+              <span className="mb-3 rounded-full bg-brand-light px-2.5 py-0.5 text-xs font-medium text-brand self-start">
+                Comparison
+              </span>
+              <h3 className="text-base font-semibold text-slate-900 mb-2 leading-snug">
+                Free vs Paid MTD Software: What&apos;s the Difference?
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                Is free MTD software good enough for sole traders? We look at what free options
+                actually include, what they leave out, and when it makes sense to pay.
+              </p>
+              <Link
+                href="/blog/"
+                className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-brand hover:underline"
+              >
+                Read more <ArrowRight className="size-3.5" />
+              </Link>
+            </article>
+          </div>
+          <div className="mt-8 text-center sm:hidden">
+            <Link
+              href="/blog/"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
+            >
+              All articles <ArrowRight className="size-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Page footer meta */}
+      <div className="page-container py-6 border-t border-border">
+        <LastUpdated date="2025-03-01" />
+      </div>
+    </>
+  )
 }
