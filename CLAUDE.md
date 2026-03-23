@@ -445,10 +445,12 @@ Do not do everything sequentially in one context. Parallelise wherever work is i
 
 #### QA / Reviewer Agent
 - **Scope:** Build verification, linting, SEO checklist, conventions audit
+- **Skill:** `/review` — invoke this skill to load the full QA checklist and output format (`.claude/commands/review.md`)
 - **Commands:** `npm run build` then `npm run lint`
 - **Checks:** No TypeScript errors, no ESLint errors, all imports resolve, SEO checklist passes
 - **Always runs last** — must pass before any commit is made
 - **Output:** Structured pass/fail report per checklist item; flag issues for Build Agent to fix
+- **How to invoke:** When spawning the QA/Reviewer Agent via Task, instruct it to run `/review` at the start of its work. The skill contains the full 9-domain checklist, scoping rules by change type, output format, and all files to read.
 
 ### Parallel agent patterns
 
@@ -525,6 +527,10 @@ COMPLETE WHEN:
 
 ### QA / Reviewer checklist (run on every page before commit)
 
+> **Full checklist is in `.claude/commands/review.md`** — invoke via `/review` skill.
+> The skill contains 9 domain checklists, scoping rules, and output format.
+> Summary items below for quick reference only.
+
 ```
 [ ] generateMetadata() exported with unique title, description, canonicalPath
 [ ] canonicalPath set correctly
@@ -541,6 +547,8 @@ COMPLETE WHEN:
 [ ] No "use client" on page files (only on child components)
 [ ] Page listed in src/app/sitemap.ts (non-dynamic pages)
 [ ] UK English throughout
+[ ] MTD facts correct (£50k/Apr 2026, £30k/Apr 2027, £20k/Apr 2028)
+[ ] Affiliate links: rel="noopener sponsored" + target="_blank"
 [ ] npm run build passes — no errors
 [ ] npm run lint passes — no errors
 ```
