@@ -1,3 +1,4 @@
+
 # SoleTraderGuide.co.uk — CLAUDE.md
 
 This is the single authoritative context file for all AI agents working in this repository.
@@ -327,14 +328,14 @@ Do not modify provider pricing in `src/data/providers/index.ts` without verifyin
 
 ### Structured data requirements
 
-| Page type | Schema required |
-|---|---|
+| Page type         | Schema required                                        |
+| ----------------- | ------------------------------------------------------ |
 | Blog post / Guide | ArticleSchema + FAQSchema (if FAQs) + BreadcrumbSchema |
-| Review | ArticleSchema + BreadcrumbSchema |
-| Comparison | BreadcrumbSchema |
-| Tool | BreadcrumbSchema |
-| Hub | BreadcrumbSchema |
-| Homepage | OrganisationSchema (in layout.tsx — already present) |
+| Review            | ArticleSchema + BreadcrumbSchema                       |
+| Comparison        | BreadcrumbSchema                                       |
+| Tool              | BreadcrumbSchema                                       |
+| Hub               | BreadcrumbSchema                                       |
+| Homepage          | OrganisationSchema (in layout.tsx — already present)   |
 
 ### Sitemap
 `src/app/sitemap.ts` — dynamic, includes all static routes + all MDX blog posts via `getAllPosts()`.
@@ -418,30 +419,40 @@ Do not do everything sequentially in one context. Parallelise wherever work is i
 
 #### Write-Up Agent
 - **Scope:** Creates new blog content as `.mdx` files
+- **Skill:** `/write-up` — invoke this skill to load the full content creation checklist, frontmatter rules, CTA/FAQ/related post conventions, body structure templates, and output format (`.claude/commands/write-up.md`)
 - **Files:** `src/content/blog/*.mdx`
 - **Output:** MDX files conforming to the frontmatter schema above
 - **Conventions:** UK English, 800–2,000 words, `<InfoCallout>` where appropriate, `affiliateDisclosure: true` on posts mentioning paid software
 - **Does not modify:** TypeScript, components, or layout files
 - **Spawning pattern:** One agent per post — multiple Write-Up Agents run in parallel for batch content
+- **How to invoke:** When spawning the Write-Up Agent via Task, instruct it to run `/write-up` at the start of its work. The skill contains pre-writing planning checklists, the complete frontmatter schema, CTA/FAQ/related post rules, body structure templates by category, InfoCallout usage guide, internal linking requirements, affiliate compliance rules, and prohibited actions.
 
 #### Frontend / Build Agent
 - **Scope:** Page TSX, components, layout
+- **Skill:** `/build` — invoke this skill to load the full build checklist, page layout templates, component reference guide, design system, metadata pattern, and build verification steps (`.claude/commands/build.md`)
 - **Files:** `src/app/**/*.tsx`, `src/components/**/*.tsx`
 - **Conventions:** Server Components by default; `"use client"` only for interactive; `@/` imports; `generateMetadata()` on every page; page layout templates above
 - **Must include on every page:** Breadcrumbs, LastUpdated, AffiliateDisclosure (commercial), FAQAccordion, CTABlock
 - **Does not modify:** Data files, MDX content files
+- **How to invoke:** When spawning the Frontend/Build Agent via Task, instruct it to run `/build` at the start of its work. The skill contains file structure rules, import conventions, Server/Client component rules, metadata patterns for static and dynamic routes, required component checklists per page type, all 6 page layout templates, design system typography and spacing tables, full component reference guide, Tailwind/code quality rules, sitemap/navigation rules, and build verification commands.
 
 #### Data Agent
 - **Scope:** Provider data, site config, navigation, TypeScript types
-- **Files:** `src/data/`, `src/types/index.ts`
-- **Conventions:** Extend `Provider` type for new fields; update `allProviders` array; keep MTD facts HMRC-verified; verify provider pricing before updating
+- **Skill:** `/data` — invoke this skill to load the full data management protocol, Provider interface reference, pricing verification rules, type extension workflow, and downstream flag conventions (`.claude/commands/data.md`)
+- **Files:** `src/data/providers/index.ts`, `src/data/site-config.ts`, `src/data/navigation.ts`, `src/types/index.ts`
+- **Conventions:** Extend `Provider` type for new fields; update `allProviders` array; keep MTD facts HMRC-verified; verify provider pricing before updating; no `any` types
 - **Usually sequential** — data changes often unblock frontend work
+- **How to invoke:** When spawning the Data Agent via Task, instruct it to run `/data` at the start of its work. The skill contains checklists for adding/updating providers, extending types, site config changes, navigation changes, a full Provider interface reference, end-to-end workflows for adding providers and updating MTD dates, and downstream flag conventions for notifying Frontend/Build and SEO agents.
 
 #### SEO Agent
-- **Scope:** Metadata correctness, structured data, sitemap, robots
-- **Files:** `src/lib/metadata.ts`, `src/app/sitemap.ts`, `src/app/robots.ts`, `src/components/seo/`
-- **Checks after frontend changes:** All pages have `generateMetadata()`, canonical set, correct schema type, sitemap updated
-- **Run after:** Frontend Agent completes
+- **Scope:** Metadata correctness, structured data, sitemap, robots, on-page content SEO, internal linking, technical SEO hygiene
+- **Skill:** `/seo-agent` — invoke this skill to load the full SEO checklist, blog post optimisation workflow, and output format (`.claude/commands/seo-agent.md`)
+- **Files:** `src/lib/metadata.ts`, `src/app/sitemap.ts`, `src/app/robots.ts`, `src/components/seo/`, `src/content/blog/*.mdx`
+- **Checks after frontend changes:** All pages have `generateMetadata()`, canonical set, correct OG type, correct schema, sitemap updated, internal linking strategy followed
+- **Checks after Write-Up Agent:** MDX frontmatter SEO completeness, on-page keyword placement, internal links ≥3, FAQs keyword-rich, related posts set, CTA set
+- **Run after:** Frontend Agent or Write-Up Agent completes
+- **Run before:** QA/Reviewer Agent
+- **How to invoke:** When spawning the SEO Agent via Task, instruct it to run `/seo-agent` at the start of its work. The skill contains 9 domain checklists, page-type-specific workflows (blog post, new page, site-wide audit), scoping rules by change type, and the full output format.
 
 #### QA / Reviewer Agent
 - **Scope:** Build verification, linting, SEO checklist, conventions audit
@@ -459,10 +470,10 @@ Do not do everything sequentially in one context. Parallelise wherever work is i
 ```
 PARALLEL:
   → Frontend/Build Agent: build page.tsx with all required components
-  → SEO Agent: verify metadata and schema match existing pages
 
 THEN SEQUENTIAL:
-  → QA/Reviewer Agent: npm run build && npm run lint
+  → SEO Agent (/seo-agent): metadata completeness, OG type, structured data, sitemap, internal linking
+  → QA/Reviewer Agent (/review): npm run build && npm run lint
 ```
 
 #### Content pipeline — multiple blog posts
@@ -474,7 +485,8 @@ PARALLEL (one agent per post):
   → Write-Up Agent: write post-3.mdx
 
 THEN SEQUENTIAL:
-  → QA/Reviewer Agent: npm run build (verify all MDX frontmatter is valid)
+  → SEO Agent (/seo-agent): frontmatter SEO, on-page keywords, internal links, FAQs, CTAs — all posts
+  → QA/Reviewer Agent (/review): npm run build (verify all MDX frontmatter is valid)
 ```
 
 #### Adding a new software provider
