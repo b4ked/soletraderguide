@@ -1,9 +1,18 @@
 import { MetadataRoute } from 'next'
 import { siteConfig } from '@/data/site-config'
+import { getAllPosts } from '@/lib/content'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url
   const now = new Date().toISOString()
+
+  // Dynamically include all MDX blog posts
+  const blogPosts = getAllPosts('blog').map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: post.updatedAt ? new Date(post.updatedAt).toISOString() : now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
 
   return [
     // Homepage
@@ -44,12 +53,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/tools/mtd-eligibility-checker`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/tools/mtd-software-chooser`, lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
 
-    // Blog
+    // Blog hub (individual posts added dynamically below)
     { url: `${baseUrl}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${baseUrl}/blog/april-2026-mtd-rollout-explained`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/blog/first-quarterly-update-what-sole-traders-need-to-do`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/blog/mtd-software-options-explained`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/blog/free-vs-paid-mtd-software`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    ...blogPosts,
 
     // Legal / About
     { url: `${baseUrl}/about`, lastModified: now, changeFrequency: 'yearly', priority: 0.5 },

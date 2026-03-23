@@ -69,6 +69,42 @@ export interface BlogPost {
   featured: boolean
 }
 
+/** Frontmatter fields for MDX blog posts in src/content/blog/ */
+export interface BlogPostFrontmatter {
+  title: string
+  description: string
+  publishedAt: string
+  updatedAt: string
+  author: string
+  category: string
+  tags: string[]
+  readingTime: string
+  affiliateDisclosure?: boolean
+  cta?: {
+    heading: string
+    description: string
+    primaryLabel: string
+    primaryHref: string
+    secondaryLabel?: string
+    secondaryHref?: string
+  }
+  faqs?: Array<{ question: string; answer: string }>
+  relatedPosts?: Array<{ title: string; href: string }>
+}
+
+/** Slim post metadata used in the blog hub listing */
+export interface BlogPostMeta {
+  slug: string
+  title: string
+  description: string
+  publishedAt: string
+  updatedAt: string
+  author: string
+  category: string
+  tags: string[]
+  readingTime: string
+}
+
 export interface GuideSection {
   id: string
   heading: string
