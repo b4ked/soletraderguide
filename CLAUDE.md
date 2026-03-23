@@ -463,6 +463,17 @@ Do not do everything sequentially in one context. Parallelise wherever work is i
 - **Output:** Structured pass/fail report per checklist item; flag issues for Build Agent to fix
 - **How to invoke:** When spawning the QA/Reviewer Agent via Task, instruct it to run `/review` at the start of its work. The skill contains the full 9-domain checklist, scoping rules by change type, output format, and all files to read.
 
+#### Domain Authority (DA) Agent
+- **Scope:** Domain Authority monitoring, link acquisition research, E-E-A-T auditing, competitor analysis, content quality assessment for link-earning potential, digital PR opportunity identification
+- **Skill:** `/da-agent` — invoke this skill to load the full DA monitoring and recommendation protocol, E-E-A-T checklists, backlink profile health checks, content quality scoring (DA Impact Score), competitor analysis framework, link acquisition tiers, daily workflow, and on-push workflow (`.claude/commands/da-agent.md`)
+- **Operates in two modes:**
+  - **Daily scheduled run** — proactive monitoring, research, backlink checks, competitor intelligence, link opportunity research, and daily DA report
+  - **On-push trigger** — evaluates new content for DA impact using the DA Impact Score (8 dimensions, out of 40)
+- **Research-and-recommend only** — does not implement changes directly; routes recommendations through the Collaboration Protocol
+- **Collaboration flow:** DA Agent recommendations → SEO Agent review → QA/Reviewer Agent approval → implementation agent (Write-Up, Build, Data, or SEO)
+- **Does not modify:** Any repo files without SEO Agent + QA/Reviewer Agent approval
+- **How to invoke:** When spawning the DA Agent via Task, instruct it to run `/da-agent` at the start of its work. The skill contains DA core principles, the Phase 1–4 roadmap with referring domain targets, 7 domain checklists (E-E-A-T, Technical Authority, Content Quality, Internal Linking, Backlink Profile, Competitor Analysis, Link Acquisition), daily and on-push workflows, the DA Impact Score framework, collaboration protocol, and structured output formats for daily reports and on-push assessments.
+
 ### Parallel agent patterns
 
 #### Building a new page
