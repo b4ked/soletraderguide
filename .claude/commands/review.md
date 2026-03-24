@@ -124,6 +124,7 @@ For every new or modified `.mdx` file in `src/content/blog/`:
 | M13 | UK English | Colour, recognise, authorise, organisation, licence (noun) |
 | M14 | Word count | ~800–2,000 words |
 | M15 | Internal links | Direct paths only: `[text](/path)` — not `https://soletraderguide.co.uk/path` |
+| M16 | Markdown table formatting | **Critical rendering check.** Scan the MDX body for any `\|` characters. If a table is present: (1) every row — header, separator, and data rows — must each be on its own line; (2) the separator row (`\|---\|---\|`) must be on its own line; (3) blank lines must appear before and after the table. A table collapsed onto a single line will compile and build successfully but will render as broken pipe-separated plain text on the website. FAIL if any table is not correctly multi-line formatted. |
 
 ---
 
@@ -217,6 +218,7 @@ FAIL — [N] issues must be resolved before commit ❌
 
 ### New blog post (.mdx file added)
 Run: Checklists 5, 9 — then `npm run build`
+**Important:** M16 (Markdown table formatting) is a critical visual rendering check. `npm run build` will NOT catch a single-line table — it must be checked manually. Any table present in the body must be visually confirmed to use multi-line format before the commit is approved.
 
 ### New or modified page (page.tsx)
 Run: Checklists 1, 2, 3, 4, 7, 8 — then `npm run build` + `npm run lint`

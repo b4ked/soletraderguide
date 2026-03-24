@@ -137,6 +137,7 @@ For every new or modified `.mdx` file in `src/content/blog/`:
 | BC10 | `<InfoCallout>` usage | Deadline callouts use `type="deadline"`; caveats use `type="warning"`; good-to-know use `type="info"` |
 | BC11 | UK English | Colour, recognise, authorise, organisation, licence (noun); GBP (£); UK date format (6 April 2026) |
 | BC12 | MTD facts accurate | Phase thresholds, dates, and qualifying income definition match CLAUDE.md MTD Key Facts |
+| BC13 | Markdown table formatting | Any tables in the MDX body must use multi-line format — each row on its own line, separator row (`\|---\|---\|`) on its own line, blank lines before and after the table. A single-line table renders as broken pipe-separated text on the website, not as a table. Fail this check and require the Write-Up Agent to fix before proceeding. |
 
 ---
 

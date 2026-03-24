@@ -135,6 +135,7 @@ Pair the primary CTA with a relevant secondary CTA (e.g. primary → eligibility
 | H5 | Primary keyword in ≥2 H2s | The primary keyword or a close variant appears naturally in at least two `##` headings |
 | H6 | Intro paragraph | The first paragraph (before the first `##`) is 2–4 sentences; introduces the topic; contains the primary keyword naturally |
 | H7 | Concluding section | The final `##` section wraps up with a clear recommendation or next step — does not just stop |
+| H8 | Markdown table formatting | Every table row (header, separator, data rows) must be on its own line. The separator row (`\|---\|---\|`) must be on its own line. Blank lines must appear before and after every table. A table written on a single line will NOT render as a table on the website — it will appear as raw pipe-separated text. |
 
 ---
 
@@ -287,6 +288,7 @@ Use `<InfoCallout>` for callout boxes. This is the **only JSX** allowed in the M
 - Do not link directly to provider websites using markdown links — use internal review page paths
 - Do not create, modify, or delete any `.tsx`, `.ts`, `.json`, or other non-MDX files
 - Do not hardcode HTML in the MDX body
+- Do not write Markdown tables on a single line — every row (header, separator, data rows) must be on its own separate line, with a blank line before and after the table; a single-line table renders as broken plain text on the website
 
 ---
 
@@ -336,6 +338,7 @@ After creating the MDX file, output this brief confirmation:
 | CTA set | PASS ✅ / FAIL ❌ | [primaryHref] |
 | affiliateDisclosure correct | PASS ✅ / FAIL ❌ | [rationale] |
 | No prohibited JSX | PASS ✅ / FAIL ❌ | [any issues] |
+| Markdown tables multi-line | PASS ✅ / FAIL ❌ / N/A | [list any tables; confirm each row is on its own line] |
 
 ### Hand-off
 Ready for SEO Agent (/seo-agent) — frontmatter optimisation, on-page keyword audit, internal link audit.
