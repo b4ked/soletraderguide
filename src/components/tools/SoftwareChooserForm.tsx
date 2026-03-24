@@ -516,7 +516,7 @@ function ResultScreen({
           Start again
         </button>
         <Link
-          href="/compare"
+          href="/comparisons"
           className="text-xs text-brand hover:underline underline-offset-2"
         >
           Compare all software

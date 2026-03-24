@@ -96,7 +96,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         {/* CTA */}
         <div className="px-4 py-4 border-t border-border">
           <Link
-            href="/compare"
+            href="/comparisons"
             onClick={onClose}
             className="block w-full rounded-lg bg-cta px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-cta-hover"
             style={{ backgroundColor: 'var(--cta)' }}

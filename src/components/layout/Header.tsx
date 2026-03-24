@@ -82,7 +82,7 @@ export function Header() {
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-3">
               <Link
-                href="/compare"
+                href="/comparisons"
                 className={cn(
                   'inline-flex items-center rounded-lg px-4 py-2 text-sm font-semibold text-white',
                   'transition-colors focus-visible:outline-2 focus-visible:outline-offset-2',
