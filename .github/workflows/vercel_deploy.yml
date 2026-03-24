@@ -1,0 +1,44 @@
+name: Deploy to Vercel on Push or Merge
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+jobs:
+  deploy:
+    if: |
+      (github.event_name == 'push' && (
+        github.actor == 'b4ked' ||
+        github.actor == 'parryh' ||
+        github.actor == 'AltApe1' ||
+        github.actor == 'altape1' ||
+        github.actor == 'claude' ||
+        github.actor == 'claude-code'
+      )) ||
+      (github.event_name == 'pull_request' &&
+        github.event.pull_request.merged == true && (
+        github.event.pull_request.merged_by.login == 'b4ked' ||
+        github.event.pull_request.merged_by.login == 'parryh' ||
+        github.event.pull_request.merged_by.login == 'AltApe1' ||
+        github.event.pull_request.merged_by.login == 'altape1' ||
+        github.event.pull_request.merged_by.login == 'claude' ||
+        github.event.pull_request.merged_by.login == 'claude-code'
+      ))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Trigger Vercel deploy
+        env:
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VercelAllowTeamDeployment }}
+        run: |
+          echo "Triggering Vercel deployment via Deploy Hook…"
+          curl -X POST "$VERCEL_DEPLOY_HOOK"
+      - name: Log successful trigger
+        run: echo "✅ Vercel deploy hook triggered successfully!"
