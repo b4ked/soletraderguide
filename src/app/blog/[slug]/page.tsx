@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
+import remarkGfm from 'remark-gfm'
 import { generateArticleMetadata } from '@/lib/metadata'
 import { getPostBySlug, getAllSlugs } from '@/lib/content'
 import { Breadcrumbs } from '@/components/layout/Breadcrumbs'
@@ -124,7 +125,7 @@ export default async function BlogPostPage({ params }: { params: Params }) {
 
       {/* MDX article body */}
       <div className="mt-8 prose-like space-y-6">
-        <MDXRemote source={content} components={mdxComponents} />
+        <MDXRemote source={content} components={mdxComponents} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
       </div>
 
       {/* CTA block */}

@@ -248,6 +248,41 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+/* ============================================================
+   PROSE-LIKE — MDX article body styles
+   Applied via .prose-like wrapper on blog post bodies
+   ============================================================ */
+
+.prose-like table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose-like thead tr {
+  background-color: oklch(0.951 0.014 193.7);
+}
+
+.prose-like th {
+  text-align: left;
+  font-weight: 600;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid oklch(0.918 0.012 261.3);
+  color: oklch(0.151 0.031 261.3);
+}
+
+.prose-like td {
+  padding: 0.5rem 0.875rem;
+  border: 1px solid oklch(0.918 0.012 261.3);
+  vertical-align: top;
+}
+
+.prose-like tbody tr:nth-child(even) {
+  background-color: oklch(0.984 0.004 247.858);
+}
+
 /* Page container shorthand */
 .page-container {
   max-width: 80rem;
