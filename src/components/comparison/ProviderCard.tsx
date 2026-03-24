@@ -126,7 +126,7 @@ function SummaryProviderCard({
           <ExternalLink className="inline size-3 ml-1 opacity-70" />
         </AffiliateLink>
         <Link
-          href={`/software/${provider.slug}`}
+          href={`/reviews/${provider.slug}`}
           className="text-xs text-brand hover:underline underline-offset-2"
         >
           Full review
@@ -226,7 +226,7 @@ function FullProviderCard({
           <ExternalLink className="size-3.5 opacity-80" />
         </AffiliateLink>
         <Link
-          href={`/software/${provider.slug}`}
+          href={`/reviews/${provider.slug}`}
           className="rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-foreground hover:border-brand hover:text-brand transition-colors"
         >
           Read full review
