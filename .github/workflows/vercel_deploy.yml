@@ -34,11 +34,18 @@ jobs:
         uses: actions/checkout@v4
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
-      - name: Trigger Vercel deploy
+      - name: Pull Vercel environment
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
         env:
-          VERCEL_DEPLOY_HOOK: ${{ secrets.VercelAllowTeamDeployment }}
-        run: |
-          echo "Triggering Vercel deployment via Deploy Hook…"
-          curl -X POST "$VERCEL_DEPLOY_HOOK"
-      - name: Log successful trigger
-        run: echo "✅ Vercel deploy hook triggered successfully!"
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      - name: Build
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      - name: Deploy
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
