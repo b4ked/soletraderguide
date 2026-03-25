@@ -41,7 +41,7 @@ When adding a new software provider to `src/data/providers/index.ts`:
 
 | # | Check | Pass Criteria |
 |---|-------|--------------|
-| NP1 | Verify HMRC recognition | Confirm provider is on HMRC's official list of MTD-compatible software before adding. Do not add providers that are not HMRC-recognised for MTD Income Tax. |
+| NP1 | Verify HMRC recognition | Confirm provider is on HMRC's official list of MTD-compatible software before adding. Do not add providers that are not HMRC-recognised for MTD Income Tax. Check: https://www.gov.uk/guidance/find-software-thats-compatible-with-making-tax-digital-for-income-tax |
 | NP2 | Verify pricing against provider website | Visit the provider's official pricing page (`pricingUrl`) and verify all pricing before populating `pricingSummary` and `monthlyPrice`. Do not estimate or use outdated information. |
 | NP3 | All `Provider` fields populated | Every field in the `Provider` interface must be set — no optional fields left as `undefined` unless the type allows it |
 | NP4 | `id` and `slug` consistent | Both must be the same lowercase kebab-case string (e.g. `"freeagent"`) |
@@ -99,10 +99,27 @@ When updating pricing, features, or other data for an existing provider:
 | UP2 | Pricing change notes | Add an inline comment or update `notes` field documenting: what changed, when verified, and the source URL |
 | UP3 | `monthlyPrice` accuracy | Must reflect the actual current starting price in GBP — the cheapest plan a sole trader would realistically use |
 | UP4 | `hasFreePlan` accuracy | Set `true` only if a permanently free tier is currently live and accessible. Trial periods are NOT free plans. |
-| UP5 | Pricing caveat in content | After updating pricing, flag to Write-Up Agent and Frontend/Build Agent that any blog post or page quoting old prices may need a content refresh |
+| UP5 | Pricing caveat in content | After updating pricing, run `grep -rn "[provider name]" src/content/blog/ src/app/` to find all blog posts and pages referencing the provider. Flag any that quote old prices to Write-Up Agent and Frontend/Build Agent for a content refresh. |
 | UP6 | `pros` and `cons` — factual | Any new pros/cons must be verifiable from official product documentation or first-hand use |
 | UP7 | `mtdNotes` — current | Update `mtdNotes` if HMRC recognition status, feature set, or submission workflow has changed |
 | UP8 | TypeScript compiles | Run `npm run build` after any change — all type errors must resolve |
+
+---
+
+## Checklist 2b — De-listing a Provider
+
+When a provider needs to be removed from the site (discontinued product, loss of HMRC recognition, loss of affiliate relationship):
+
+| # | Check | Pass Criteria |
+|---|-------|--------------|
+| DL1 | Confirm reason for de-listing | Document the reason in a code comment or `notes` field update before removing: HMRC de-recognition, product shutdown, affiliate termination, or editorial decision |
+| DL2 | Remove from `allProviders` array | Remove the provider constant from the `allProviders: Provider[]` array in `src/data/providers/index.ts` |
+| DL3 | Remove from `providersBySlug` | Remove the `[slug]: providerVariable` entry from `providersBySlug` |
+| DL4 | Keep or archive the constant | If the removal may be temporary (e.g. HMRC re-recognition possible), comment out rather than delete. If permanent, delete the constant entirely. |
+| DL5 | Flag page removal | Flag to Frontend/Build Agent: the provider's review page (`/reviews/[slug]`) must be removed or redirected. Do not leave orphaned pages. |
+| DL6 | Flag nav and sitemap | Flag to SEO Agent: sitemap entry and any navigation references must be removed in the same changeset. |
+| DL7 | Flag content | Flag to Write-Up Agent: any blog posts or guides that reference this provider as a recommended option may need updating. Run `grep -rn "[slug]" src/content/blog/ src/app/` first. |
+| DL8 | Build passes | `npm run build` must pass after de-listing — no broken references to the removed provider |
 
 ---
 
@@ -114,7 +131,7 @@ When a new data field is needed across providers:
 |---|-------|--------------|
 | ET1 | Add field to `Provider` interface in `src/types/index.ts` | New field added to the `Provider` interface with the correct TypeScript type |
 | ET2 | Optional vs required | If existing providers do not have this data yet, make the field optional (`fieldName?: Type`). If all providers must have it, make it required and populate all four providers immediately. |
-| ET3 | Populate all existing providers | Update `xero`, `quickbooks`, `sage`, and `freeagent` in `src/data/providers/index.ts` with the new field |
+| ET3 | Populate all existing providers | Update every provider in `allProviders` array in `src/data/providers/index.ts` with the new field — not just the initial four. Run `grep -n "allProviders" src/data/providers/index.ts` to see the full current list. |
 | ET4 | Build passes | `npm run build` must pass — all providers must satisfy the updated type |
 | ET5 | Flag to Frontend Agent | New data fields are not automatically rendered — flag to Frontend/Build Agent which pages or components should use the new field |
 
@@ -209,7 +226,7 @@ When tasked with adding a new MTD software provider:
 - Add to `providersBySlug: Record<string, Provider>`
 
 ### Step 5 — Build verification
-- Run `npm run build` — zero TypeScript errors
+- Run `npm run build` — zero TypeScript errors. If local build is not possible because the project builds on Vercel, push to the repo and confirm the build passes in the Vercel dashboard before marking as complete.
 
 ### Step 6 — Flag downstream work
 - Flag to Frontend/Build Agent: new pages needed (`/reviews/[slug]`, may need updates to `/software/` and `/comparisons/`)

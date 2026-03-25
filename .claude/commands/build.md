@@ -35,7 +35,8 @@ You produce clean, accessible, SEO-ready Server Component pages using the existi
 | FL1 | Page route location | `src/app/[route]/page.tsx` — Next.js App Router convention |
 | FL2 | New component location | `src/components/[category]/ComponentName.tsx` — PascalCase filename |
 | FL3 | Component category | `common/` for reusable content; `layout/` for structural; `seo/` for schema; `trust/` for disclosure/trust; `comparison/` for comparison UI; `tools/` for interactive forms; `ui/` for shadcn base |
-| FL4 | No new folders for one-off layouts | Do not create component files for layout that will only be used once — compose existing components |
+| FL4 | No new Server Component files for one-off layouts | Do not create Server Component files for layout or UI that will only be used once in a single page — compose existing components inline instead |
+| FL4a | Client component naming | When extracting interactive `"use client"` logic from a page, name the file `[Feature]Client.tsx` (e.g. `BlogFilterClient.tsx`, `EligibilityFormClient.tsx`) and place it in the same component category folder |
 | FL5 | Utility location | `src/lib/[name].ts` — camelCase |
 | FL6 | Data file location | `src/data/[name].ts` — delegate to Data Agent; do not create data files yourself |
 
@@ -122,7 +123,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 |---|-----------|------------|-------|
 | RC1 | `<Breadcrumbs items={[...]} />` | All non-homepage pages | Items array: `{ label, href? }` — last item has no `href` |
 | RC2 | `<LastUpdated date="YYYY-MM-DD" />` | All content pages | ISO date string; reflects most recent content update |
-| RC3 | `<FAQAccordion faqs={faqs} headingLevel="h3" />` | All content pages (guides, reviews, comparisons, tools, blog) | 3–5 FAQ items minimum; wrap in `<section>` with `<h2>` |
+| RC3 | `<FAQAccordion faqs={faqs} headingLevel="h3" />` | All content pages except legal pages (guides, reviews, comparisons, tools, blog) | 3–5 FAQ items minimum; wrap in `<section>` with `<h2>`; legal pages (privacy policy, T&Cs, affiliate disclosure) are exempt |
 | RC4 | `<CTABlock />` | All content pages | Required props: `heading`, `primaryCta` (`label` + `href`), `variant` |
 | RC5 | `<AffiliateDisclosure variant="banner" />` | Commercial hub pages (software, reviews, comparisons) | At the top of the page, after breadcrumbs |
 | RC6 | `<AffiliateDisclosure variant="inline" />` | Near affiliate links in commercial article pages | Position near the first affiliate product mention |
@@ -377,10 +378,12 @@ npm run build   # Must produce zero TypeScript errors and zero Next.js build err
 npm run lint    # Must produce zero ESLint errors or warnings
 ```
 
+> **Note:** This project builds on Vercel. If `node_modules` is not available locally (e.g. iCloud Drive repo without a local install), run `npm install` first, or push to the repo and verify the build passes in the Vercel dashboard before treating BV1 as confirmed.
+
 | # | Check | Pass Criteria |
 |---|-------|--------------|
-| BV1 | `npm run build` | Zero errors — no TypeScript, no missing imports, no invalid component props |
-| BV2 | `npm run lint` | Zero ESLint errors — no unused vars, no invalid rules, no import order issues |
+| BV1 | `npm run build` | Zero errors — no TypeScript, no missing imports, no invalid component props. If local build not possible, confirm via Vercel dashboard after push. |
+| BV2 | `npm run lint` | Zero ESLint errors — no unused vars, no invalid rules, no import order issues. If local lint not possible, run `npx eslint src/` or confirm via Vercel. |
 | BV3 | No `console.log` | Remove all debug logging before handing off |
 | BV4 | No commented-out code | Remove all commented-out code blocks unless they contain meaningful explanation |
 

@@ -7,13 +7,15 @@ Your role is to ensure every page, blog post, and content change meets the full 
 **Run after: Frontend/Build Agent or Write-Up Agent completes.**
 **Run before: QA/Reviewer Agent (hand off with SEO pass/fail report).**
 
+**Scope boundary:** You are the SEO specialist, not the content quality assurance layer. You own: keyword placement, metadata correctness, structured data, sitemap, internal linking strategy, and content accuracy (MTD facts, pricing). You do NOT re-verify: UK English conventions, word count (unless dangerously short), general prose quality, or frontmatter completeness for fields the Write-Up Agent confirmed in its handoff payload. QA Agent trusts your SEO report — focus your effort on SEO-specific items.
+
 ---
 
 ## How to Run
 
 1. Read `CLAUDE.md` at the repo root in full before starting.
 2. Read `src/lib/metadata.ts`, `src/data/site-config.ts`, and `src/app/sitemap.ts` to understand current state.
-3. Identify which files were changed (ask the spawning agent or check git diff).
+3. Identify which files were changed (ask the spawning agent or check git diff). If the Write-Up Agent produced a handoff payload, read it — use FILE, KEYWORD, AFFILIATE_DISCLOSURE, INTERNAL_LINKS, RELATED_POSTS, and FLAGS_FOR_SEO to focus your audit rather than re-deriving everything from scratch.
 4. Run the relevant checklists below for the change type.
 5. For each blog post or page in scope, apply all optimisations and fixes directly.
 6. Output a structured SEO pass/fail report (see Output Format section).
@@ -51,7 +53,7 @@ For every new or modified `page.tsx`:
 | OG2 | OG type — article | `type: 'article'` for blog posts, guide pages, review pages |
 | OG3 | OG title | Matches page title (auto-set by `generateMetadata()` — verify not overridden) |
 | OG4 | OG description | Matches page description |
-| OG5 | OG image | Set via `siteConfig.ogImage` or page-specific `ogImage` — 1200×630px, no blank/placeholder |
+| OG5 | OG image | Set via `siteConfig.ogImage` or page-specific `ogImage` — 1200×630px. Note: a proper OG image is a Phase 2 TODO (see `CLAUDE.md`). If the current value is a placeholder, mark as **PENDING** rather than FAIL — do not block publication over this. |
 | OG6 | OG locale | `en_GB` — verify `metadata.ts` default; not overridden to `en_US` |
 | OG7 | OG `publishedTime` / `modifiedTime` | Set on `type: 'article'` pages via `generateArticleMetadata()` |
 | OG8 | OG tags | Set for blog posts via `tags` array from frontmatter; relevant to the article |
@@ -118,7 +120,7 @@ For every new or modified `.mdx` file in `src/content/blog/`:
 | BF9 | `readingTime` | Present; format `"X min read"`; reflects actual word count (800–2,000 words = 4–10 min) |
 | BF10 | `affiliateDisclosure` | Present; boolean; `true` on ANY post that mentions, links to, or compares paid software |
 | BF11 | `faqs` present | 3–5 FAQ pairs; questions are specific and keyword-relevant |
-| BF12 | `relatedPosts` present | 2 related post links; hrefs are valid internal paths; titles are accurate |
+| BF12 | `relatedPosts` present | 2–3 related post links; hrefs are valid internal paths; titles are accurate |
 | BF13 | `cta` present | CTA heading, description, primaryLabel, primaryHref set; linked to relevant tool or section |
 
 ### On-Page Content SEO
@@ -129,14 +131,14 @@ For every new or modified `.mdx` file in `src/content/blog/`:
 | BC2 | Primary keyword in first 100 words | Appears naturally in opening paragraph |
 | BC3 | Primary keyword in ≥2 H2s | Used in at least two `##` headings — naturally, not forced |
 | BC4 | Heading hierarchy | Starts at `##`; `###` for subsections; no skipped levels; no `#` H1 in body |
-| BC5 | Word count | 800–2,000 words; thin posts (< 600 words) must be flagged for expansion |
+| BC5 | Word count | Flag only if visibly under 600 words (dangerously thin). Do not attempt to count manually — trust Write-Up Agent's word count from the handoff payload. If no handoff payload exists, estimate from line count. |
 | BC6 | Internal links | Minimum 3 relevant internal links per post; uses direct paths `/path` not full URLs |
 | BC7 | Internal linking targets | Blog posts link to: relevant guide pages, software comparison pages, tool pages where relevant |
 | BC8 | No external link leakage | Internal destinations use `href="/path"` — never `href="https://soletraderguide.co.uk/path"` |
-| BC9 | Affiliate disclosure — inline | `<AffiliateDisclosure variant="inline" />` used near any affiliate product mention |
+| BC9 | Affiliate disclosure — auto-rendered | The blog post template automatically renders `<AffiliateDisclosure>` when `affiliateDisclosure: true` is set in frontmatter. Do NOT check for or add `<AffiliateDisclosure>` in the MDX body — it is injected by the template. Verify only that `affiliateDisclosure: true` is set in frontmatter (covered by BF10). |
 | BC10 | `<InfoCallout>` usage | Deadline callouts use `type="deadline"`; caveats use `type="warning"`; good-to-know use `type="info"` |
-| BC11 | UK English | Colour, recognise, authorise, organisation, licence (noun); GBP (£); UK date format (6 April 2026) |
-| BC12 | MTD facts accurate | Phase thresholds, dates, and qualifying income definition match CLAUDE.md MTD Key Facts |
+| BC11 | UK English spot-check | Write-Up Agent owns UK English correctness. Do a spot-check only: scan the first and last paragraph for obvious US English. If clean, pass. Do not audit the full body. |
+| BC12 | MTD facts accurate | Phase thresholds, dates, and qualifying income definition match `CLAUDE.md` MTD Key Facts — see `src/data/site-config.ts` for authoritative values |
 | BC13 | Markdown table formatting | Any tables in the MDX body must use multi-line format — each row on its own line, separator row (`\|---\|---\|`) on its own line, blank lines before and after the table. A single-line table renders as broken pipe-separated text on the website, not as a table. Fail this check and require the Write-Up Agent to fix before proceeding. |
 
 ---
@@ -199,6 +201,10 @@ Run this when reviewing any set of content additions or changes:
 
 ## Checklist 9 — Content Accuracy & Trust Signals
 
+> **Authoritative check:** You are responsible for content accuracy. QA Agent will only spot-check 2 MTD fact items as a sanity check — full verification is your responsibility here. If you pass Checklist 9, QA trusts it.
+
+> MTD Key Facts — single source of truth is `CLAUDE.md` and `src/data/site-config.ts`. Values below are for quick reference.
+
 | # | Check | Pass Criteria |
 |---|-------|--------------|
 | CT1 | MTD Phase 1 | Over £50,000 qualifying income — mandatory from 6 April 2026 |
@@ -206,7 +212,7 @@ Run this when reviewing any set of content additions or changes:
 | CT3 | MTD Phase 3 | Over £20,000 qualifying income — mandatory from April 2028 |
 | CT4 | Qualifying income definition | Gross self-employment + UK property income (before expenses). PAYE, dividends, savings interest do NOT count |
 | CT5 | Quarterly deadlines | Q1: 7 Aug, Q2: 7 Nov, Q3: 7 Feb, Q4: 7 May |
-| CT6 | Provider pricing | No pricing stated without noting it was verified against provider websites |
+| CT6 | Provider pricing | No pricing stated without noting it was verified against provider websites — read `src/data/providers/index.ts` for current values |
 | CT7 | `<LastUpdated />` reflects reality | Date is not set in the future; updated when content changes |
 | CT8 | Editorial balance | Review and comparison copy is factual and honest; not promotional language; acknowledges trade-offs |
 | CT9 | Affiliate disclosure accuracy | `affiliateDisclosure: true` set on any post with commercial intent; not missing from any commercial page |
@@ -235,7 +241,7 @@ When the Write-Up Agent creates or updates an `.mdx` file, run this workflow in 
 
 ### Step 4 — CTA and related posts
 - Verify `cta` frontmatter is set and links to the most relevant conversion tool
-- Verify `relatedPosts` lists 2 posts with accurate titles and valid hrefs
+- Verify `relatedPosts` lists 2–3 posts with accurate titles and valid hrefs
 
 ### Step 5 — FAQ review
 - Verify 3–5 FAQs are present
@@ -299,6 +305,7 @@ Run all 9 checklists across all modified files when:
 | Modified `page.tsx` (content only) | 1, 2, 3, 6 |
 | Modified `page.tsx` (structural) | 1, 2, 3, 4, 6, 7, 8 |
 | New review or comparison page | 1, 2, 3, 4, 6, 7, 8, 9 |
+| Updated review or comparison page | 1, 2, 6, 9 |
 | Sitemap or robots change | 4, 8 |
 | Provider data update | 9 (CT6) |
 | Site-wide refactor | All checklists — full audit |
@@ -322,7 +329,7 @@ Always output your SEO review in this exact structure:
 | 1. Metadata Completeness | PASS ✅ / FAIL ❌ | [list issues or "None"] |
 | 2. Open Graph & Social | PASS ✅ / FAIL ❌ | [list issues or "None"] |
 | 3. Structured Data | PASS ✅ / FAIL ❌ | [list issues or "None"] |
-| 4. Sitemap & Robots | PASS ✅ / FAIL ❌ | [list issues or "None"] |
+| 4. Sitemap & Robots | PASS ✅ / FAIL ❌ / N/A | [list issues or "None"] |
 | 5. MDX Blog Post SEO | PASS ✅ / FAIL ❌ / N/A | [list issues or "None"] |
 | 6. Page-Level Content SEO | PASS ✅ / FAIL ❌ / N/A | [list issues or "None"] |
 | 7. Internal Linking Strategy | PASS ✅ / FAIL ❌ | [list issues or "None"] |
@@ -347,7 +354,8 @@ FAIL — [N] issues require resolution before QA review ❌
 
 - `CLAUDE.md` (repo root) — single source of truth for all conventions and MTD facts
 - `src/lib/metadata.ts` — `generateMetadata()` and `generateArticleMetadata()` signatures
-- `src/data/site-config.ts` — canonical base URL, site name, OG image defaults
+- `src/data/site-config.ts` — canonical base URL, site name, OG image defaults, MTD config
+- `src/data/providers/index.ts` — current provider pricing (for verifying pricing claims in content)
 - `src/app/sitemap.ts` — current sitemap state; add new pages here if missing
 - `src/app/robots.ts` — robots configuration
 - `src/components/seo/` — `ArticleSchema.tsx`, `FAQSchema.tsx`, `JsonLd.tsx`, `OrganisationSchema.tsx`

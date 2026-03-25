@@ -177,7 +177,7 @@ Run on daily cycle. Requires web-based data check or API if available.
 Run weekly during daily cycle.
 
 **Primary competitors to monitor:**
-- GoSimpleTax (go.simplestatement.co.uk)
+- GoSimpleTax (gosimpletax.com)
 - AccountsPortal (accountsportal.com)
 - TaxScouts (taxscouts.com)
 - FreeAgent blog (freeagent.com/blog)
@@ -271,6 +271,7 @@ Run this full sequence each day:
 
 ### Step 7 — Generate daily DA report
 - Produce a structured daily report (see Output Format)
+- Save the report to `reports/da-report-YYYY-MM-DD.md` in the repo root (create the `reports/` folder if it does not exist)
 - Route any actionable recommendations through Collaboration Protocol
 
 ---
@@ -305,11 +306,13 @@ Score the new content on these dimensions (1–5 each, total out of 40):
 | Freshness (not covering a stale topic) | Low | |
 | CTA and conversion alignment | Low | |
 
-**Score interpretation:**
+**Score interpretation (phase-relative):**
 - 32–40: High DA impact — excellent addition; recommend sharing in digital PR channels
 - 24–31: Good DA impact — solid content; flag one specific link-building opportunity
 - 16–23: Moderate DA impact — recommend one or two specific improvements
 - Below 16: Low DA impact — significant improvements recommended before DA benefit will be seen
+
+> **Phase 1 baseline note:** In Phase 1 (DA 0→20), scores of 20–24 are acceptable if the content covers a core topical gap not yet addressed by the site. The bar for "good" rises with each phase — by Phase 3 (DA 40→60), scores below 28 should receive substantive improvement recommendations.
 
 ### Step 4 — Produce recommendations
 - For any dimension scoring below 3, produce a specific, actionable recommendation
@@ -319,9 +322,11 @@ Score the new content on these dimensions (1–5 each, total out of 40):
 
 ---
 
-## Collaboration Protocol
+## Follow-up Improvement Protocol
 
-When the DA Agent has recommendations that require changes to the repo:
+> **Important:** DA Agent on-push assessments run AFTER content is deployed. Recommendations do not block the current publication — content is already live on Vercel by the time this runs. All recommendations below are for follow-up commits, not pre-publication gates.
+
+When the DA Agent has recommendations that require repo changes:
 
 ### Step 1 — Create a DA Recommendations Report
 Use the output format below. Include:
@@ -329,7 +334,7 @@ Use the output format below. Include:
 - Specific file paths and line numbers where applicable
 - Rationale with evidence (research source or checklist item reference)
 
-### Step 2 — Route to SEO Agent
+### Step 2 — Route to SEO Agent (for SEO-relevant changes)
 Flag recommendations that touch:
 - Metadata, canonical URLs, or structured data → SEO Agent reviews first
 - Content quality, internal linking, keyword targeting → SEO Agent reviews first
@@ -339,7 +344,7 @@ Phrase the handoff as:
 > "DA Agent flagging for SEO Agent review: [recommendation]. Rationale: [evidence]. Urgency: [level]. Proposed change: [specific change]."
 
 ### Step 3 — Route to QA/Reviewer Agent
-Once SEO Agent approves, route to QA/Reviewer Agent for:
+Once SEO Agent approves (or for fast-track items, directly), route to QA/Reviewer Agent for:
 - Implementation feasibility check
 - Build verification (`npm run build` must still pass)
 - Final approval before any change is committed
@@ -350,6 +355,11 @@ If QA/Reviewer Agent approves, delegate implementation to:
 - **Frontend/Build Agent** → component additions, page structure, schema changes
 - **Data Agent** → provider data or site config changes
 - **SEO Agent** → metadata, sitemap, robots changes
+
+> All of the above requires a new pipeline run. DA Agent recommendations accumulate in `reports/` until a follow-up pipeline run is triggered to action them.
+
+### Fast-track: Low-risk quick wins
+For changes that are low-risk, fully internal, and require no content decisions (e.g. adding a missing internal link, adding a `<SourceList>` component to a page that already exists, updating a stale `<LastUpdated>` date), the DA Agent may route directly to the **QA/Reviewer Agent** without requiring SEO Agent review first. State clearly that the change is a fast-track quick win when routing.
 
 ### Escalation: Disagreement Protocol
 If SEO Agent or QA/Reviewer Agent rejects a DA recommendation:
@@ -428,6 +438,19 @@ None / [List with file paths]
 ### Routes
 - SEO Agent: [yes/no — what for]
 - QA/Reviewer Agent: [yes/no — what for]
+
+### Follow-up Actions
+```
+PRIORITY: [HIGH / MEDIUM / LOW]
+ACTION: [one-line description of the specific change]
+FILE: [file path, if applicable]
+ASSIGN_TO: [Write-Up Agent / Build Agent / SEO Agent / Data Agent]
+---
+PRIORITY: [HIGH / MEDIUM / LOW]
+ACTION: [second action if applicable]
+FILE: [file path]
+ASSIGN_TO: [agent]
+```
 ```
 
 ---

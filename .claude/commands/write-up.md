@@ -38,11 +38,29 @@ Before writing, confirm the following:
 |---|-------|--------|
 | P1 | Target keyword defined | The primary keyword is specified in the brief. If not, ask the orchestrating agent. |
 | P2 | Search intent understood | Is this informational (explain/educate), navigational (compare/find), or commercial (decide/buy)? Match the structure to the intent. |
-| P3 | Existing posts checked | Read relevant existing posts in `src/content/blog/` — do not duplicate angles already covered; instead complement them |
+| P3 | Existing posts checked | Run `ls src/content/blog/` to see all published slugs. Read the `title` and `description` frontmatter from any posts on related topics. If the draft covers the same primary angle as an existing post (same keyword intent, same audience question), stop and flag to the orchestrating agent — do not produce duplicate content. You own this check; downstream agents cannot reliably execute it. |
 | P4 | Internal linking targets identified | Identify 3–5 existing pages on the site (guides, software pages, comparisons, tools) that are relevant to this post and can be naturally linked from the body |
-| P5 | MTD facts confirmed | For any post touching MTD thresholds, dates, or qualifying income — confirm facts against the MTD Key Facts table in CLAUDE.md before writing |
-| P6 | Provider mentions flagged | If the post mentions Xero, QuickBooks, Sage, or FreeAgent — set `affiliateDisclosure: true` in frontmatter |
+| P5 | MTD facts confirmed | For any post touching MTD thresholds, dates, or qualifying income — confirm facts against `src/data/site-config.ts` and the MTD Key Facts section of `CLAUDE.md` before writing |
+| P6 | Provider mentions flagged | Read `src/data/providers/index.ts`. If the post mentions any provider whose record has `affiliateEnabled: true`, set `affiliateDisclosure: true` in frontmatter. Do not rely on a hardcoded list of names — new providers may have been added since this skill was written. |
 | P7 | File slug determined | Filename = URL slug. Use kebab-case. Match the primary keyword closely (e.g. `mtd-quarterly-deadlines-explained.mdx`). Under 60 characters. |
+| P8 | Source draft quality gate | If working from a raw source draft: assess whether it has enough substance to produce a quality post. Stop and report to the orchestrating agent — do not publish — if: (a) the draft is under 300 words with no clear substance; (b) the draft contains factually incorrect MTD information that cannot be corrected with confidence; or (c) the topic substantively duplicates an existing post and this would add no new value. |
+
+---
+
+## Working from a Source Draft
+
+When you receive a raw draft file (e.g. from `drafts/`), apply these rules:
+
+| Draft quality | What to do |
+|--------------|-----------|
+| Narrative prose (400+ words, clear structure) | Use as content foundation. Preserve factual claims, angles, and examples. Rewrite for clarity, MDX conventions, and UK English. Do not copy-paste wholesale. |
+| Outline / bullet notes | Use as a skeleton. Build the full post around it — expand each bullet into a section, add context, examples, and practical depth. |
+| Data-heavy (statistics, HMRC quotes) | Preserve all data points verbatim. Structure around them. These are the post's link-earning asset. |
+| Mixed / unclear | Identify the strongest 2-3 facts or angles and build the post around those. Discard filler. |
+
+**Never:** treat the draft as the final article. It is raw material. Your job is to transform it into a polished, structured MDX post that meets all checklists below.
+
+**Always:** verify any factual claims in the draft against `src/data/site-config.ts` and CLAUDE.md MTD Key Facts before publishing. Draft facts may be outdated.
 
 ---
 
@@ -63,7 +81,7 @@ Every post MUST have all of these fields. No exceptions.
 | `affiliateDisclosure` | Boolean; `true` on ANY post that mentions, links to, or compares paid software providers | `false` |
 | `cta` | Object with `heading`, `description`, `primaryLabel`, `primaryHref` (all required); `secondaryLabel` and `secondaryHref` optional | see CTA rules below |
 | `faqs` | Array of 3–5 objects, each with `question` and `answer`; questions must be specific | see FAQ rules below |
-| `relatedPosts` | Array of exactly 2 objects, each with `title` and `href`; must be valid internal paths | see Related Posts rules below |
+| `relatedPosts` | Array of 2 objects (3 acceptable if all are genuinely the best next step), each with `title` and `href`; must be valid internal paths | see Related Posts rules below |
 
 ### Category selection guide
 
@@ -117,8 +135,8 @@ Pair the primary CTA with a relevant secondary CTA (e.g. primary → eligibility
 
 ### Related post rules
 
-- Exactly 2 related posts per post
-- Both `href` values must be valid internal paths — check against the URL structure in CLAUDE.md
+- 2 related posts per post; 3 acceptable if all three are genuinely the best next step for the reader — do not add a third just to hit a number
+- Before setting any blog post href, run `ls src/content/blog/` to confirm the slug file exists. If the intended post doesn't exist yet (e.g. it's a later draft in the same batch that hasn't been published), use a guide page, tool, or comparison page instead. Never use a placeholder or invented href.
 - Titles must match the actual titles of the linked posts (read existing posts to confirm)
 - Choose posts that are genuinely useful next steps for the reader, not random
 
@@ -135,7 +153,7 @@ Pair the primary CTA with a relevant secondary CTA (e.g. primary → eligibility
 | H5 | Primary keyword in ≥2 H2s | The primary keyword or a close variant appears naturally in at least two `##` headings |
 | H6 | Intro paragraph | The first paragraph (before the first `##`) is 2–4 sentences; introduces the topic; contains the primary keyword naturally |
 | H7 | Concluding section | The final `##` section wraps up with a clear recommendation or next step — does not just stop |
-| H8 | Markdown table formatting | Every table row (header, separator, data rows) must be on its own line. The separator row (`\|---\|---\|`) must be on its own line. Blank lines must appear before and after every table. A table written on a single line will NOT render as a table on the website — it will appear as raw pipe-separated text. |
+| H8 | Markdown table formatting | Every table row (header, separator, data rows) must be on its own line. The separator row (`\|---\|---\|`) must be on its own line. Blank lines must appear before and after every table. A table written on a single line will NOT render as a table — it will appear as raw pipe-separated text. |
 
 ---
 
@@ -150,7 +168,7 @@ Pair the primary CTA with a relevant secondary CTA (e.g. primary → eligibility
 | C5 | MTD facts accurate | Phase 1: over £50,000 / April 2026; Phase 2: over £30,000 / April 2027; Phase 3: over £20,000 / April 2028; qualifying income = gross SE + UK property (not PAYE/dividends/savings) |
 | C6 | Quarterly deadlines | Q1: 7 August, Q2: 7 November, Q3: 7 February, Q4: 7 May |
 | C7 | Plain English | No unexplained jargon. On first use: define acronyms (e.g. "Making Tax Digital (MTD)"). No accountancy jargon without explanation. |
-| C8 | Factual, not promotional | Never use promotional language ("best", "amazing", "incredible"). Use factual observations ("FreeAgent includes bank feeds", not "FreeAgent is the best choice for everyone"). |
+| C8 | Factual, not promotional | Never use promotional language ("best", "amazing", "incredible"). Use factual observations ("FreeAgent includes bank feeds", not "FreeAgent is the best choice for everyone"). Being compelling and being promotional are not the same thing — write with authority, not hype. |
 | C9 | Trade-offs acknowledged | For software posts — honest about limitations and trade-offs. Every product has weaknesses worth noting. |
 | C10 | No duplicate content | Content must not repeat what existing posts already cover. Complement and link; do not rewrite. |
 
@@ -203,11 +221,11 @@ Use `<InfoCallout>` for callout boxes. This is the **only JSX** allowed in the M
 
 | # | Check | Pass Criteria |
 |---|-------|--------------|
-| AF1 | `affiliateDisclosure: true` set | Any post that mentions Xero, QuickBooks, Sage, FreeAgent, or any paid software must have `affiliateDisclosure: true` in frontmatter. The template handles the inline disclosure banner automatically. |
-| AF2 | Affiliate link attributes | Any direct affiliate link to a provider must use `rel="noopener sponsored"` and `target="_blank"` in JSX. In MDX body, standard markdown links `[text](/path)` to internal review pages are acceptable — do NOT link directly to provider websites from the body unless using the correct JSX syntax. |
+| AF1 | `affiliateDisclosure: true` set | Any post that mentions a provider with `affiliateEnabled: true` in `src/data/providers/index.ts` must have `affiliateDisclosure: true` in frontmatter. The template handles the inline disclosure banner automatically. Also set `true` for any post that recommends or compares paid software options, even if the specific provider is not yet in the data file. |
+| AF2 | Internal links only in body | In the MDX body, always link to internal review pages (`/reviews/xero`) rather than directly to provider websites. Do NOT write raw provider URLs in the MDX body. Affiliate links with the correct `rel="noopener sponsored"` attributes are handled by the TSX review and comparison page templates — not by MDX content. |
 | AF3 | Editorial independence | Recommendations and ratings in the body must reflect genuine assessment. Do not present a provider more favourably than the facts support. |
 | AF4 | Pricing accuracy | If mentioning specific prices, verify against `src/data/providers/index.ts` first. Do not invent or estimate pricing. |
-| AF5 | Pricing caveat | When quoting prices, include a caveat such as "Prices as of [date]. Check provider website for current pricing." |
+| AF5 | Pricing caveat | When quoting prices, include a caveat such as "Prices as of [date] — check the provider's website for current pricing." |
 
 ---
 
@@ -220,11 +238,13 @@ Use `<InfoCallout>` for callout boxes. This is the **only JSX** allowed in the M
 | F3 | Kebab-case | Filename uses lowercase kebab-case only — no uppercase, no underscores, no spaces |
 | F4 | Filename length | Aim for under 60 characters. Under 50 is ideal for clean URLs. |
 | F5 | Keyword in filename | Filename includes the primary keyword — this becomes the slug and influences SEO |
-| F6 | No versioning in filename | Do not add date suffixes (e.g. `-2025`) unless the post topic is inherently date-specific |
+| F6 | Date suffix decision | Include the year in the filename for comparison, ranking, and 'best of' posts where recency is a key search signal (e.g. `best-accounting-software-uk-sole-traders-2026.mdx`). Omit the year for evergreen explainers where the content does not expire by year (e.g. `what-is-a-utr-number.mdx`). When in doubt: if a user searching next year would want to see the year in the title, include it. |
 
 ---
 
 ## Content Templates by Category
+
+> **These templates define structural intent, not rigid scripts.** Adapt H2 headings to the post's natural flow and the reader's actual questions. The order and phrasing should serve the content — not the template. A post that reads naturally and answers the reader's questions is always better than one that matches the template but feels formulaic.
 
 ### `mtd-news` post structure
 
@@ -285,14 +305,17 @@ Use `<InfoCallout>` for callout boxes. This is the **only JSX** allowed in the M
 - Do not write `<AffiliateDisclosure />` in the body — rendered automatically when `affiliateDisclosure: true`
 - Do not write `<LastUpdated />` in the body — rendered automatically by the template
 - Do not use any JSX components other than `<InfoCallout>`
-- Do not link directly to provider websites using markdown links — use internal review page paths
+- Do not link directly to provider websites in the body — use internal review page paths
 - Do not create, modify, or delete any `.tsx`, `.ts`, `.json`, or other non-MDX files
 - Do not hardcode HTML in the MDX body
-- Do not write Markdown tables on a single line — every row (header, separator, data rows) must be on its own separate line, with a blank line before and after the table; a single-line table renders as broken plain text on the website
+- Do not write Markdown tables on a single line — every row must be on its own separate line, with a blank line before and after the table
+- Do not publish if the source draft fails the quality gate (P8) — stop and report instead
 
 ---
 
-## MTD Key Facts (always verify against these)
+## MTD Key Facts
+
+> **Single source of truth:** `CLAUDE.md` and `src/data/site-config.ts` are the authoritative sources for MTD facts. The values below are provided for quick in-context reference. If any discrepancy exists between this skill and `CLAUDE.md`, `CLAUDE.md` takes precedence. Always read `src/data/site-config.ts` to confirm current values before writing.
 
 | Phase | Threshold | Mandatory from |
 |---|---|---|
@@ -313,36 +336,30 @@ Use `<InfoCallout>` for callout boxes. This is the **only JSX** allowed in the M
 
 ## Output Format
 
-After creating the MDX file, output this brief confirmation:
+After creating the MDX file, output this structured handoff block. This is used directly by the SEO Agent — keep it concise and machine-readable.
 
 ```
 ## Write-Up Complete — [filename].mdx
 
-### File Created
-- Path: src/content/blog/[filename].mdx
-- Word count (approx): [N] words
-- Category: [category]
-- affiliateDisclosure: [true/false]
+### Handoff Payload
+- FILE: src/content/blog/[filename].mdx
+- SLUG: [slug]
+- KEYWORD: [primary keyword]
+- CATEGORY: [category]
+- WORD_COUNT: ~[N] words
+- AFFILIATE_DISCLOSURE: [true/false] — reason: [why]
+- INTERNAL_LINKS: [list each: anchor text → /path]
+- RELATED_POSTS: [list each href — verified against ls src/content/blog/]
+- CTA_PRIMARY_HREF: [href]
+- TABLES_IN_BODY: [yes — N tables, all multi-line / no]
+- DRAFT_QUALITY_GATE: PASSED / FLAGGED — [reason if flagged]
+- FLAGS_FOR_SEO: [any specific items to check, or "none"]
 
-### Self-Review
-| Check | Status | Notes |
-|-------|--------|-------|
-| Frontmatter complete | PASS ✅ / FAIL ❌ | [any issues] |
-| All required fields present | PASS ✅ / FAIL ❌ | [any issues] |
-| Word count 800–2,000 | PASS ✅ / FAIL ❌ | [word count] |
-| ≥3 internal links | PASS ✅ / FAIL ❌ | [list links used] |
-| UK English | PASS ✅ / FAIL ❌ | [any issues] |
-| MTD facts accurate | PASS ✅ / FAIL ❌ | [any issues] |
-| FAQs (3–5) | PASS ✅ / FAIL ❌ | [count] |
-| Related posts set | PASS ✅ / FAIL ❌ | [hrefs] |
-| CTA set | PASS ✅ / FAIL ❌ | [primaryHref] |
-| affiliateDisclosure correct | PASS ✅ / FAIL ❌ | [rationale] |
-| No prohibited JSX | PASS ✅ / FAIL ❌ | [any issues] |
-| Markdown tables multi-line | PASS ✅ / FAIL ❌ / N/A | [list any tables; confirm each row is on its own line] |
-
-### Hand-off
-Ready for SEO Agent (/seo-agent) — frontmatter optimisation, on-page keyword audit, internal link audit.
+### Next Agent
+SEO Agent (/seo-agent) — keyword placement audit, frontmatter optimisation, internal link count verification.
 ```
+
+> **Note on self-review:** Write-Up Agent is responsible for content correctness (facts, structure, UK English, links, frontmatter completeness). The handoff payload above gives SEO Agent the context it needs without duplicating a full checklist run. If you found any issues during writing, surface them in FLAGS_FOR_SEO — do not leave them for the SEO Agent to discover blindly.
 
 ---
 
@@ -351,4 +368,5 @@ Ready for SEO Agent (/seo-agent) — frontmatter optimisation, on-page keyword a
 - `CLAUDE.md` (repo root) — full conventions, MDX schema, URL structure, MTD facts, content approach
 - `src/content/blog/` — read 2–3 existing posts to internalise tone and structure
 - `src/data/providers/index.ts` — for any post mentioning software providers (pricing, features, affiliate links)
+- `src/data/site-config.ts` — MTD thresholds and quarterly deadlines (authoritative source)
 - Task brief from orchestrating agent — target keyword, intended audience, any specific requirements
