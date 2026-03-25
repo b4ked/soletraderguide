@@ -40,8 +40,8 @@ const categoryConfig: Record<
 
 const allPill = {
   pill: 'border-border text-muted-foreground',
-  pillHover: 'hover:border-[--brand] hover:text-[--brand] hover:bg-[color:var(--brand-light)] hover:shadow-[0_0_0_2px_rgba(13,110,110,0.25)]',
-  pillActive: 'border-[--brand] bg-[--brand] text-white shadow-[0_0_0_2px_rgba(13,110,110,0.3)]',
+  pillHover: 'hover:border-brand hover:text-brand hover:bg-brand-light hover:shadow-[0_0_0_2px_rgba(13,110,110,0.25)]',
+  pillActive: 'border-brand bg-brand text-white shadow-[0_0_0_2px_rgba(13,110,110,0.3)]',
 }
 
 const CATEGORIES = Object.keys(categoryConfig)
