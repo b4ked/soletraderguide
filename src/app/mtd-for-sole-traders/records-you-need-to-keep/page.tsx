@@ -6,6 +6,7 @@ import { CTABlock } from '@/components/common/CTABlock'
 import { FAQAccordion } from '@/components/common/FAQAccordion'
 import { InfoCallout } from '@/components/common/InfoCallout'
 import { LastUpdated } from '@/components/trust/LastUpdated'
+import { ReviewedBy } from '@/components/trust/ReviewedBy'
 import type { FAQ } from '@/types'
 
 export const metadata = buildMetadata({
@@ -66,6 +67,13 @@ export default function RecordsPage() {
         <h1 className="text-4xl font-bold text-slate-900 leading-tight mb-4">
           What Records Do You Need to Keep for MTD?
         </h1>
+        <div className="mt-3 mb-4">
+          <ReviewedBy
+            name="SoleTraderGuide Editorial Team"
+            role="UK Tax Content Specialists"
+            date="2026-03-01"
+          />
+        </div>
         <p className="text-lg text-slate-600 leading-relaxed mb-4">
           MTD for Income Tax requires sole traders to maintain digital records of all business
           income and expenses. Here&apos;s exactly what HMRC expects, what counts as a digital

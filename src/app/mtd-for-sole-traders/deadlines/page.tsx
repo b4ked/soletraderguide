@@ -6,6 +6,7 @@ import { CTABlock } from '@/components/common/CTABlock'
 import { FAQAccordion } from '@/components/common/FAQAccordion'
 import { InfoCallout } from '@/components/common/InfoCallout'
 import { LastUpdated } from '@/components/trust/LastUpdated'
+import { ReviewedBy } from '@/components/trust/ReviewedBy'
 import { mtdConfig } from '@/data/site-config'
 import type { FAQ } from '@/types'
 
@@ -67,6 +68,13 @@ export default function DeadlinesPage() {
         <h1 className="text-4xl font-bold text-slate-900 leading-tight mb-4">
           MTD for Income Tax: Deadlines and Key Dates
         </h1>
+        <div className="mt-3 mb-4">
+          <ReviewedBy
+            name="SoleTraderGuide Editorial Team"
+            role="UK Tax Content Specialists"
+            date="2026-03-01"
+          />
+        </div>
         <p className="text-lg text-slate-600 leading-relaxed mb-4">
           Under MTD, you&apos;ll have quarterly submission deadlines throughout the year, plus
           annual deadlines for your End of Period Statement and Final Declaration. Here&apos;s

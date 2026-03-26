@@ -6,6 +6,7 @@ import { CTABlock } from '@/components/common/CTABlock'
 import { FAQAccordion } from '@/components/common/FAQAccordion'
 import { InfoCallout } from '@/components/common/InfoCallout'
 import { LastUpdated } from '@/components/trust/LastUpdated'
+import { ReviewedBy } from '@/components/trust/ReviewedBy'
 import type { FAQ } from '@/types'
 
 export const metadata = buildMetadata({
@@ -66,6 +67,13 @@ export default function AmIAffectedPage() {
         <h1 className="text-4xl font-bold text-slate-900 leading-tight mb-4">
           Am I Affected by Making Tax Digital for Income Tax?
         </h1>
+        <div className="mt-3 mb-4">
+          <ReviewedBy
+            name="SoleTraderGuide Editorial Team"
+            role="UK Tax Content Specialists"
+            date="2026-03-01"
+          />
+        </div>
         <p className="text-lg text-slate-600 leading-relaxed mb-4">
           MTD for Income Tax applies to sole traders and landlords whose qualifying income crosses
           a set threshold. Here&apos;s how to work out whether you&apos;re in scope, when you

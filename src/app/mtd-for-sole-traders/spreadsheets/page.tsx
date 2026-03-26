@@ -6,6 +6,7 @@ import { CTABlock } from '@/components/common/CTABlock'
 import { FAQAccordion } from '@/components/common/FAQAccordion'
 import { InfoCallout } from '@/components/common/InfoCallout'
 import { LastUpdated } from '@/components/trust/LastUpdated'
+import { ReviewedBy } from '@/components/trust/ReviewedBy'
 import type { FAQ } from '@/types'
 
 export const metadata = buildMetadata({
@@ -66,6 +67,13 @@ export default function SpreadsheetsPage() {
         <h1 className="text-4xl font-bold text-slate-900 leading-tight mb-4">
           Can You Use Spreadsheets for MTD? Bridging Software Explained
         </h1>
+        <div className="mt-3 mb-4">
+          <ReviewedBy
+            name="SoleTraderGuide Editorial Team"
+            role="UK Tax Content Specialists"
+            date="2026-03-01"
+          />
+        </div>
         <p className="text-lg text-slate-600 leading-relaxed mb-4">
           Many sole traders manage their accounts in Excel or Google Sheets. Under MTD, you can
           continue to use a spreadsheet — but you&apos;ll need additional bridging software to

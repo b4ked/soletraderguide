@@ -121,8 +121,8 @@ export default function SageReviewPage() {
           <LastUpdated date="2025-03-01" />
           <ReviewedBy
             name="SoleTraderGuide Editorial Team"
-            role="MTD Software Analyst"
-            date="2025-03-01"
+            role="UK Tax Content Specialists"
+            date="2026-03-01"
           />
         </div>
       </header>

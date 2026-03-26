@@ -6,6 +6,7 @@ import { CTABlock } from '@/components/common/CTABlock'
 import { FAQAccordion } from '@/components/common/FAQAccordion'
 import { InfoCallout } from '@/components/common/InfoCallout'
 import { LastUpdated } from '@/components/trust/LastUpdated'
+import { ReviewedBy } from '@/components/trust/ReviewedBy'
 import type { FAQ } from '@/types'
 
 export const metadata = buildMetadata({
@@ -66,6 +67,13 @@ export default function SoleTraderLandlordPage() {
         <h1 className="text-4xl font-bold text-slate-900 leading-tight mb-4">
           MTD for Sole Traders with Both Trading and Property Income
         </h1>
+        <div className="mt-3 mb-4">
+          <ReviewedBy
+            name="SoleTraderGuide Editorial Team"
+            role="UK Tax Content Specialists"
+            date="2026-03-01"
+          />
+        </div>
         <p className="text-lg text-slate-600 leading-relaxed mb-4">
           If you earn money both from running a business as a sole trader and from renting out
           property, MTD for Income Tax applies to both income streams. Here&apos;s how the rules
