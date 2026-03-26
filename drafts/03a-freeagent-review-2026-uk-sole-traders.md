@@ -75,3 +75,40 @@ FreeAgent is one of the easier accounting tools on the market, but there's still
 FreeAgent is the best accounting software for most UK sole traders, primarily because of the Self Assessment and MTD integrations. The tax timeline feature alone makes it worth using. At £22.80/month it's not cheap, but compared to accountant fees for the same work, it pays for itself quickly.
 
 If you're with NatWest or RBS, there's no decision to make — it's free. Start there.
+---
+
+## Suggested internal links
+
+- **FreeAgent vs Xero** → `/blog/freeagent-vs-xero-uk-freelancers-2026`
+- **QuickBooks vs FreeAgent** → `/blog/quickbooks-vs-freeagent-uk-sole-traders-2026`
+- **best accounting software for UK sole traders** → `/software/best-mtd-software-for-sole-traders`
+- **best business bank accounts — Mettle** → `/blog/best-business-bank-accounts-uk-sole-traders`
+- **Making Tax Digital explained** → `/mtd-for-sole-traders/what-is-mtd-income-tax`
+
+---
+
+## Suggested FAQs
+
+**Q: Is FreeAgent worth it for a UK sole trader?**
+For most UK sole traders, yes. The Self Assessment filing feature alone can save the monthly cost — it removes the need to pay an accountant to file your annual return. The MTD compliance and tax timeline dashboard are genuine time-savers. If you bank with NatWest, RBS, or use Mettle, it's free, which makes the decision easy.
+
+**Q: How much does FreeAgent cost in 2026?**
+FreeAgent costs £19/month plus VAT (£22.80 including VAT) for sole traders. There's a 30-day free trial. It's completely free for business customers of NatWest, Royal Bank of Scotland, and Mettle.
+
+**Q: Does FreeAgent do Self Assessment?**
+Yes. FreeAgent can produce your Self Assessment figures directly from your bookkeeping data and submit your return to HMRC from within the app. This is its strongest feature for sole traders and freelancers who file their own returns.
+
+**Q: Is FreeAgent free with NatWest?**
+Yes. NatWest business account holders, RBS business account holders, and Mettle customers all get FreeAgent free as part of their banking relationship. There's no catch — it's a benefit included with those accounts.
+
+**Q: What are the main alternatives to FreeAgent for UK sole traders?**
+The main alternatives are Xero (stronger for businesses working with accountants or growing companies) and QuickBooks (better for invoicing-heavy businesses). For most sole traders who file their own Self Assessment, FreeAgent is the best fit. See our full comparison guide for a side-by-side breakdown.
+
+---
+
+## Suggested CTA
+
+**Heading:** Ready to try FreeAgent?
+**Description:** Start a free 30-day trial — no credit card required. Or find out which accounting software fits your situation best.
+**Primary:** Try FreeAgent free → `/reviews/freeagent` (affiliate link)
+**Secondary:** Compare all options → `/software/best-mtd-software-for-sole-traders`

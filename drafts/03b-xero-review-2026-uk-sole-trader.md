@@ -19,11 +19,11 @@ Xero is a New Zealand-founded cloud accounting platform with a strong UK presenc
 
 Xero's UK plans for 2026:
 
-●      [object Object]£15/month — limited invoices (20/month) and bills (5/month)
+- **Starter** — £15/month — limited invoices (20/month) and bills (5/month)
 
-●      [object Object]£30/month — unlimited invoices and bills, bank feeds, MTD
+- **Standard** — £30/month — unlimited invoices and bills, bank feeds, MTD
 
-●      [object Object]£42/month — adds multi-currency
+- **Premium** — £42/month — adds multi-currency
 
 Most sole traders need at least the Standard plan to get full functionality. At £30/month it's more expensive than FreeAgent (£19/month) for equivalent features.
 
@@ -82,3 +82,40 @@ Xero is excellent software, but it's probably not the best choice for most sole 
 Where Xero wins: if you work with an accountant, if you're planning to grow, or if you need the reporting depth. For those use cases, it's worth the extra cost.
 
 For most sole traders just starting out: start with FreeAgent, consider switching to Xero if and when your business becomes more complex.
+---
+
+## Suggested internal links
+
+- **FreeAgent vs Xero** → `/blog/freeagent-vs-xero-uk-freelancers-2026`
+- **FreeAgent review** → `/reviews/freeagent`
+- **best accounting software for UK sole traders** → `/software/best-mtd-software-for-sole-traders`
+- **Making Tax Digital explained** → `/mtd-for-sole-traders/what-is-mtd-income-tax`
+- **find the right software** → `/tools/mtd-software-chooser`
+
+---
+
+## Suggested FAQs
+
+**Q: Is Xero good for sole traders?**
+Xero works well for sole traders, but it's not optimised for them. It lacks direct Self Assessment filing (FreeAgent has this), and the Standard plan at £30/month costs more than FreeAgent for equivalent features. Xero is the better choice if you work with an accountant, plan to grow, or need advanced reporting and integrations.
+
+**Q: How much does Xero cost for a UK sole trader in 2026?**
+Most sole traders need the Standard plan at £30/month. The Starter plan (£15/month) limits you to 20 invoices and 5 bills per month, which is often too restrictive. The Premium plan (£42/month) adds multi-currency — only needed if you invoice clients in foreign currencies.
+
+**Q: Does Xero file Self Assessment for sole traders?**
+No. Xero does not submit Self Assessment returns to HMRC. You'll need to export your figures and file separately using HMRC's own service or an accountant. This is a meaningful disadvantage compared to FreeAgent, which handles Self Assessment filing directly.
+
+**Q: Is FreeAgent or Xero better for a sole trader?**
+FreeAgent is better for most sole traders — it files Self Assessment directly, is simpler to use, and can be free with NatWest/RBS/Mettle banking. Xero is better if you work with an accountant (best accountant integration in the market), plan to grow, or need detailed financial reporting.
+
+**Q: What is the cheapest way to use Xero for a sole trader?**
+The Starter plan at £15/month is the lowest price point, but it limits you to 20 invoices and 5 bills per month. If you send more invoices than that, you'll need Standard at £30/month. Xero also regularly offers introductory discounts — check the current offer before signing up.
+
+---
+
+## Suggested CTA
+
+**Heading:** Not sure if Xero is right for you?
+**Description:** Compare Xero with FreeAgent and QuickBooks side by side to find the best fit for your business.
+**Primary:** Compare accounting software → `/comparisons/xero-vs-freeagent`
+**Secondary:** Find the right software → `/tools/mtd-software-chooser`
