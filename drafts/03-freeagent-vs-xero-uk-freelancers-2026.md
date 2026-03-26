@@ -1,5 +1,3 @@
-
-
 **Title:** FreeAgent vs Xero for UK Freelancers: Which Is Better in 2026?
 
 **Slug:** freeagent-vs-xero-uk-freelancers-2026
@@ -8,7 +6,7 @@
 
 **Focus keyword:** FreeAgent vs Xero UK freelancers
 
-**Secondary keywords:** FreeAgent vs Xero sole trader, FreeAgent review UK, Xero review UK freelancer
+**Secondary keywords:** FreeAgent vs Xero sole trader, FreeAgent review UK, Xero review UK freelancer, best accounting software sole trader UK, FreeAgent self assessment
 
 # **FreeAgent vs Xero for UK Freelancers: Which Is Better in 2026?**
 
@@ -20,21 +18,17 @@ Short answer: FreeAgent for most sole traders and freelancers. Xero for limited 
 
 **FreeAgent:**
 
-●      £29/month (standard)
-
-●      50% off for the first 6 months = £14.50/month to start
-
-●      Free with NatWest, RBS, Ulster Bank, or Mettle business accounts
+- £29/month (standard)
+- 50% off for the first 6 months = £14.50/month to start
+- Free with NatWest, RBS, Ulster Bank, or Mettle business accounts
 
 **Xero:**
 
-●      Starter: £7/month (limited invoices and bills)
+- Starter: £15/month (limited invoices and bills)
+- Standard: £30/month (unlimited invoices)
+- Premium: £42/month (multi-currency)
 
-●      Standard: £27/month (unlimited invoices)
-
-●      Premium: £65/month (multi-currency)
-
-**Winner: FreeAgent** — especially if you bank with NatWest/RBS/Mettle and get it free. Even at full price, FreeAgent's single £29/month plan includes everything a sole trader needs. Xero's Starter plan is cheaper but limits you to 20 invoices/month — you'll likely need Standard at £27/month, which is comparable to FreeAgent's full price but without the free bank option.
+**Winner: FreeAgent** — especially if you bank with NatWest/RBS/Mettle and get it free. Even at full price, FreeAgent's single plan includes everything a sole trader needs. Xero's Starter plan is cheaper but limits you to 20 invoices/month — you'll likely need Standard at £30/month, which is comparable to FreeAgent's full price but without the free bank option.
 
 ## **Self Assessment**
 
@@ -48,9 +42,8 @@ Xero does not file Self Assessment directly — it focuses on company accounts a
 
 Both are fully MTD-compliant and HMRC-recognised for:
 
-●      MTD for VAT
-
-●      MTD for Income Tax Self Assessment (ITSA) — required from April 2026 for sole traders earning over £50k
+- MTD for VAT
+- MTD for Income Tax Self Assessment (ITSA) — required from April 2026 for sole traders earning over £50k
 
 Both handle quarterly submissions, digital record keeping, and the final end-of-year declaration. No meaningful difference here.
 
@@ -76,7 +69,7 @@ FreeAgent has fewer integrations, though it connects with the main ones: Stripe,
 
 Both handle invoicing and expenses well. FreeAgent has a slightly more streamlined invoice creation flow for simple businesses. Xero has more customisation options and better bulk operations.
 
-For capturing expenses on the go, Xero and QuickBooks (not reviewed here) have better mobile experiences. FreeAgent's mobile app is functional but not as polished as Xero's.
+For capturing expenses on the go, Xero has a better mobile experience. FreeAgent's mobile app is functional but not as polished.
 
 **Winner: Draw** — with Xero slightly ahead on mobile and customisation.
 
@@ -92,28 +85,55 @@ Xero: 24/7 online support, no direct phone line. Some users find the lack of pho
 
 **Choose FreeAgent if:**
 
-●      You're a sole trader or freelancer (not a limited company)
-
-●      You bank with NatWest, RBS, Ulster Bank, or Mettle — it's free
-
-●      You want to file your own Self Assessment without an accountant
-
-●      You want the simplest, most UK-tailored experience
+- You're a sole trader or freelancer (not a limited company)
+- You bank with NatWest, RBS, Ulster Bank, or Mettle — it's free
+- You want to file your own Self Assessment without an accountant
+- You want the simplest, most UK-tailored experience
 
 **Choose Xero if:**
 
-●      You're running a limited company
-
-●      You need strong third-party integrations
-
-●      You have or plan to have employees (payroll is better in Xero)
-
-●      You want more detailed financial reporting
-
-●      Your accountant already uses Xero
+- You're running a limited company
+- You need strong third-party integrations
+- You have or plan to have employees (payroll is better in Xero)
+- You want more detailed financial reporting
+- Your accountant already uses Xero
 
 For the majority of UK freelancers — designers, developers, writers, consultants, photographers — FreeAgent is the better-suited tool. Xero is the better option the moment your business starts to grow beyond a one-person operation.
 
-**THE FREELANCER FINANCE · thefreelancerfinance.co.uk**
+---
 
-_Some links on this site are affiliate links — we may earn a small commission if you sign up, at no extra cost to you. This does not influence our editorial assessment._
+## Suggested internal links
+
+- **best accounting software for UK sole traders** → `/software/best-mtd-software-for-sole-traders`
+- **Making Tax Digital for sole traders** → `/mtd-for-sole-traders/what-is-mtd-income-tax`
+- **FreeAgent review** → `/reviews/freeagent`
+- **Xero review** → `/reviews/xero`
+- **check if MTD applies to you** → `/tools/mtd-eligibility-checker`
+
+---
+
+## Suggested FAQs
+
+**Q: Is FreeAgent better than Xero for a sole trader?**
+For most UK sole traders, yes. FreeAgent files Self Assessment directly to HMRC, is simpler to use, and is free with NatWest, RBS, or Mettle banking. Xero is the stronger choice if you work with an accountant, run a limited company, or need advanced integrations.
+
+**Q: Can you get FreeAgent for free as a sole trader?**
+Yes. FreeAgent is free if you hold a business account with NatWest, Royal Bank of Scotland, Ulster Bank, or Mettle. There's no catch — it's a benefit included with those banking relationships.
+
+**Q: Does Xero do Self Assessment for UK sole traders?**
+No. Xero does not submit Self Assessment returns to HMRC. You'll need to export your figures and file separately — either through HMRC's own service or with an accountant. FreeAgent handles Self Assessment filing directly.
+
+**Q: How much does FreeAgent cost per month in the UK?**
+FreeAgent costs £29/month for sole traders (including VAT). There's a 50% discount for the first six months, and it's completely free for customers of NatWest, RBS, Ulster Bank, and Mettle business accounts.
+
+**Q: Which is better for MTD — FreeAgent or Xero?**
+Both are HMRC-recognised for Making Tax Digital for Income Tax. Either will keep you compliant with quarterly digital submissions. The difference is that FreeAgent is simpler to use for this purpose and also handles Self Assessment, while Xero is the stronger choice if you use an accountant.
+
+---
+
+## Suggested CTA
+
+**Heading:** Not sure which software is right for you?
+**Description:** Use our free tool to find the best MTD-compatible accounting software for your situation.
+**Primary:** Find the right software → `/tools/mtd-software-chooser`
+**Secondary:** Compare all options → `/software/best-mtd-software-for-sole-traders`

@@ -36,7 +36,7 @@ If you rent office space separately, the full cost is claimable.
 
 ●      Train tickets for business travel
 
-●      [object Object]commuting to a regular place of work
+- **Not claimable:** commuting to a regular place of work
 
 ## **Staff costs**
 
@@ -82,7 +82,7 @@ Books, subscriptions, and online courses related to your existing work qualify.
 
 ●      Business insurance (professional indemnity, public liability, etc.)
 
-●      [object Object]personal bank account fees, personal loans
+- **Not claimable:** personal bank account fees, personal loans
 
 ## **Food and entertainment**
 
@@ -101,3 +101,40 @@ Work clothing is only claimable if it is a uniform, protective clothing, or a co
 HMRC requires you to keep records of all business expenses for at least 5 years after the Self Assessment deadline for that tax year. Digital records — photos of receipts, accounting software exports — are acceptable.
 
 Use accounting software like FreeAgent, Xero, or QuickBooks to capture expenses as you go rather than scrambling at tax return time.
+---
+
+## Suggested internal links
+
+- **Making Tax Digital records you need to keep** → `/mtd-for-sole-traders/records-you-need-to-keep`
+- **best accounting software for UK sole traders** → `/software/best-mtd-software-for-sole-traders`
+- **how to set aside money for tax** → `/blog/how-to-set-aside-tax-sole-trader-uk`
+- **Self Assessment registration guide** → `/blog/how-to-register-self-assessment-uk-freelancer`
+- **check MTD eligibility** → `/tools/mtd-eligibility-checker`
+
+---
+
+## Suggested FAQs
+
+**Q: What expenses can a UK sole trader claim?**
+UK sole traders can claim expenses that are wholly and exclusively for business use: office costs (including home office), travel to client sites, equipment, phone and internet (business proportion), professional fees, marketing, training relevant to your current trade, and business insurance. Personal costs are not claimable.
+
+**Q: Can I claim my home broadband as a sole trader expense?**
+Yes, but only the business proportion. If you use broadband for work and personal use, calculate roughly what percentage is for work and claim that portion. Most sole traders claim 50–80% depending on their usage.
+
+**Q: What is the HMRC mileage rate for sole traders?**
+HMRC allows 45p per mile for the first 10,000 business miles in a car, and 25p per mile after that. Motorbikes are 24p per mile, and bicycles 20p per mile. Keep a mileage log with the date, purpose, and distance of each journey.
+
+**Q: Can I claim clothing as a sole trader business expense?**
+Only if it is a uniform, protective clothing, or a costume you could not wear in everyday life. A suit worn to client meetings is not claimable, even if you bought it specifically for work. HMRC's "wholly and exclusively" rule applies strictly to clothing.
+
+**Q: How long do I need to keep expense records as a sole trader?**
+HMRC requires you to keep records for at least 5 years after the Self Assessment filing deadline for that tax year. Digital records — photos of receipts or accounting software exports — are acceptable.
+
+---
+
+## Suggested CTA
+
+**Heading:** Track your expenses automatically all year round
+**Description:** Accounting software categorises your expenses as you go — so you never miss a claimable cost at tax return time.
+**Primary:** Find the right accounting software → `/tools/mtd-software-chooser`
+**Secondary:** Best accounting software for sole traders → `/software/best-mtd-software-for-sole-traders`

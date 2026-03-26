@@ -76,3 +76,39 @@ Log in to your HMRC online account at gov.uk — your UTR is displayed in the Se
 ## **Can someone else use your UTR?**
 
 No. Your UTR is personal to you and should be treated as sensitive information. Only share it with HMRC, your accountant, or trusted parties who need it for legitimate tax purposes. Do not share it in online forums or with clients who don't have a genuine need for it.
+---
+
+## Suggested internal links
+
+- **how to register for Self Assessment** → `/blog/how-to-register-self-assessment-uk-freelancer`
+- **Making Tax Digital — am I affected?** → `/mtd-for-sole-traders/am-i-affected`
+- **payment on account explained** → `/blog/payment-on-account-explained-uk`
+- **check your MTD eligibility** → `/tools/mtd-eligibility-checker`
+
+---
+
+## Suggested FAQs
+
+**Q: What is a UTR number?**
+A UTR (Unique Taxpayer Reference) is a 10-digit number HMRC uses to identify you as a taxpayer. Every person registered for Self Assessment has one. You need it to file your tax return, communicate with HMRC, and give to accountants who act on your behalf.
+
+**Q: How do I get a UTR number?**
+You get a UTR automatically when you register for Self Assessment with HMRC. Go to gov.uk, create or log into a Government Gateway account, and register as self-employed. HMRC posts your UTR within 10 working days — you can also find it in your online account immediately after registering.
+
+**Q: How long does it take to get a UTR number?**
+HMRC typically posts your UTR within 10 working days of registration. If you need it urgently, log in to your HMRC online account — it should appear in the Self Assessment section immediately after you register.
+
+**Q: What do I do if I've lost my UTR number?**
+Log in to your HMRC online account at gov.uk — your UTR is shown in the Self Assessment section. If you can't access your account, call the HMRC Self Assessment helpline on 0300 200 3310 with your National Insurance number ready.
+
+**Q: Is a UTR number the same as a National Insurance number?**
+No. They are different numbers. Your National Insurance number is a personal identifier used across all government systems. Your UTR is specific to Self Assessment and tax. Both are important — keep them separate and secure.
+
+---
+
+## Suggested CTA
+
+**Heading:** Just registered for Self Assessment?
+**Description:** Find out if Making Tax Digital for Income Tax will apply to you and what software you'll need.
+**Primary:** Check my MTD status → `/tools/mtd-eligibility-checker`
+**Secondary:** Making Tax Digital explained → `/mtd-for-sole-traders/what-is-mtd-income-tax`

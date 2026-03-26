@@ -52,9 +52,9 @@ The tax pot is HMRC's money, not yours. Mentally, it doesn't belong to you. Trea
 
 ## **When you need to pay**
 
-●      [object Object]Balancing payment for the previous tax year + first payment on account for the current year
+- **31 January** — Balancing payment for the previous tax year + first payment on account for the current year
 
-●      [object Object]Second payment on account for the current year
+- **31 July** — Second payment on account for the current year
 
 See our guide on Payment on Account for more detail on why your January bill might be higher than you expect.
 
@@ -69,3 +69,40 @@ FreeAgent displays a "tax timeline" in the dashboard that shows exactly what you
 If January is approaching and you haven't saved enough, HMRC does allow payment arrangements for people who genuinely can't pay in full. You can set up a Time to Pay arrangement via your HMRC online account or by calling the helpline. Interest will be charged on the amount owed, but it avoids penalties if arranged before the deadline.
 
 If you're in this position, set up a proper saving system immediately so next year is different.
+---
+
+## Suggested internal links
+
+- **payment on account explained** → `/blog/payment-on-account-explained-uk`
+- **allowable expenses for sole traders** → `/blog/allowable-expenses-uk-sole-traders-hmrc`
+- **best accounting software for sole traders** → `/software/best-mtd-software-for-sole-traders`
+- **best business bank accounts UK** → `/blog/best-business-bank-accounts-uk-sole-traders`
+- **check MTD eligibility** → `/tools/mtd-eligibility-checker`
+
+---
+
+## Suggested FAQs
+
+**Q: How much should a UK sole trader save for tax?**
+For most sole traders earning between £20,000 and £80,000, saving 25–30% of every client payment covers income tax and Class 4 National Insurance. If your income is approaching the higher rate threshold (£50,270), save closer to 35%. The key is to treat this money as HMRC's from the moment it hits your account.
+
+**Q: When do sole traders pay their tax bill?**
+The main Self Assessment deadline is 31 January — this covers your balancing payment for the previous year and your first payment on account for the current year. A second payment on account is due 31 July. Set calendar reminders for both.
+
+**Q: What is the 25–30% rule for sole traders?**
+The 25–30% rule is a simple guideline: set aside 25–30% of every client payment into a dedicated tax savings account. This percentage covers income tax, Class 4 National Insurance, and provides a buffer for the payment on account system. It's not exact — use accounting software for a precise figure — but it prevents the January shock.
+
+**Q: What happens if I haven't saved enough for my tax bill?**
+Contact HMRC before the deadline. If you genuinely can't pay, you can arrange a Time to Pay agreement through your HMRC online account or by calling the helpline. Interest is charged on unpaid tax, but arranging a payment plan proactively avoids additional penalties.
+
+**Q: What is the best way to save for tax as a sole trader?**
+Open a separate savings account — or use a named "pot" in Monzo or Starling — and transfer 25–30% of every client payment into it the same day it arrives. Don't wait until the end of the month. The money you never see in your main account is the money you won't spend.
+
+---
+
+## Suggested CTA
+
+**Heading:** See your running tax estimate all year
+**Description:** Accounting software like FreeAgent shows you exactly what you owe HMRC at any point — no more guessing.
+**Primary:** Find the right accounting software → `/tools/mtd-software-chooser`
+**Secondary:** Payment on account explained → `/blog/payment-on-account-explained-uk`

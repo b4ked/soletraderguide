@@ -1,5 +1,3 @@
-**META**
-
 **Title:** Best Business Bank Accounts for UK Sole Traders 2026
 
 **Slug:** best-business-bank-accounts-uk-sole-traders
@@ -83,3 +81,40 @@ Barclays, HSBC, Lloyds, and NatWest all offer business accounts for sole traders
 For most sole traders: start with Starling (free, excellent integrations) or Mettle (free if you plan to use FreeAgent). Both can be opened in under 10 minutes from your phone.
 
 If invoicing is your priority, add Tide to the comparison. If you want tax automation built in, look at Monzo Pro.
+---
+
+## Suggested internal links
+
+- **best accounting software for sole traders** → `/software/best-mtd-software-for-sole-traders`
+- **FreeAgent review** → `/reviews/freeagent`
+- **how to set aside money for tax** → `/blog/how-to-set-aside-tax-sole-trader-uk`
+- **Making Tax Digital for sole traders** → `/mtd-for-sole-traders/what-is-mtd-income-tax`
+- **find the right accounting software** → `/tools/mtd-software-chooser`
+
+---
+
+## Suggested FAQs
+
+**Q: Do sole traders need a business bank account in the UK?**
+Sole traders are not legally required to have a separate business bank account — unlike limited companies, you and your business are the same legal entity. However, having a dedicated account makes bookkeeping significantly simpler and is strongly recommended. Mixing personal and business transactions creates headaches at tax return time.
+
+**Q: What is the best free business bank account for UK sole traders?**
+Starling Bank Business is the most consistently recommended free option — it has an excellent app, no monthly fees, and strong accounting integrations. Mettle is the best choice if you plan to use FreeAgent, as it includes a free FreeAgent subscription.
+
+**Q: Can I use my personal bank account as a sole trader?**
+Technically yes, but it's not advisable. Mixing personal and business transactions makes your bookkeeping complicated, can complicate your tax return, and looks unprofessional to clients who pay by bank transfer. Most digital business bank accounts can be opened in under 10 minutes.
+
+**Q: Does Mettle really give FreeAgent for free?**
+Yes. Mettle business account holders get a free FreeAgent subscription as part of the banking relationship. FreeAgent normally costs £22.80/month, so this is a significant saving for sole traders who want to use FreeAgent for their accounting and MTD compliance.
+
+**Q: Is Starling or Monzo better for a sole trader?**
+Starling Business is better for most sole traders — it's free with strong accounting integrations. Monzo Business is a good alternative if you want tax pot automation (automatic tax saving), but the most useful features require the £9/month Pro plan.
+
+---
+
+## Suggested CTA
+
+**Heading:** Sort your business banking and accounting together
+**Description:** Pair the right bank account with accounting software that handles MTD, Self Assessment, and invoicing.
+**Primary:** Find the right accounting software → `/tools/mtd-software-chooser`
+**Secondary:** Best accounting software for sole traders → `/software/best-mtd-software-for-sole-traders`

@@ -1,5 +1,3 @@
-**META**
-
 **Title:** Payment on Account Explained: Why UK Sole Traders Get a Surprise Tax Bill
 
 **Slug:** payment-on-account-explained-uk
@@ -63,3 +61,40 @@ Yes. If you know your income will be lower in the next tax year, you can apply t
 ## **Accounting software helps**
 
 Good accounting software like FreeAgent, Xero, or QuickBooks will show you an estimate of your tax liability as the year progresses. This removes the guesswork and means you know roughly what's coming before the January deadline hits.
+---
+
+## Suggested internal links
+
+- **how to set aside money for tax** → `/blog/how-to-set-aside-tax-sole-trader-uk`
+- **allowable expenses for sole traders** → `/blog/allowable-expenses-uk-sole-traders-hmrc`
+- **Self Assessment registration guide** → `/blog/how-to-register-self-assessment-uk-freelancer`
+- **best accounting software for sole traders** → `/software/best-mtd-software-for-sole-traders`
+- **check MTD eligibility** → `/tools/mtd-eligibility-checker`
+
+---
+
+## Suggested FAQs
+
+**Q: What is payment on account in the UK?**
+Payment on account is HMRC's system where Self Assessment taxpayers pay tax in advance toward the next year's bill. If your tax bill exceeds £1,000, you make two advance payments — in January and July — each equal to 50% of the previous year's bill. This means your first full year of self-employment may result in a larger-than-expected January payment.
+
+**Q: When are payments on account due?**
+The first payment on account is due on 31 January (the same date as your Self Assessment filing deadline). The second is due on 31 July. If your actual tax for the year turns out to be different from the advance payments, you make a balancing payment (or receive a refund) the following January.
+
+**Q: Can I reduce my payments on account?**
+Yes. If you expect your income to be lower in the coming tax year, you can apply to reduce your payments on account through your HMRC online account or on your tax return. Be careful: if your income is higher than expected, HMRC charges interest on the underpayment.
+
+**Q: Why is my January tax bill higher than I expected?**
+If it's your first year of self-employment, you're paying both your tax for the year just ended and the first payment on account for the current year simultaneously. This is normal — it's not a penalty. The total in January can be up to 150% of your annual tax bill.
+
+**Q: How much should I save each month for payment on account?**
+Save 25–30% of every client payment into a dedicated tax account. The higher end of that range gives you a buffer for payment on account in your first year. If you use accounting software like FreeAgent, it will show you an estimate of your total liability — including payments on account — throughout the year.
+
+---
+
+## Suggested CTA
+
+**Heading:** Know exactly what you owe HMRC throughout the year
+**Description:** Accounting software like FreeAgent tracks your tax liability in real time so January is never a surprise.
+**Primary:** Find the right accounting software → `/tools/mtd-software-chooser`
+**Secondary:** How to save for your tax bill → `/blog/how-to-set-aside-tax-sole-trader-uk`

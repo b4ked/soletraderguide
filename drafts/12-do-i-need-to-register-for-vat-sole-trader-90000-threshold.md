@@ -48,14 +48,51 @@ VAT creates a cash flow consideration. You collect VAT from clients each month b
 
 Voluntary VAT registration — registering before you hit the threshold — makes sense in some situations:
 
-●      [object Object]They can reclaim the VAT you charge, so it costs them nothing extra. You benefit from reclaiming VAT on your own purchases.
+- **Your clients are mainly VAT-registered businesses** — They can reclaim the VAT you charge, so it costs them nothing extra. You benefit from reclaiming VAT on your own purchases.
 
-●      [object Object]Being VAT registered lets you reclaim VAT on purchases — equipment, software, etc.
+- **You spend significantly on business purchases** — Being VAT registered lets you reclaim VAT on purchases — equipment, software, etc.
 
-●      [object Object]Some larger clients and public sector buyers prefer working with VAT-registered suppliers.
+- **You work with larger clients or public sector buyers** — Some larger clients and public sector buyers prefer working with VAT-registered suppliers.
 
 **Don't register voluntarily if:** most of your clients are individuals (consumers) who can't reclaim VAT — they'll simply pay 20% more, which could price you out of the market.
 
 ## **VAT and Making Tax Digital**
 
 VAT returns are already within MTD — you must use MTD-compatible software to submit them. This has been the case for VAT-registered businesses since 2019. If you register for VAT, make sure your accounting software is MTD-compatible (FreeAgent, Xero, QuickBooks all are).
+---
+
+## Suggested internal links
+
+- **Making Tax Digital for VAT** → `/mtd-for-sole-traders/what-is-mtd-income-tax`
+- **best accounting software for UK sole traders** → `/software/best-mtd-software-for-sole-traders`
+- **allowable expenses for sole traders** → `/blog/allowable-expenses-uk-sole-traders-hmrc`
+- **check MTD eligibility** → `/tools/mtd-eligibility-checker`
+- **find the right accounting software** → `/tools/mtd-software-chooser`
+
+---
+
+## Suggested FAQs
+
+**Q: What is the VAT registration threshold for UK sole traders in 2026?**
+The VAT registration threshold is £90,000 in VAT-taxable turnover over any rolling 12-month period. This is based on your sales (turnover), not your profit. If your cumulative sales exceed £90,000 in any 12-month window, you must register within 30 days.
+
+**Q: What happens if I don't register for VAT when I should?**
+HMRC will charge you the VAT you should have collected, plus interest and potentially penalties. Because you'll owe VAT on sales you've already made without collecting it from customers, this can be a significant unexpected bill. Register as soon as you approach the threshold.
+
+**Q: Should I voluntarily register for VAT as a sole trader?**
+It depends on your clients. If most of your clients are VAT-registered businesses, voluntary registration can work in your favour — they can reclaim the VAT you charge, and you can reclaim VAT on your own purchases. If most clients are consumers or non-VAT-registered businesses, voluntary registration adds cost for them and may not be worthwhile.
+
+**Q: How do I register for VAT in the UK?**
+You register for VAT through your HMRC online account at gov.uk. Once registered, you'll receive a VAT registration number, and you must begin charging VAT on your invoices from your effective date of registration.
+
+**Q: Do VAT returns count as Making Tax Digital?**
+Yes. VAT returns have been mandatory under MTD since 2019 for most VAT-registered businesses. You must use HMRC-recognised software (such as FreeAgent, Xero, or QuickBooks) to submit your VAT returns digitally.
+
+---
+
+## Suggested CTA
+
+**Heading:** Make sure your accounting software handles VAT and MTD
+**Description:** FreeAgent, Xero, and QuickBooks all handle VAT returns and MTD compliance — find the right one for your situation.
+**Primary:** Find the right software → `/tools/mtd-software-chooser`
+**Secondary:** Compare accounting software → `/software/best-mtd-software-for-sole-traders`

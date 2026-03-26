@@ -8,6 +8,8 @@
 
 **Focus keyword:** employed and self employed tax UK
 
+**Secondary keywords:** self employed and employed at same time UK tax, freelance income tax UK, PAYE and self assessment, trading allowance UK, side income tax UK
+
 # **I Have a Job AND Freelance Income: How Does Tax Work?**
 
 Many people start freelancing while still in employment — a side project that grows, consultancy work in evenings and weekends, or a portfolio career with multiple income streams. If that's you, here's how the UK tax system handles it.
@@ -81,3 +83,40 @@ A basic spreadsheet works. Accounting software like FreeAgent handles it automat
 ## **When to get an accountant**
 
 If your freelance income is significant, you're near a tax threshold, or your situation is complex (pension contributions, investment income, rental income on top), a one-off accountant consultation is worth the cost. They can identify reliefs you might be missing and make sure your NI isn't being over or underpaid.
+---
+
+## Suggested internal links
+
+- **how to register for Self Assessment** → `/blog/how-to-register-self-assessment-uk-freelancer`
+- **allowable expenses for sole traders** → `/blog/allowable-expenses-uk-sole-traders-hmrc`
+- **how to set aside money for tax** → `/blog/how-to-set-aside-tax-sole-trader-uk`
+- **Making Tax Digital — am I affected?** → `/mtd-for-sole-traders/am-i-affected`
+- **check MTD eligibility** → `/tools/mtd-eligibility-checker`
+
+---
+
+## Suggested FAQs
+
+**Q: Do I need to file a Self Assessment if I'm employed and have freelance income?**
+Yes, if your freelance income exceeds £1,000 in a tax year (the trading allowance). You must register for Self Assessment by 5 October following the end of the tax year in which you started. Your employment income and self-employment income are reported together on the same return.
+
+**Q: How much tax will I pay on my freelance income if I already have a job?**
+Your freelance profit is added to your employment income and taxed at your marginal rate. If your salary already uses your personal allowance (£12,570 in 2025–26), your freelance profit is taxed from the first pound — likely at 20% if your combined income is under £50,270.
+
+**Q: Do I pay National Insurance twice if I'm employed and self-employed?**
+Potentially, yes. As an employee you pay Class 1 NI on your salary. As a sole trader you also pay Class 4 NI on your freelance profits. There is a mechanism to defer or limit Class 4 contributions if your Class 1 contributions already cover the annual maximum — worth checking with an accountant if your combined income is significant.
+
+**Q: What is the trading allowance and how does it affect me?**
+The trading allowance is a £1,000 tax-free allowance on self-employment or trading income. If your freelance income is below £1,000, you don't need to file a Self Assessment. However, you also can't claim any business expenses — so if your costs are higher than £1,000, it may be better to register and claim expenses instead.
+
+**Q: How much should I save for tax on my freelance income if I have a job?**
+Set aside 20–25% of every freelance payment. This is slightly lower than the 25–30% recommended for full-time sole traders, because your employment income is already using some of your personal allowance. If you're close to the higher rate threshold (£50,270 combined), save 40%.
+
+---
+
+## Suggested CTA
+
+**Heading:** Check if Making Tax Digital applies to your freelance income
+**Description:** MTD for Income Tax applies from April 2026 if your qualifying income exceeds £50,000. Check where you stand.
+**Primary:** Check my MTD status → `/tools/mtd-eligibility-checker`
+**Secondary:** Making Tax Digital explained → `/mtd-for-sole-traders/what-is-mtd-income-tax`
