@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { headers } from 'next/headers'
 import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
@@ -77,31 +78,35 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const headersList = await headers()
+  const isAdmin = headersList.get('x-is-admin') === '1'
+
   return (
     <html lang="en-GB" className={`${inter.variable} h-full antialiased`}>
       <head>
         {/* Organisation schema — appears on every page */}
-        <OrganisationSchema />
+        {!isAdmin && <OrganisationSchema />}
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        {/* Skip to main content — accessibility */}
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
+        {!isAdmin && (
+          <a href="#main-content" className="skip-link">
+            Skip to main content
+          </a>
+        )}
 
-        <Header />
+        {!isAdmin && <Header />}
 
         <main id="main-content" className="flex-1">
           {children}
         </main>
 
-        <Footer />
-        <Analytics />
+        {!isAdmin && <Footer />}
+        {!isAdmin && <Analytics />}
       </body>
     </html>
   )
