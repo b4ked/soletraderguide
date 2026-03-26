@@ -100,6 +100,48 @@ export default function AboutPage() {
         </section>
 
         <section>
+          <h2 className="text-xl font-bold text-foreground mb-3">How We Review Content</h2>
+          <p className="text-muted-foreground leading-relaxed">
+            Every guide and review published on SoleTraderGuide is cross-checked against
+            HMRC&apos;s official guidance before publication. Our review process covers four areas:
+          </p>
+          <ul className="mt-4 space-y-3 text-muted-foreground">
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 size-1.5 rounded-full bg-brand shrink-0" aria-hidden="true" />
+              <span>
+                <strong className="text-foreground">HMRC verification</strong> — all MTD thresholds,
+                deadlines, and rules are verified against gov.uk before publication and updated
+                whenever HMRC announces changes.
+              </span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 size-1.5 rounded-full bg-brand shrink-0" aria-hidden="true" />
+              <span>
+                <strong className="text-foreground">Pricing accuracy</strong> — software pricing is
+                checked against each provider&apos;s website before publication. All pages show the
+                date prices were last verified.
+              </span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 size-1.5 rounded-full bg-brand shrink-0" aria-hidden="true" />
+              <span>
+                <strong className="text-foreground">Balanced assessment</strong> — software reviews
+                assess all providers against the same criteria. No provider receives favourable
+                treatment due to affiliate relationships.
+              </span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 size-1.5 rounded-full bg-brand shrink-0" aria-hidden="true" />
+              <span>
+                <strong className="text-foreground">Quarterly updates</strong> — content is
+                scheduled for review every quarter. Material changes are noted inline with an
+                updated date.
+              </span>
+            </li>
+          </ul>
+        </section>
+
+        <section>
           <h2 className="text-xl font-bold text-foreground mb-3">How We Make Money</h2>
           <p className="text-muted-foreground leading-relaxed">
             SoleTraderGuide is funded primarily through affiliate commissions. Some links on our
@@ -166,18 +208,22 @@ export default function AboutPage() {
 
         {/* Trust signals */}
         <div className="rounded-xl border border-border bg-muted/30 p-6">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 text-center">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-4 text-center">
             <div>
               <p className="text-sm font-semibold text-foreground">Founded 2025</p>
               <p className="text-xs text-muted-foreground mt-1">Built for the MTD era</p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-foreground">30+ articles &amp; guides</p>
+              <p className="text-xs text-muted-foreground mt-1">Growing weekly</p>
             </div>
             <div>
               <p className="text-sm font-semibold text-foreground">Independently operated</p>
               <p className="text-xs text-muted-foreground mt-1">No external investors or owners</p>
             </div>
             <div>
-              <p className="text-sm font-semibold text-foreground">Regularly reviewed</p>
-              <p className="text-xs text-muted-foreground mt-1">Content updated quarterly</p>
+              <p className="text-sm font-semibold text-foreground">HMRC-verified</p>
+              <p className="text-xs text-muted-foreground mt-1">All facts checked against gov.uk</p>
             </div>
           </div>
         </div>
