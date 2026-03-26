@@ -5,6 +5,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { OrganisationSchema } from '@/components/seo/OrganisationSchema'
 import { siteConfig } from '@/data/site-config'
+import { Analytics } from '@vercel/analytics/next'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -86,8 +87,6 @@ export default function RootLayout({
       <head>
         {/* Organisation schema — appears on every page */}
         <OrganisationSchema />
-        {/* Analytics placeholder — integrate GA4/Plausible/PostHog in Phase 2 */}
-        {/* <Script src="..." strategy="afterInteractive" /> */}
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {/* Skip to main content — accessibility */}
@@ -102,6 +101,7 @@ export default function RootLayout({
         </main>
 
         <Footer />
+        <Analytics />
       </body>
     </html>
   )
