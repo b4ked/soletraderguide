@@ -19,6 +19,9 @@ interface AnalyticsData {
   instructions?: string
   setupUrl?: string
   vercelDashboardUrl?: string
+  httpStatus?: number
+  vercelResponse?: unknown
+  hint?: string
   period?: { days: number; from: number; to: number }
   stats?: Record<string, unknown>
   topPages?: Record<string, unknown>
@@ -707,13 +710,28 @@ export default function AdminDashboard() {
                   ) : analytics?.error ? (
                     <div className="space-y-4">
                       <div className="rounded-xl bg-amber-50 border border-amber-200 p-5">
-                        <h3 className="text-sm font-semibold text-amber-900 mb-1">
-                          Analytics not configured
-                        </h3>
+                        <div className="flex items-start justify-between mb-1">
+                          <h3 className="text-sm font-semibold text-amber-900">
+                            {analytics.httpStatus
+                              ? `Vercel API returned HTTP ${analytics.httpStatus}`
+                              : 'Analytics not configured'}
+                          </h3>
+                        </div>
                         <p className="text-sm text-amber-700 mb-3">
-                          {analytics.instructions ??
-                            analytics.error}
+                          {analytics.hint ?? analytics.instructions ?? analytics.error}
                         </p>
+                        {analytics.vercelResponse && (
+                          <details className="mb-3">
+                            <summary className="text-xs font-medium text-amber-800 cursor-pointer hover:underline">
+                              Show Vercel API response
+                            </summary>
+                            <pre className="mt-2 text-xs bg-amber-100 rounded p-2 overflow-x-auto text-amber-900 whitespace-pre-wrap">
+                              {typeof analytics.vercelResponse === 'string'
+                                ? analytics.vercelResponse
+                                : JSON.stringify(analytics.vercelResponse, null, 2)}
+                            </pre>
+                          </details>
+                        )}
                         {analytics.setupUrl && (
                           <a
                             href={analytics.setupUrl}
