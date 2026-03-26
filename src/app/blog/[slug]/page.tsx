@@ -8,6 +8,7 @@ import { Breadcrumbs } from '@/components/layout/Breadcrumbs'
 import { FAQAccordion } from '@/components/common/FAQAccordion'
 import { CTABlock } from '@/components/common/CTABlock'
 import { InfoCallout } from '@/components/common/InfoCallout'
+import { NewsletterSignup } from '@/components/common/NewsletterSignup'
 import { AffiliateDisclosure } from '@/components/trust/AffiliateDisclosure'
 import { LastUpdated } from '@/components/trust/LastUpdated'
 import { ArticleSchema } from '@/components/seo/ArticleSchema'
@@ -126,6 +127,11 @@ export default async function BlogPostPage({ params }: { params: Params }) {
       {/* MDX article body */}
       <div className="mt-8 prose-like space-y-6">
         <MDXRemote source={content} components={mdxComponents} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
+      </div>
+
+      {/* Newsletter signup */}
+      <div className="mt-10 pt-10 border-t border-border">
+        <NewsletterSignup />
       </div>
 
       {/* CTA block */}
