@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
 
 const VERCEL_API_BASE = 'https://api.vercel.com'
-const TEAM_ID = 'team_21RcYfzusgjDwFQKWFmUHMQF'
-const PROJECT_ID = 'prj_OQ2hJ5DFy9yIDGeksLzRIP5uvgsk'
+const TEAM_ID = 'team_vdlrQNmERlLyzxbvwfLdU1JR'
+const PROJECT_ID = 'prj_p1M7cL2gmJctBHS9laVPRUqj9owm'
 
 export interface DeploymentMeta {
   uid: string
