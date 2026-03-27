@@ -20,7 +20,7 @@ interface AnalyticsData {
   setupUrl?: string
   vercelDashboardUrl?: string
   httpStatus?: number
-  vercelResponse?: unknown
+  vercelResponse?: Record<string, unknown> | string | null
   hint?: string
   period?: { days: number; from: number; to: number }
   stats?: Record<string, unknown>
