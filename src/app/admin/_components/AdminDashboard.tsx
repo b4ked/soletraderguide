@@ -14,18 +14,19 @@ interface Schedule {
   }
 }
 
+interface DeploymentMeta {
+  uid: string
+  url: string
+  state: string
+  createdAt: number
+  meta?: { githubCommitMessage?: string; githubCommitRef?: string }
+}
+
 interface AnalyticsData {
   error?: string
-  instructions?: string
-  setupUrl?: string
-  vercelDashboardUrl?: string
-  httpStatus?: number
-  vercelResponse?: Record<string, unknown> | string | null
-  hint?: string
-  period?: { days: number; from: number; to: number }
-  stats?: Record<string, unknown>
-  topPages?: Record<string, unknown>
-  referrers?: Record<string, unknown>
+  details?: string
+  message?: string
+  deployments?: DeploymentMeta[]
 }
 
 function daysSince(dateStr: string): number {
@@ -702,161 +703,123 @@ export default function AdminDashboard() {
 
               {/* ─── ANALYTICS ─── */}
               {tab === 'analytics' && (
-                <div>
-                  {analyticsLoading ? (
-                    <div className="py-12 text-center text-sm text-gray-400">
-                      Fetching analytics…
-                    </div>
-                  ) : analytics?.error ? (
-                    <div className="space-y-4">
-                      <div className="rounded-xl bg-amber-50 border border-amber-200 p-5">
-                        <div className="flex items-start justify-between mb-1">
-                          <h3 className="text-sm font-semibold text-amber-900">
-                            {analytics.httpStatus
-                              ? `Vercel API returned HTTP ${analytics.httpStatus}`
-                              : 'Analytics not configured'}
-                          </h3>
-                        </div>
-                        <p className="text-sm text-amber-700 mb-3">
-                          {analytics.hint ?? analytics.instructions ?? analytics.error}
-                        </p>
-                        {analytics.vercelResponse && (
-                          <details className="mb-3">
-                            <summary className="text-xs font-medium text-amber-800 cursor-pointer hover:underline">
-                              Show Vercel API response
-                            </summary>
-                            <pre className="mt-2 text-xs bg-amber-100 rounded p-2 overflow-x-auto text-amber-900 whitespace-pre-wrap">
-                              {typeof analytics.vercelResponse === 'string'
-                                ? analytics.vercelResponse
-                                : JSON.stringify(analytics.vercelResponse, null, 2)}
-                            </pre>
-                          </details>
-                        )}
-                        {analytics.setupUrl && (
-                          <a
-                            href={analytics.setupUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-sm font-medium text-amber-800 underline hover:no-underline"
-                          >
-                            Get Vercel token ↗
-                          </a>
-                        )}
-                      </div>
+                <div className="space-y-6">
+                  {/* Notice: no public API */}
+                  <div className="rounded-xl bg-blue-50 border border-blue-200 p-5">
+                    <h3 className="text-sm font-semibold text-blue-900 mb-1">
+                      Vercel Analytics has no public REST API
+                    </h3>
+                    <p className="text-sm text-blue-700">
+                      Vercel does not expose Web Analytics data (page views, visitors,
+                      top pages) via a documented REST API — it is dashboard-only.
+                      Use the link below to view analytics directly in Vercel.
+                    </p>
+                  </div>
 
-                      <div className="rounded-xl bg-gray-50 border border-gray-200 p-5">
-                        <h3 className="text-sm font-semibold text-gray-900 mb-3">
-                          Setup instructions
-                        </h3>
-                        <ol className="text-sm text-gray-600 space-y-1.5 list-decimal list-inside">
-                          <li>
-                            Go to{' '}
-                            <a
-                              href="https://vercel.com/account/tokens"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-[#0d6e6e] underline"
-                            >
-                              vercel.com/account/tokens
-                            </a>
-                          </li>
-                          <li>Create a new token — name it &ldquo;STG Admin Analytics&rdquo;</li>
-                          <li>
-                            Add <code className="font-mono bg-gray-200 px-1 rounded">VERCEL_TOKEN=your_token</code> to{' '}
-                            <code className="font-mono bg-gray-200 px-1 rounded">.env.local</code>
-                          </li>
-                          <li>Also add to Vercel project environment variables</li>
-                          <li>Restart the dev server</li>
-                        </ol>
-                      </div>
+                  {/* Primary CTA */}
+                  <a
+                    href="https://vercel.com/hishan-parrys-projects/soletraderguide/analytics"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 rounded-xl bg-black text-white px-6 py-4 text-sm font-medium hover:bg-gray-800 transition-colors w-fit"
+                  >
+                    <svg className="w-4 h-4 flex-none" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M24 22.525H0l12-21.05 12 21.05z" />
+                    </svg>
+                    Open Vercel Analytics dashboard ↗
+                  </a>
 
-                      {analytics.vercelDashboardUrl && (
-                        <a
-                          href={analytics.vercelDashboardUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-xl bg-black text-white px-5 py-3 text-sm font-medium hover:bg-gray-800 transition-colors"
-                        >
-                          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M24 22.525H0l12-21.05 12 21.05z" />
-                          </svg>
-                          Open Vercel Analytics dashboard
-                        </a>
-                      )}
-                    </div>
-                  ) : analytics ? (
-                    <div className="space-y-6">
-                      <div className="flex items-center justify-between">
-                        <h2 className="text-sm font-semibold text-gray-700">
-                          Last {analytics.period?.days} days
-                        </h2>
-                        {analytics.vercelDashboardUrl && (
-                          <a
-                            href={analytics.vercelDashboardUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs text-[#0d6e6e] hover:text-[#0a5a5a] font-medium"
-                          >
-                            Open full dashboard ↗
-                          </a>
-                        )}
-                      </div>
-
-                      {/* Raw analytics data */}
-                      {analytics.stats && (
-                        <div>
-                          <h3 className="text-sm font-semibold text-gray-700 mb-3">
-                            Overview
-                          </h3>
-                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                            {Object.entries(
-                              analytics.stats as Record<string, unknown>
-                            )
-                              .filter(([, v]) => typeof v === 'number')
-                              .map(([key, value]) => (
-                                <div
-                                  key={key}
-                                  className="bg-gray-50 rounded-xl border border-gray-200 px-4 py-3"
-                                >
-                                  <p className="text-xs text-gray-500 capitalize">
-                                    {key.replace(/_/g, ' ')}
-                                  </p>
-                                  <p className="mt-1 text-xl font-bold text-gray-900">
-                                    {typeof value === 'number'
-                                      ? value.toLocaleString()
-                                      : String(value)}
-                                  </p>
-                                </div>
-                              ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Top pages */}
-                      {analytics.topPages && (
-                        <div>
-                          <h3 className="text-sm font-semibold text-gray-700 mb-3">
-                            Top Pages
-                          </h3>
-                          <pre className="bg-gray-50 rounded-xl border border-gray-200 p-4 text-xs overflow-x-auto text-gray-700">
-                            {JSON.stringify(analytics.topPages, null, 2)}
+                  {/* Recent deployments — uses the real Vercel REST API */}
+                  <div>
+                    <h2 className="text-sm font-semibold text-gray-700 mb-3">
+                      Recent Deployments
+                    </h2>
+                    {analyticsLoading ? (
+                      <p className="text-sm text-gray-400">Loading…</p>
+                    ) : analytics?.error ? (
+                      <div className="rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-amber-700">
+                        {analytics.error}
+                        {analytics.details && (
+                          <pre className="mt-2 text-xs bg-amber-100 rounded p-2 overflow-x-auto whitespace-pre-wrap">
+                            {analytics.details}
                           </pre>
-                        </div>
-                      )}
+                        )}
+                      </div>
+                    ) : (
+                      <div className="rounded-xl border border-gray-200 overflow-hidden">
+                        <table className="w-full text-sm">
+                          <thead className="bg-gray-50 text-xs font-medium text-gray-500">
+                            <tr>
+                              <th className="px-4 py-3 text-left">Status</th>
+                              <th className="px-4 py-3 text-left">Commit message</th>
+                              <th className="px-4 py-3 text-left">Branch</th>
+                              <th className="px-4 py-3 text-left">Date</th>
+                              <th className="px-4 py-3 text-left">URL</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-100">
+                            {(analytics?.deployments ?? []).length === 0 ? (
+                              <tr>
+                                <td colSpan={5} className="px-4 py-8 text-center text-gray-400 text-xs">
+                                  No deployments found — add VERCEL_TOKEN to env vars to enable this.
+                                </td>
+                              </tr>
+                            ) : (
+                              (analytics?.deployments ?? []).map((d) => (
+                                <tr key={d.uid} className="hover:bg-gray-50 transition-colors">
+                                  <td className="px-4 py-3">
+                                    <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
+                                      d.state === 'READY'
+                                        ? 'bg-green-100 text-green-700'
+                                        : d.state === 'ERROR' || d.state === 'CANCELED'
+                                        ? 'bg-red-100 text-red-700'
+                                        : 'bg-gray-100 text-gray-600'
+                                    }`}>
+                                      {d.state}
+                                    </span>
+                                  </td>
+                                  <td className="px-4 py-3 text-gray-700 max-w-xs truncate">
+                                    {d.meta?.githubCommitMessage ?? '—'}
+                                  </td>
+                                  <td className="px-4 py-3 text-gray-500 text-xs">
+                                    {d.meta?.githubCommitRef ?? '—'}
+                                  </td>
+                                  <td className="px-4 py-3 text-gray-500 text-xs">
+                                    {new Date(d.createdAt).toLocaleDateString('en-GB', {
+                                      day: 'numeric', month: 'short', year: 'numeric',
+                                    })}
+                                  </td>
+                                  <td className="px-4 py-3">
+                                    <a
+                                      href={`https://${d.url}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-xs text-[#0d6e6e] hover:text-[#0a5a5a] font-medium"
+                                    >
+                                      View ↗
+                                    </a>
+                                  </td>
+                                </tr>
+                              ))
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+                  </div>
 
-                      {/* Referrers */}
-                      {analytics.referrers && (
-                        <div>
-                          <h3 className="text-sm font-semibold text-gray-700 mb-3">
-                            Referrers
-                          </h3>
-                          <pre className="bg-gray-50 rounded-xl border border-gray-200 p-4 text-xs overflow-x-auto text-gray-700">
-                            {JSON.stringify(analytics.referrers, null, 2)}
-                          </pre>
-                        </div>
-                      )}
-                    </div>
-                  ) : null}
+                  {/* Future: Plausible */}
+                  <div className="rounded-xl bg-gray-50 border border-gray-200 p-5">
+                    <h3 className="text-sm font-semibold text-gray-700 mb-1">
+                      Future: Plausible Analytics
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                      The CLAUDE.md Phase 2 plan recommends migrating to{' '}
+                      <strong>Plausible Analytics</strong> (privacy-friendly, UK GDPR
+                      compliant, full REST API). Once connected, this tab will show live
+                      page views, top pages, referrers, and devices directly here.
+                    </p>
+                  </div>
                 </div>
               )}
 
