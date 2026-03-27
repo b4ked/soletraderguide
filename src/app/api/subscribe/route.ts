@@ -212,6 +212,23 @@ export async function POST(request: NextRequest) {
       console.error('[Newsletter] Welcome email error:', welcomeRes.status)
       // Non-fatal — subscriber was recorded, welcome email failed
     }
+
+    // Add to Resend Audience for broadcast newsletters
+    const audienceId = process.env.RESEND_AUDIENCE_ID
+    if (audienceId) {
+      const audienceRes = await fetch(`https://api.resend.com/audiences/${audienceId}/contacts`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, unsubscribed: false }),
+      })
+      if (!audienceRes.ok) {
+        console.error('[Newsletter] Audience add error:', audienceRes.status)
+        // Non-fatal — welcome email already sent
+      }
+    }
   } else {
     console.log(`[Newsletter] New subscriber: ${email}`)
   }
