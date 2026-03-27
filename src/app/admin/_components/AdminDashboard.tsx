@@ -281,8 +281,8 @@ export default function AdminDashboard() {
     (d) =>
       !draftSearch ||
       d.title.toLowerCase().includes(draftSearch.toLowerCase()) ||
-      d.category.toLowerCase().includes(draftSearch.toLowerCase()) ||
-      d.tags.some((t) => t.toLowerCase().includes(draftSearch.toLowerCase()))
+      d.filename.toLowerCase().includes(draftSearch.toLowerCase()) ||
+      d.focusKeyword.toLowerCase().includes(draftSearch.toLowerCase())
   )
 
   const tabs: { id: Tab; label: string; count?: number }[] = [
@@ -448,45 +448,40 @@ export default function AdminDashboard() {
                   {/* Recent drafts */}
                   <div>
                     <h2 className="text-sm font-semibold text-gray-700 mb-3">
-                      Most Recent Drafts
+                      All Drafts ({drafts.length})
                     </h2>
                     <div className="rounded-xl border border-gray-200 overflow-hidden">
                       <table className="w-full text-sm">
                         <thead className="bg-gray-50 text-xs font-medium text-gray-500">
                           <tr>
+                            <th className="px-4 py-3 text-left">File</th>
                             <th className="px-4 py-3 text-left">Title</th>
-                            <th className="px-4 py-3 text-left">Category</th>
-                            <th className="px-4 py-3 text-left">Modified</th>
                             <th className="px-4 py-3 text-left">Words</th>
+                            <th className="px-4 py-3 text-left">Scheduled</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100">
-                          {[...drafts]
-                            .sort(
-                              (a, b) =>
-                                new Date(b.lastModified).getTime() -
-                                new Date(a.lastModified).getTime()
-                            )
-                            .slice(0, 8)
-                            .map((d) => (
-                              <tr
-                                key={d.slug}
-                                className="hover:bg-gray-50 transition-colors"
-                              >
-                                <td className="px-4 py-3 font-medium text-gray-900 max-w-xs truncate">
-                                  {d.title}
-                                </td>
-                                <td className="px-4 py-3">
-                                  <CategoryBadge category={d.category} />
-                                </td>
-                                <td className="px-4 py-3 text-gray-500 text-xs">
-                                  {daysSince(d.lastModified)}d ago
-                                </td>
-                                <td className="px-4 py-3 text-gray-500">
-                                  {d.wordCount.toLocaleString()}
-                                </td>
-                              </tr>
-                            ))}
+                          {drafts.slice(0, 8).map((d) => (
+                            <tr
+                              key={d.slug}
+                              className="hover:bg-gray-50 transition-colors"
+                            >
+                              <td className="px-4 py-3 text-xs text-gray-500 font-mono max-w-[180px] truncate">
+                                {d.filename}
+                              </td>
+                              <td className="px-4 py-3 font-medium text-gray-900 max-w-xs truncate">
+                                {d.title}
+                              </td>
+                              <td className="px-4 py-3 text-gray-500">
+                                {d.wordCount.toLocaleString()}
+                              </td>
+                              <td className="px-4 py-3 text-xs text-gray-500">
+                                {schedule[d.slug]?.targetDate
+                                  ? formatDate(schedule[d.slug].targetDate)
+                                  : '—'}
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </div>
@@ -500,7 +495,7 @@ export default function AdminDashboard() {
                   <div className="mb-4">
                     <input
                       type="search"
-                      placeholder="Search drafts by title, category, or tag…"
+                      placeholder="Search drafts by title, filename, or keyword…"
                       value={draftSearch}
                       onChange={(e) => setDraftSearch(e.target.value)}
                       className="w-full sm:max-w-sm rounded-lg border border-gray-300 px-3.5 py-2.5 text-sm focus:border-[#0d6e6e] focus:outline-none focus:ring-2 focus:ring-[#0d6e6e]/20"
@@ -512,9 +507,8 @@ export default function AdminDashboard() {
                       <table className="w-full text-sm min-w-[700px]">
                         <thead className="bg-gray-50 text-xs font-medium text-gray-500">
                           <tr>
+                            <th className="px-4 py-3 text-left">File</th>
                             <th className="px-4 py-3 text-left">Title</th>
-                            <th className="px-4 py-3 text-left">Category</th>
-                            <th className="px-4 py-3 text-left">Modified</th>
                             <th className="px-4 py-3 text-left">Words</th>
                             <th className="px-4 py-3 text-left">Scheduled</th>
                             <th className="px-4 py-3 text-left">Actions</th>
@@ -524,7 +518,7 @@ export default function AdminDashboard() {
                           {filteredDrafts.length === 0 ? (
                             <tr>
                               <td
-                                colSpan={6}
+                                colSpan={5}
                                 className="px-4 py-8 text-center text-gray-400"
                               >
                                 No drafts found
@@ -532,31 +526,24 @@ export default function AdminDashboard() {
                             </tr>
                           ) : (
                             filteredDrafts.map((d) => {
-                              const isStale = daysSince(d.lastModified) > 30
                               const sched = schedule[d.slug]
                               return (
                                 <tr
                                   key={d.slug}
-                                  className={`hover:bg-gray-50 transition-colors ${isStale ? 'bg-amber-50/40' : ''}`}
+                                  className="hover:bg-gray-50 transition-colors"
                                 >
+                                  <td className="px-4 py-3 text-xs text-gray-500 font-mono max-w-[180px] truncate">
+                                    {d.filename}
+                                  </td>
                                   <td className="px-4 py-3">
-                                    <div className="font-medium text-gray-900 max-w-xs">
-                                      {isStale && (
-                                        <span className="mr-1.5 text-amber-500 text-xs">
-                                          ⚠
-                                        </span>
-                                      )}
+                                    <div className="font-medium text-gray-900 max-w-xs truncate">
                                       {d.title}
                                     </div>
-                                    <div className="text-xs text-gray-400 mt-0.5 truncate max-w-xs">
-                                      {d.slug}
-                                    </div>
-                                  </td>
-                                  <td className="px-4 py-3">
-                                    <CategoryBadge category={d.category} />
-                                  </td>
-                                  <td className="px-4 py-3 text-xs text-gray-500">
-                                    {daysSince(d.lastModified)}d ago
+                                    {d.focusKeyword && (
+                                      <div className="text-xs text-gray-400 mt-0.5 truncate max-w-xs">
+                                        {d.focusKeyword}
+                                      </div>
+                                    )}
                                   </td>
                                   <td className="px-4 py-3 text-gray-600">
                                     {d.wordCount.toLocaleString()}
