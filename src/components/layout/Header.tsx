@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect, useRef } from 'react'
 import { ChevronDown, Menu } from 'lucide-react'
@@ -42,11 +43,16 @@ export function Header() {
             {/* Logo */}
             <Link
               href="/"
-              className="flex items-baseline gap-0.5 shrink-0"
+              className="flex items-center shrink-0"
               aria-label="SoleTraderGuide — return to homepage"
             >
-              <span className="text-xl font-bold text-brand leading-none">SoleTraderGuide</span>
-              <span className="text-xs text-muted-foreground">.co.uk</span>
+              <Image
+                src="/logo.svg"
+                alt="SoleTraderGuide"
+                width={200}
+                height={38}
+                priority
+              />
             </Link>
 
             {/* Desktop navigation */}
