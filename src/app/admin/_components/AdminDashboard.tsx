@@ -8,9 +8,11 @@ type Tab = 'overview' | 'drafts' | 'published' | 'analytics' | 'links'
 
 interface Schedule {
   [slug: string]: {
+    id?: string
     targetDate: string
     notes: string
     priority: 'high' | 'medium' | 'low'
+    status?: 'pending' | 'published'
   }
 }
 
@@ -157,11 +159,8 @@ function ScheduleModal({
             />
           </div>
 
-          <div className="bg-amber-50 rounded-lg p-3 text-xs text-amber-700">
-            <strong>Note:</strong> Schedules are stored in this browser only.
-            Publishing requires moving the file from{' '}
-            <code className="font-mono">/drafts/</code> to{' '}
-            <code className="font-mono">src/content/blog/</code>.
+          <div className="bg-blue-50 rounded-lg p-3 text-xs text-blue-700">
+            <strong>Note:</strong> Schedule is saved to the VPS and checked every 30 minutes. When due, Claude Code will automatically run the full Write-Up → SEO → QA → publish pipeline.
           </div>
         </div>
 
@@ -200,14 +199,32 @@ export default function AdminDashboard() {
   const [draftSearch, setDraftSearch] = useState('')
   const [loading, setLoading] = useState(true)
 
-  // Load schedule from localStorage
+  // Load schedules from VPS API on mount
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem('stg_publish_schedules')
-      if (stored) setSchedule(JSON.parse(stored))
-    } catch {
-      // ignore
+    async function loadSchedules() {
+      try {
+        const res = await fetch('/api/admin/schedules')
+        if (!res.ok) return
+        const data = await res.json()
+        const map: Schedule = {}
+        for (const s of data.schedules ?? []) {
+          const slug = (s.draftFile as string)
+            .replace(/\.(mdx?)$/, '')
+            .replace(/^\d+[a-z]?-/, '')
+          map[slug] = {
+            id: s.id,
+            targetDate: (s.scheduledAt as string).split('T')[0],
+            notes: s.notes ?? '',
+            priority: s.priority ?? 'medium',
+            status: s.status,
+          }
+        }
+        setSchedule(map)
+      } catch {
+        // VPS not configured — schedules unavailable
+      }
     }
+    loadSchedules()
   }, [])
 
   // Fetch drafts + published on mount
@@ -251,25 +268,60 @@ export default function AdminDashboard() {
     if (tab === 'analytics') loadAnalytics()
   }, [tab, loadAnalytics])
 
-  function saveSchedule(slug: string, data: Schedule[string]) {
-    const updated = { ...schedule, [slug]: data }
-    setSchedule(updated)
+  async function saveSchedule(slug: string, data: Schedule[string]) {
+    const draft = drafts.find((d) => d.slug === slug)
+    if (!draft) return
+    const existing = schedule[slug]
+    const scheduledAt = data.targetDate + 'T09:00:00.000Z'
+
     try {
-      localStorage.setItem('stg_publish_schedules', JSON.stringify(updated))
+      if (existing?.id) {
+        await fetch(`/api/admin/schedules/${existing.id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ scheduledAt, notes: data.notes, priority: data.priority }),
+        })
+        setSchedule((prev) => ({
+          ...prev,
+          [slug]: { ...prev[slug], ...data },
+        }))
+      } else {
+        const res = await fetch('/api/admin/schedules', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            draftFile: draft.filename,
+            draftTitle: draft.title,
+            scheduledAt,
+            notes: data.notes,
+            priority: data.priority,
+          }),
+        })
+        const created = await res.json()
+        setSchedule((prev) => ({
+          ...prev,
+          [slug]: { ...data, id: created.id, status: 'pending' },
+        }))
+      }
     } catch {
-      // ignore
+      // API not available
     }
   }
 
-  function clearSchedule(slug: string) {
-    const updated = { ...schedule }
-    delete updated[slug]
-    setSchedule(updated)
-    try {
-      localStorage.setItem('stg_publish_schedules', JSON.stringify(updated))
-    } catch {
-      // ignore
+  async function clearSchedule(slug: string) {
+    const existing = schedule[slug]
+    if (existing?.id) {
+      try {
+        await fetch(`/api/admin/schedules/${existing.id}`, { method: 'DELETE' })
+      } catch {
+        // API not available
+      }
     }
+    setSchedule((prev) => {
+      const updated = { ...prev }
+      delete updated[slug]
+      return updated
+    })
   }
 
   const staleDrafts = drafts.filter((d) => daysSince(d.lastModified) > 30)
@@ -550,14 +602,26 @@ export default function AdminDashboard() {
                                   </td>
                                   <td className="px-4 py-3">
                                     {sched?.targetDate ? (
-                                      <div className="text-xs">
-                                        <span className="text-gray-700 font-medium">
+                                      <div className="text-xs space-y-1">
+                                        <div className="text-gray-700 font-medium">
                                           {formatDate(sched.targetDate)}
-                                        </span>
-                                        <br />
-                                        <PriorityBadge
-                                          priority={sched.priority}
-                                        />
+                                        </div>
+                                        <div className="flex items-center gap-1 flex-wrap">
+                                          <PriorityBadge priority={sched.priority} />
+                                          {sched.status === 'published' ? (
+                                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-700">
+                                              Published
+                                            </span>
+                                          ) : sched.targetDate < new Date().toISOString().split('T')[0] ? (
+                                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-100 text-amber-700">
+                                              Due
+                                            </span>
+                                          ) : (
+                                            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-700">
+                                              Scheduled
+                                            </span>
+                                          )}
+                                        </div>
                                       </div>
                                     ) : (
                                       <span className="text-gray-400 text-xs">

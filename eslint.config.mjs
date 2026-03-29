@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Standalone Node.js CommonJS app — not part of the Next.js TypeScript project
+    "scheduler/**",
   ]),
 ]);
 

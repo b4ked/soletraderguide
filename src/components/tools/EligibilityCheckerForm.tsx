@@ -261,7 +261,7 @@ function Step3({
         Do you also receive income from employment (e.g. a PAYE salary)?
       </legend>
       <p className="text-sm text-muted-foreground mb-6">
-        Having both employment and self-employment income doesn't change your MTD obligation,
+        Having both employment and self-employment income doesn&rsquo;t change your MTD obligation,
         but it affects how you complete your EOPS.
       </p>
       <div className="grid grid-cols-1 gap-3">

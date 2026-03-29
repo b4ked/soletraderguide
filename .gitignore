@@ -40,3 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .env*.local
+
+# scheduler — runtime data (never commit live schedule data)
+scheduler/schedules.json
+scheduler/node_modules
+# Allow the example file despite the .env* rule above
+!scheduler/.env.example
