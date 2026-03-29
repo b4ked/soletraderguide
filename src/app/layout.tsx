@@ -7,6 +7,7 @@ import { Footer } from '@/components/layout/Footer'
 import { OrganisationSchema } from '@/components/seo/OrganisationSchema'
 import { siteConfig } from '@/data/site-config'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -107,6 +108,7 @@ export default async function RootLayout({
 
         {!isAdmin && <Footer />}
         {!isAdmin && <Analytics />}
+        {!isAdmin && <SpeedInsights />}
       </body>
     </html>
   )
