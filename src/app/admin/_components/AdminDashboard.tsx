@@ -176,7 +176,8 @@ function ScheduleModal({
               onSave(draft.slug, { targetDate, notes, priority })
               onClose()
             }}
-            className="rounded-lg bg-[#0d6e6e] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a5a5a] transition-colors"
+            disabled={!targetDate}
+            className="rounded-lg bg-[#0d6e6e] px-4 py-2 text-sm font-semibold text-white hover:bg-[#0a5a5a] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Save schedule
           </button>
@@ -271,6 +272,7 @@ export default function AdminDashboard() {
   async function saveSchedule(slug: string, data: Schedule[string]) {
     const draft = drafts.find((d) => d.slug === slug)
     if (!draft) return
+    if (!data.targetDate) return
     const existing = schedule[slug]
     const scheduledAt = data.targetDate + 'T09:00:00.000Z'
 
