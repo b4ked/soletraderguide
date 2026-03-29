@@ -1,218 +1,256 @@
 # SoleTraderGuide.co.uk
 
-A UK-focused, SEO-first website helping sole traders understand Making Tax Digital (MTD) for Income Tax and compare software options.
+A UK-focused, SEO-first content and comparison website for sole traders navigating Making Tax Digital (MTD) for Income Tax. Monetised through software affiliate referrals.
 
-## Phase 1 Status: Complete
-
-All pages, components, and infrastructure for Phase 1 are built and ready for launch.
-
-### Stack
-- **Framework:** Next.js 15 (App Router)
-- **Language:** TypeScript (strict)
-- **Styling:** Tailwind CSS v4
-- **Components:** shadcn/ui (customised)
-- **Data:** Structured TypeScript (no CMS in Phase 1)
-- **Analytics:** Abstraction layer ready — connect provider in Phase 2
-- **Deployment:** Vercel (recommended)
+**Live:** [soletraderguide.co.uk](https://soletraderguide.co.uk) — deployed on Vercel, auto-deploys from `main`.
 
 ---
 
-## Getting Started
+## Tech Stack
 
-```bash
-npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### Build for production
-
-```bash
-npm run build
-npm run start
-```
-
-### Lint
-
-```bash
-npm run lint
-```
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript (strict) |
+| Styling | Tailwind CSS v4 |
+| Components | Radix UI / shadcn/ui (customised) |
+| Content | MDX via `next-mdx-remote` + `gray-matter` |
+| Deployment | Vercel (auto-deploy from `main`) |
+| Scheduler backend | Node.js/Express on VPS (`api.parrytech.co`) |
+| Blog automation | Claude Code on VPS — agentic blog pipeline |
 
 ---
 
-## Project Structure
+## Repository Structure
 
 ```
 soletraderguide/
-├── public/
-│   ├── robots.txt              # Static robots.txt
-│   └── (logos, og-image, etc.) # Static assets
-│
 ├── src/
-│   ├── app/                    # Next.js App Router pages and route handlers
-│   │   ├── layout.tsx          # Root layout (header, footer, global styles)
-│   │   ├── page.tsx            # Homepage
-│   │   ├── sitemap.ts          # /sitemap.xml — dynamic sitemap
-│   │   ├── robots.ts           # /robots.txt — Next.js route handler
-│   │   │
-│   │   ├── mtd-for-sole-traders/   # MTD guides hub + individual guides
-│   │   ├── software/               # Software hub + best-of pages
-│   │   ├── reviews/                # Provider review pages
-│   │   ├── comparisons/            # Provider comparison pages
-│   │   ├── tools/                  # MTD tools (eligibility checker, software chooser)
-│   │   ├── blog/                   # Blog hub + individual blog posts
-│   │   │
-│   │   ├── about/
-│   │   ├── editorial-policy/
-│   │   ├── affiliate-disclosure/
-│   │   ├── privacy-policy/
-│   │   ├── terms-and-conditions/
-│   │   ├── contact/
-│   │   └── sources-methodology/
+│   ├── app/                         # Next.js App Router pages + API routes
+│   │   ├── layout.tsx               # Root layout
+│   │   ├── page.tsx                 # Homepage
+│   │   ├── sitemap.ts               # Dynamic sitemap (includes MDX posts)
+│   │   ├── robots.ts                # robots.txt handler
+│   │   ├── blog/                    # Blog hub + [slug] dynamic MDX route
+│   │   ├── mtd-for-sole-traders/    # MTD guide hub + individual guides
+│   │   ├── software/                # Software hub + best-of pages
+│   │   ├── reviews/                 # Provider review pages
+│   │   ├── comparisons/             # Provider comparison pages
+│   │   ├── tools/                   # Eligibility checker + software chooser
+│   │   └── api/
+│   │       └── admin/schedules/     # Next.js proxy → VPS scheduler API
+│   │           ├── route.ts         # GET + POST
+│   │           └── [id]/
+│   │               ├── route.ts     # PATCH + DELETE
+│   │               └── complete/
+│   │                   └── route.ts # POST mark-published
 │   │
 │   ├── components/
-│   │   ├── common/             # Shared: CTABlock, FAQAccordion, InfoCallout
-│   │   ├── layout/             # Header, Footer, Breadcrumbs
-│   │   ├── seo/                # JsonLd, FAQSchema, OrganisationSchema
-│   │   ├── tools/              # EligibilityCheckerForm, SoftwareChooserForm
-│   │   ├── trust/              # AffiliateDisclosure, LastUpdated, SourceList
-│   │   └── ui/                 # shadcn/ui base components
+│   │   ├── common/                  # CTABlock, FAQAccordion, InfoCallout, HeroSection
+│   │   ├── layout/                  # Header, Footer, Breadcrumbs
+│   │   ├── seo/                     # JsonLd, FAQSchema, ArticleSchema, OrganisationSchema
+│   │   ├── comparison/              # ComparisonTable, ProviderCard, ProsConsList
+│   │   ├── tools/                   # EligibilityCheckerForm, SoftwareChooserForm
+│   │   ├── trust/                   # AffiliateDisclosure, LastUpdated, ReviewedBy
+│   │   └── ui/                      # shadcn/ui base components
+│   │
+│   ├── content/
+│   │   └── blog/                    # MDX blog posts (filename = slug)
 │   │
 │   ├── data/
-│   │   ├── providers/index.ts  # All software provider data
-│   │   ├── site-config.ts      # Site config + MTD thresholds/deadlines
-│   │   └── navigation.ts       # Nav structure
+│   │   ├── providers/index.ts       # Software provider data
+│   │   ├── site-config.ts           # MTD thresholds, deadlines, site metadata
+│   │   └── navigation.ts            # Primary nav + footer nav
 │   │
-│   ├── lib/
-│   │   ├── metadata.ts         # generateMetadata() — used on every page
-│   │   ├── analytics.ts        # Analytics abstraction layer
-│   │   ├── content-utils.ts    # formatDate() and helpers
-│   │   └── utils.ts            # cn() Tailwind utility
-│   │
-│   └── types/
-│       └── index.ts            # All TypeScript types
+│   └── lib/
+│       ├── metadata.ts              # generateMetadata() — used on every page
+│       ├── content.ts               # getPostBySlug(), getAllPosts()
+│       ├── analytics.ts             # Event tracking abstraction
+│       └── utils.ts                 # cn() Tailwind utility
 │
-└── .claude/                    # Agent context files
-    ├── CLAUDE.md               # Top-level project context
-    └── agents/                 # Per-agent context directories
-        ├── ia-agent/
-        ├── ux-agent/
-        ├── design-system-agent/
-        ├── frontend-agent/
-        ├── seo-agent/
-        ├── content-model-agent/
-        ├── trust-compliance-agent/
-        ├── research-agent/
-        ├── analytics-agent/
-        └── qa-agent/
+├── drafts/                          # Raw draft markdown files (input to blog pipeline)
+├── reports/                         # DA Agent reports (auto-generated, post-publish)
+│
+├── scheduler/                       # VPS scheduler backend (runs on the VPS)
+│   ├── server.js                    # Express API — schedule CRUD + due-check
+│   ├── check-and-publish.sh         # Cron script — clones repo, runs Claude pipeline
+│   ├── package.json
+│   ├── package-lock.json
+│   └── .env.example                 # Copy to .env on the VPS — never commit .env
+│
+└── CLAUDE.md                        # AI agent context — read before any work
 ```
 
 ---
 
-## Content Editing Guide
+## Local Development
 
-### Adding a new software provider
-
-1. Add provider data to `src/data/providers/index.ts` following the `Provider` interface
-2. Create a review page at `src/app/reviews/[slug]/page.tsx`
-3. Update comparison pages to include the new provider
-4. Add to `src/app/sitemap.ts`
-5. Update software hub pages as appropriate
-
-### Updating provider pricing
-
-Edit the relevant entry in `src/data/providers/index.ts`. Update the `LastUpdated` date on all affected review and comparison pages.
-
-### Adding a blog post
-
-1. Create `src/app/blog/[your-slug]/page.tsx`
-2. Use `generateArticleMetadata()` from `@/lib/metadata` for the metadata export
-3. Add the post to the `blogPosts` array in `src/app/blog/page.tsx`
-4. Add the URL to `src/app/sitemap.ts`
-
-### Editing page metadata
-
-Each page has an exported `metadata` constant at the top, using `generateMetadata()` or `generateArticleMetadata()` from `@/lib/metadata`. Edit the `title`, `description`, and `canonicalPath` there.
-
-### Updating MTD thresholds or deadlines
-
-Edit the `mtdConfig` object in `src/data/site-config.ts`. The eligibility checker logic in `src/components/tools/EligibilityCheckerForm.tsx` references these values directly.
-
----
-
-## Key Conventions
-
-1. **Server Components by default** — only use `"use client"` on interactive components
-2. **`@/` imports** — always use the alias, never relative paths
-3. **`generateMetadata()` on every page** — no hardcoded meta tags
-4. **`AffiliateDisclosure` on all commercial pages** — reviews, comparisons, software pages
-5. **`LastUpdated` on all content pages** — with the actual last-updated date
-6. **`Breadcrumbs` on all non-homepage pages**
-7. **No CSS modules** — all styling via Tailwind utilities
-
----
-
-## Analytics
-
-See `src/lib/analytics.ts` — events are defined and fire in development (console.log). Connect your analytics provider in Phase 2 by replacing the TODO comment with your provider's tracking call.
-
-**Tracked events in Phase 1:**
-- `tool_start` — user begins a tool
-- `tool_complete` — user receives a tool result
-- `faq_expand` — user opens a FAQ item
-- `cta_click` — user clicks a CTA button
-
----
-
-## Phase 2 Roadmap
-
-- [ ] **MDX** — migrate blog posts and guide pages to MDX files
-- [ ] **CMS integration** — Contentful or Sanity for editorial content management
-- [ ] **Analytics provider** — connect GA4 or Plausible in `src/lib/analytics.ts`
-- [ ] **More software providers** — bridging software, HMRC free tools, Coconut, etc.
-- [ ] **Email capture / newsletter** — integrate Mailchimp or ConvertKit
-- [ ] **Author profile pages** — with credentials for E-E-A-T
-- [ ] **Search functionality** — Algolia or Fuse.js
-- [ ] **User accounts** — optional, for saving tool results
-- [ ] **Dark mode** — add dark variant CSS variables
-- [ ] **Automated testing** — Playwright E2E + Lighthouse CI
-- [ ] **Google Search Console** — set up post-launch
-- [ ] **Legal review** — get privacy policy and T&Cs reviewed by a solicitor
+```bash
+npm install
+npm run dev       # http://localhost:3000
+npm run build     # Production build — run before committing
+npm run lint      # ESLint
+```
 
 ---
 
 ## Deployment
 
-Deploy to Vercel (recommended):
+Pushing to `main` triggers an automatic Vercel deployment. No manual steps needed.
 
-1. Push to GitHub
-2. Connect repository in [Vercel dashboard](https://vercel.com)
-3. No environment variables required in Phase 1
-4. Vercel auto-detects Next.js and configures build settings
-5. Set custom domain: `soletraderguide.co.uk`
+**Vercel environment variables required:**
 
-**Note:** Add an OG image at `public/og-image.jpg` (1200x630px) before launch for proper social sharing previews.
+| Variable | Purpose |
+|----------|---------|
+| `VPS_API_URL` | `https://api.parrytech.co/stg-scheduler` |
+| `VPS_API_SECRET` | Shared secret — must match `VPS_API_KEY` on VPS |
 
 ---
 
-## Editorial Guidelines
+## VPS — Automated Blog Publishing
 
-See `.claude/agents/` for agent context files covering:
-- Information architecture conventions
-- UX patterns and component usage
-- Design system tokens and components
-- Frontend implementation conventions
-- SEO metadata and schema patterns
-- Content model and data schemas
-- Trust and disclosure requirements
-- Analytics event taxonomy
-- QA checklists and testing procedures
+A VPS at `api.parrytech.co` (Ubuntu 24.04, SSH alias: `parrytech-vps`) runs an automated blog publishing pipeline.
+
+### How it works
+
+```
+Admin page (/admin → Drafts tab)
+  └── Schedule a draft → POST /api/admin/schedules (Next.js proxy)
+        └── VPS Express API :3001 → schedules.json
+
+Cron (*/15 * * * *) on VPS
+  └── check-and-publish.sh
+        ├── GET /api/schedules/due
+        ├── git clone repo → /home/parryh/stg-publish-work/
+        ├── claude --print "run /blog-pipeline on drafts/<file>" --dangerously-skip-permissions
+        ├── POST /api/schedules/:id/complete
+        └── rm -rf /home/parryh/stg-publish-work/
+```
+
+### VPS file locations
+
+| Path | Purpose |
+|------|---------|
+| `/home/parryh/soletraderguide/` | Git repo clone (scheduler + scripts) |
+| `/home/parryh/soletraderguide/scheduler/server.js` | Express API |
+| `/home/parryh/soletraderguide/scheduler/.env` | `VPS_API_KEY` + `PORT=3001` (not in git) |
+| `/home/parryh/soletraderguide/scheduler/schedules.json` | Live schedule data (not in git) |
+| `/home/parryh/soletraderguide/scheduler/check-and-publish.sh` | Cron runner script |
+| `/home/parryh/stg-publish-work/` | Temp clone used during pipeline runs (deleted after) |
+| `/etc/systemd/system/stg-scheduler.service` | systemd service — auto-starts on reboot |
+| `/etc/caddy/Caddyfile` | Routes `/stg-scheduler/*` → port 3001 |
+| `~/.ssh/github_stg` | SSH deploy key for git push |
+| `/var/log/stg-publish.log` | Cron output log |
+
+### VPS service management
+
+```bash
+ssh parrytech-vps
+
+# Scheduler API service
+systemctl status stg-scheduler
+systemctl restart stg-scheduler
+journalctl -u stg-scheduler -f
+
+# Cron log
+tail -f /var/log/stg-publish.log
+
+# Check due schedules
+curl -s -H "Authorization: Bearer <VPS_API_KEY>" http://127.0.0.1:3001/api/schedules/due
+
+# Run cron script manually
+/home/parryh/soletraderguide/scheduler/check-and-publish.sh
+
+# Update scheduler scripts from repo
+cd /home/parryh/soletraderguide && git pull origin main
+```
+
+### Updating the cron script or server
+
+Edit in the repo locally → commit → push → `git pull origin main` on the VPS. The scheduler service reads `server.js` from the repo clone. Restart the service after updating `server.js`:
+
+```bash
+ssh parrytech-vps
+cd /home/parryh/soletraderguide && git pull origin main
+systemctl restart stg-scheduler
+```
+
+For `check-and-publish.sh`, a `git pull` is sufficient — no restart needed.
+
+---
+
+## Blog Pipeline (Agentic Workflow)
+
+Blog posts are published via Claude Code running the `/blog-pipeline` skill defined in `CLAUDE.md`. The pipeline runs 5 agents sequentially:
+
+| Step | Agent | Action |
+|------|-------|--------|
+| 1 | Write-Up Agent | Converts `drafts/<file>.md` → `src/content/blog/<slug>.mdx` |
+| 2 | SEO Agent | Validates frontmatter, internal links, structured data |
+| 3 | QA/Reviewer Agent | `npm run build` + `npm run lint` |
+| 4 | Commit/Push | Commits MDX + pushes to `main` → Vercel auto-deploys |
+| 5 | DA Agent | On-push domain authority assessment |
+
+### Scheduling a post
+
+1. Add a draft markdown file to `drafts/` and push to `main`
+2. Go to `/admin` → Drafts tab → click Schedule on the draft
+3. Pick a publish date → Save schedule
+4. The VPS cron picks it up at the next :00, :15, :30, or :45 mark
+
+---
+
+## Admin Page
+
+Password-protected at `/admin`. Built into the Next.js app.
+
+- **Overview tab** — published posts, stale drafts, scheduled queue
+- **Drafts tab** — all files in `drafts/`, with scheduling controls
+- **Analytics tab** — placeholder for Phase 2
+
+The admin page talks to the VPS scheduler API via server-side Next.js proxy routes at `/api/admin/schedules/*`. The `VPS_API_SECRET` env var is never exposed to the browser.
+
+---
+
+## Content Conventions
+
+See `CLAUDE.md` for the full agent context including:
+- MDX frontmatter schema
+- Page layout templates
+- Component usage guide
+- SEO conventions
+- UK English rules
+- Coding conventions
+
+---
+
+## Key Data Files
+
+| File | What to edit |
+|------|-------------|
+| `src/data/providers/index.ts` | Software provider data, pricing, affiliate links |
+| `src/data/site-config.ts` | MTD thresholds, quarterly deadlines, site metadata |
+| `src/data/navigation.ts` | Primary nav and footer nav items |
+
+---
+
+## Phase 2 Roadmap
+
+- [ ] Analytics provider (Plausible recommended)
+- [ ] Author profile pages with credentials (E-E-A-T)
+- [ ] More software providers (Absolute Bridging, Coconut, Ember, HMRC free tools)
+- [ ] Review + AggregateRating structured data on review pages
+- [ ] `next/image` for all provider logos
+- [ ] Email capture / newsletter integration
+- [ ] Google Search Console setup
+- [ ] Cookie consent banner
+- [ ] Legal review of Privacy Policy and T&Cs
+- [ ] Dark mode
 
 ---
 
 ## License
 
-(c) SoleTraderGuide. All rights reserved.
+© SoleTraderGuide. All rights reserved.
 
-Content on SoleTraderGuide.co.uk is for general information only and does not constitute financial, tax, or legal advice. Always seek professional advice for your specific circumstances.
+Content is for general information only and does not constitute financial, tax, or legal advice.

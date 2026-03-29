@@ -632,3 +632,110 @@ Always use direct internal links: `href="/path"` not `href="https://soletradergu
 - Do not modify provider pricing without verifying against provider websites
 - Do not use relative import paths — always use `@/`
 - Do not use `#` H1 in MDX body — the template renders the title from frontmatter
+
+---
+
+## VPS & Infrastructure
+
+### Overview
+
+A VPS at `api.parrytech.co` (SSH alias: `parrytech-vps`, user: `parryh`, IP: `157.180.95.179`) runs the automated blog publishing backend. It handles schedule storage and triggers the blog pipeline via Claude Code on a cron schedule.
+
+```
+Admin page → POST /api/admin/schedules (Next.js proxy, Vercel)
+  → VPS Express API :3001 → schedules.json
+
+Cron (*/15 * * * *) on VPS
+  → check-and-publish.sh
+      → git clone repo → /home/parryh/stg-publish-work/
+      → claude --print "/blog-pipeline on drafts/<file>" --dangerously-skip-permissions
+      → POST /api/schedules/:id/complete
+      → rm -rf /home/parryh/stg-publish-work/
+```
+
+### VPS file locations
+
+| Path | Purpose |
+|------|---------|
+| `/home/parryh/soletraderguide/` | Git repo clone (source of truth for scheduler files) |
+| `/home/parryh/soletraderguide/scheduler/server.js` | Express scheduler API |
+| `/home/parryh/soletraderguide/scheduler/.env` | `VPS_API_KEY` + `PORT` (not in git) |
+| `/home/parryh/soletraderguide/scheduler/schedules.json` | Live schedule data (not in git) |
+| `/home/parryh/soletraderguide/scheduler/check-and-publish.sh` | Cron runner script |
+| `/home/parryh/stg-publish-work/` | Temp repo clone during pipeline run (deleted after) |
+| `/etc/systemd/system/stg-scheduler.service` | systemd — runs scheduler API, auto-starts on reboot |
+| `/etc/caddy/Caddyfile` | Routes `api.parrytech.co/stg-scheduler/*` → `:3001` |
+| `~/.ssh/github_stg` | SSH deploy key for git push (write access) |
+| `/var/log/stg-publish.log` | Cron output log |
+
+### VPS environment
+
+| Item | Value |
+|------|-------|
+| Node.js | v20.20.2 via nvm (`~/.nvm`) |
+| Claude Code binary | `/home/parryh/.nvm/versions/node/v20.20.2/bin/claude` |
+| Claude auth | Claude Pro — authenticated via `claude auth login --claudeai` |
+| GitHub SSH config | `~/.ssh/config` maps `github.com` → `~/.ssh/github_stg` |
+
+> **Important for cron scripts:** cron does not load nvm or shell profile. Always use the full path to binaries and explicitly export PATH:
+> ```bash
+> CLAUDE_BIN="/home/parryh/.nvm/versions/node/v20.20.2/bin/claude"
+> export PATH="/home/parryh/.nvm/versions/node/v20.20.2/bin:$PATH"
+> ```
+
+### Scheduler API endpoints
+
+Auth: `Authorization: Bearer <VPS_API_KEY>` on all endpoints except `/health`.
+
+| Method | Path | Purpose |
+|--------|------|---------|
+| `GET` | `/health` | Health check (no auth) |
+| `GET` | `/api/schedules` | List all schedules |
+| `GET` | `/api/schedules/due` | Pending where `scheduledAt <= now` |
+| `POST` | `/api/schedules` | Create schedule |
+| `PATCH` | `/api/schedules/:id` | Update date/notes/priority |
+| `DELETE` | `/api/schedules/:id` | Remove schedule |
+| `POST` | `/api/schedules/:id/complete` | Mark as published |
+
+### Updating VPS files
+
+All scheduler files are tracked in `scheduler/` in this repo. The VPS runs from its local clone of this repo.
+
+**To update the cron script or server:**
+1. Edit `scheduler/check-and-publish.sh` or `scheduler/server.js` locally
+2. Commit + push to `main`
+3. SSH to VPS: `cd /home/parryh/soletraderguide && git pull origin main`
+4. For `server.js` changes only: `systemctl restart stg-scheduler`
+
+**Never edit scheduler files directly on the VPS.** Always go through the repo.
+
+### Vercel environment variables
+
+| Variable | Purpose |
+|----------|---------|
+| `VPS_API_URL` | `https://api.parrytech.co/stg-scheduler` |
+| `VPS_API_SECRET` | Shared secret — must match `VPS_API_KEY` in VPS `.env` |
+
+### Debugging
+
+```bash
+ssh parrytech-vps
+
+# Check cron log
+tail -50 /var/log/stg-publish.log
+
+# Check scheduler service
+systemctl status stg-scheduler
+
+# Check schedules in DB
+curl -s -H "Authorization: Bearer <VPS_API_KEY>" http://127.0.0.1:3001/api/schedules
+
+# Check what's due right now
+curl -s -H "Authorization: Bearer <VPS_API_KEY>" http://127.0.0.1:3001/api/schedules/due
+
+# Run cron script manually
+/home/parryh/soletraderguide/scheduler/check-and-publish.sh
+
+# Check Claude auth
+export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh" && claude auth status
+```
