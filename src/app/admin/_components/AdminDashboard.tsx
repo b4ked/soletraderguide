@@ -328,7 +328,7 @@ export default function AdminDashboard() {
 
   const staleDrafts = drafts.filter((d) => daysSince(d.lastModified) > 30)
   const stalePublished = published.filter((p) => daysSince(p.updatedAt) > 60)
-  const scheduledDrafts = drafts.filter((d) => schedule[d.slug]?.targetDate)
+  const scheduledDrafts = drafts.filter((d) => schedule[d.slug]?.targetDate && schedule[d.slug]?.status !== 'published')
   const lastPublished = published[0]
 
   const filteredDrafts = drafts.filter(
