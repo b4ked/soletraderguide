@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import type { DraftMeta } from '@/app/api/admin/drafts/route'
 import type { PublishedMeta } from '@/app/api/admin/published/route'
 
-type Tab = 'overview' | 'drafts' | 'published' | 'analytics' | 'links'
+type Tab = 'overview' | 'drafts' | 'published' | 'analytics' | 'vps' | 'links'
 
 interface Schedule {
   [slug: string]: {
@@ -31,6 +31,38 @@ interface AnalyticsData {
   deployments?: DeploymentMeta[]
 }
 
+interface VpsSchedule {
+  id: string
+  draftFile: string
+  draftTitle: string
+  scheduledAt: string
+  status: 'pending' | 'published'
+  priority: 'high' | 'medium' | 'low'
+  notes: string
+  createdAt: string
+  publishedAt: string | null
+}
+
+interface VpsStatus {
+  lastCheck: string | null
+  lastResult: string | null
+  checksTotal: number
+  dueFound: number
+  lastPublished: string | null
+  lastDraftPublished: string | null
+  pending: number
+  published: number
+  total: number
+  uptimeSeconds: number
+  serverTime: string
+}
+
+interface VpsData {
+  error?: string
+  status?: VpsStatus
+  schedules?: VpsSchedule[]
+}
+
 function daysSince(dateStr: string): number {
   if (!dateStr) return 0
   const date = new Date(dateStr)
@@ -44,6 +76,38 @@ function formatDate(dateStr: string): string {
     month: 'short',
     year: 'numeric',
   })
+}
+
+function formatDateTime(isoStr: string): string {
+  if (!isoStr) return '—'
+  return (
+    new Date(isoStr).toLocaleString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: 'UTC',
+    }) + ' UTC'
+  )
+}
+
+function timeAgo(isoStr: string): string {
+  if (!isoStr) return 'never'
+  const diff = Date.now() - new Date(isoStr).getTime()
+  const mins = Math.floor(diff / 60000)
+  if (mins < 1) return 'just now'
+  if (mins < 60) return `${mins}m ago`
+  const hours = Math.floor(mins / 60)
+  if (hours < 24) return `${hours}h ago`
+  return `${Math.floor(hours / 24)}d ago`
+}
+
+function uptimeStr(seconds: number): string {
+  if (seconds < 60) return `${seconds}s`
+  if (seconds < 3600) return `${Math.floor(seconds / 60)}m`
+  if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ${Math.floor((seconds % 3600) / 60)}m`
+  return `${Math.floor(seconds / 86400)}d ${Math.floor((seconds % 86400) / 3600)}h`
 }
 
 function CategoryBadge({ category }: { category: string }) {
@@ -90,7 +154,12 @@ function ScheduleModal({
   onSave: (slug: string, data: Schedule[string]) => void
   onClose: () => void
 }) {
-  const [targetDate, setTargetDate] = useState(existing?.targetDate ?? '')
+  const initDateTime = existing?.targetDate
+    ? existing.targetDate.includes('T')
+      ? existing.targetDate
+      : existing.targetDate + 'T09:00'
+    : ''
+  const [targetDate, setTargetDate] = useState(initDateTime)
   const [notes, setNotes] = useState(existing?.notes ?? '')
   const [priority, setPriority] = useState<'high' | 'medium' | 'low'>(
     existing?.priority ?? 'medium'
@@ -119,10 +188,10 @@ function ScheduleModal({
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Target publish date
+              Publish date &amp; time <span className="text-gray-400 font-normal">(UTC)</span>
             </label>
             <input
-              type="date"
+              type="datetime-local"
               value={targetDate}
               onChange={(e) => setTargetDate(e.target.value)}
               className="w-full rounded-lg border border-gray-300 px-3.5 py-2.5 text-sm focus:border-[#0d6e6e] focus:outline-none focus:ring-2 focus:ring-[#0d6e6e]/20"
@@ -160,7 +229,7 @@ function ScheduleModal({
           </div>
 
           <div className="bg-blue-50 rounded-lg p-3 text-xs text-blue-700">
-            <strong>Note:</strong> Schedule is saved to the VPS and checked every 30 minutes. When due, Claude Code will automatically run the full Write-Up → SEO → QA → publish pipeline.
+            <strong>Note:</strong> Schedule is saved to the VPS and checked every 15 minutes. When due, Claude Code will automatically run the full Write-Up → SEO → QA → publish pipeline. Enter time in UTC.
           </div>
         </div>
 
@@ -195,6 +264,10 @@ export default function AdminDashboard() {
   const [published, setPublished] = useState<PublishedMeta[]>([])
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
   const [analyticsLoading, setAnalyticsLoading] = useState(false)
+  const [vpsData, setVpsData] = useState<VpsData | null>(null)
+  const [vpsLoading, setVpsLoading] = useState(false)
+  const [vpsLogs, setVpsLogs] = useState<string[]>([])
+  const [vpsLogsLoading, setVpsLogsLoading] = useState(false)
   const [schedule, setSchedule] = useState<Schedule>({})
   const [schedulingDraft, setSchedulingDraft] = useState<DraftMeta | null>(null)
   const [draftSearch, setDraftSearch] = useState('')
@@ -269,20 +342,59 @@ export default function AdminDashboard() {
     if (tab === 'analytics') loadAnalytics()
   }, [tab, loadAnalytics])
 
+  const loadVpsData = useCallback(async () => {
+    if (vpsData || vpsLoading) return
+    setVpsLoading(true)
+    try {
+      const res = await fetch('/api/admin/vps')
+      const data = await res.json()
+      setVpsData(data)
+    } catch {
+      setVpsData({ error: 'Could not reach VPS' })
+    } finally {
+      setVpsLoading(false)
+    }
+  }, [vpsData, vpsLoading])
+
+  const loadVpsLogs = useCallback(async () => {
+    if (vpsLogs.length || vpsLogsLoading) return
+    setVpsLogsLoading(true)
+    try {
+      const res = await fetch('/api/admin/vps/logs?lines=100')
+      const data = await res.json()
+      setVpsLogs(data.lines ?? [])
+    } catch {
+      setVpsLogs(['Could not fetch logs.'])
+    } finally {
+      setVpsLogsLoading(false)
+    }
+  }, [vpsLogs.length, vpsLogsLoading])
+
+  useEffect(() => {
+    if (tab === 'vps') {
+      loadVpsData()
+      loadVpsLogs()
+    }
+  }, [tab, loadVpsData, loadVpsLogs])
+
   async function saveSchedule(slug: string, data: Schedule[string]) {
     const draft = drafts.find((d) => d.slug === slug)
     if (!draft) return
     if (!data.targetDate) return
     const existing = schedule[slug]
-    const scheduledAt = data.targetDate + 'T09:00:00.000Z'
+    // datetime-local gives "YYYY-MM-DDTHH:mm" — append seconds+Z to treat as UTC
+    const scheduledAt = data.targetDate.includes('T')
+      ? data.targetDate + ':00.000Z'
+      : data.targetDate + 'T09:00:00.000Z'
 
     try {
       if (existing?.id) {
-        await fetch(`/api/admin/schedules/${existing.id}`, {
+        const res = await fetch(`/api/admin/schedules/${existing.id}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ scheduledAt, notes: data.notes, priority: data.priority }),
         })
+        if (!res.ok) return
         setSchedule((prev) => ({
           ...prev,
           [slug]: { ...prev[slug], ...data },
@@ -299,11 +411,19 @@ export default function AdminDashboard() {
             priority: data.priority,
           }),
         })
+        if (!res.ok) {
+          if (res.status === 409) {
+            alert('A pending schedule already exists for this draft. Remove the existing schedule first or edit it.')
+          }
+          return
+        }
         const created = await res.json()
         setSchedule((prev) => ({
           ...prev,
           [slug]: { ...data, id: created.id, status: 'pending' },
         }))
+        // Refresh VPS data so the VPS tab shows the new schedule
+        setVpsData(null)
       }
     } catch {
       // API not available
@@ -344,6 +464,7 @@ export default function AdminDashboard() {
     { id: 'drafts', label: 'Drafts', count: drafts.length },
     { id: 'published', label: 'Published', count: published.length },
     { id: 'analytics', label: 'Analytics' },
+    { id: 'vps', label: 'VPS' },
     { id: 'links', label: 'Quick Links' },
   ]
 
@@ -407,7 +528,7 @@ export default function AdminDashboard() {
         </div>
 
         <div className="p-6">
-          {loading && tab !== 'analytics' && tab !== 'links' ? (
+          {loading && tab !== 'analytics' && tab !== 'links' && tab !== 'vps' ? (
             <div className="py-12 text-center text-sm text-gray-400">
               Loading…
             </div>
@@ -872,6 +993,204 @@ export default function AdminDashboard() {
                       compliant, full REST API). Once connected, this tab will show live
                       page views, top pages, referrers, and devices directly here.
                     </p>
+                  </div>
+                </div>
+              )}
+
+              {/* ─── VPS ─── */}
+              {tab === 'vps' && (
+                <div className="space-y-6">
+                  {vpsLoading ? (
+                    <div className="py-12 text-center text-sm text-gray-400">Loading VPS data…</div>
+                  ) : vpsData?.error ? (
+                    <div className="rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-700">
+                      {vpsData.error}
+                    </div>
+                  ) : (
+                    <>
+                      {/* Status cards */}
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <h2 className="text-sm font-semibold text-gray-700">Scheduler Status</h2>
+                          <button
+                            onClick={() => { setVpsData(null); setVpsLogs([]) }}
+                            className="text-xs text-[#0d6e6e] hover:text-[#0a5a5a] font-medium"
+                          >
+                            Refresh
+                          </button>
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                          {[
+                            {
+                              label: 'Last cron check',
+                              value: vpsData?.status?.lastCheck ? timeAgo(vpsData.status.lastCheck) : 'never',
+                              sub: vpsData?.status?.lastCheck ? formatDateTime(vpsData.status.lastCheck) : undefined,
+                              colour: 'text-gray-900',
+                            },
+                            {
+                              label: 'Last result',
+                              value: vpsData?.status?.lastResult ?? '—',
+                              colour:
+                                vpsData?.status?.lastResult === 'published'
+                                  ? 'text-green-600'
+                                  : vpsData?.status?.lastResult === 'error'
+                                  ? 'text-red-600'
+                                  : 'text-gray-900',
+                            },
+                            {
+                              label: 'Total checks',
+                              value: vpsData?.status?.checksTotal?.toLocaleString() ?? '—',
+                              colour: 'text-blue-600',
+                            },
+                            {
+                              label: 'Server uptime',
+                              value: vpsData?.status?.uptimeSeconds != null
+                                ? uptimeStr(vpsData.status.uptimeSeconds)
+                                : '—',
+                              colour: 'text-gray-900',
+                            },
+                            {
+                              label: 'Pending schedules',
+                              value: vpsData?.status?.pending ?? '—',
+                              colour: 'text-purple-600',
+                            },
+                            {
+                              label: 'Published via VPS',
+                              value: vpsData?.status?.published ?? '—',
+                              colour: 'text-green-600',
+                            },
+                            {
+                              label: 'Last published',
+                              value: vpsData?.status?.lastPublished ? timeAgo(vpsData.status.lastPublished) : 'never',
+                              sub: vpsData?.status?.lastDraftPublished ?? undefined,
+                              colour: 'text-gray-900',
+                            },
+                            {
+                              label: 'Server time',
+                              value: vpsData?.status?.serverTime
+                                ? new Date(vpsData.status.serverTime).toLocaleTimeString('en-GB', { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' }) + ' UTC'
+                                : '—',
+                              colour: 'text-gray-900',
+                            },
+                          ].map((s) => (
+                            <div key={s.label} className="bg-gray-50 rounded-xl border border-gray-200 px-4 py-3">
+                              <p className="text-xs font-medium text-gray-500">{s.label}</p>
+                              <p className={`mt-1 text-lg font-bold ${s.colour}`}>{s.value}</p>
+                              {s.sub && <p className="text-xs text-gray-400 truncate mt-0.5">{s.sub}</p>}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* All schedules */}
+                      <div>
+                        <h2 className="text-sm font-semibold text-gray-700 mb-3">All Schedules</h2>
+                        <div className="rounded-xl border border-gray-200 overflow-hidden">
+                          <div className="overflow-x-auto">
+                            <table className="w-full text-sm min-w-[600px]">
+                              <thead className="bg-gray-50 text-xs font-medium text-gray-500">
+                                <tr>
+                                  <th className="px-4 py-3 text-left">Draft</th>
+                                  <th className="px-4 py-3 text-left">Scheduled for</th>
+                                  <th className="px-4 py-3 text-left">Status</th>
+                                  <th className="px-4 py-3 text-left">Priority</th>
+                                  <th className="px-4 py-3 text-left">Published at</th>
+                                  <th className="px-4 py-3 text-left">Created</th>
+                                </tr>
+                              </thead>
+                              <tbody className="divide-y divide-gray-100">
+                                {(vpsData?.schedules ?? []).length === 0 ? (
+                                  <tr>
+                                    <td colSpan={6} className="px-4 py-8 text-center text-gray-400">
+                                      No schedules found
+                                    </td>
+                                  </tr>
+                                ) : (
+                                  [...(vpsData?.schedules ?? [])]
+                                    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                                    .map((s) => (
+                                      <tr key={s.id} className="hover:bg-gray-50 transition-colors">
+                                        <td className="px-4 py-3">
+                                          <p className="font-medium text-gray-900 max-w-xs truncate">{s.draftTitle}</p>
+                                          <p className="text-xs text-gray-400 font-mono">{s.draftFile}</p>
+                                        </td>
+                                        <td className="px-4 py-3 text-xs text-gray-600 whitespace-nowrap">
+                                          {formatDateTime(s.scheduledAt)}
+                                        </td>
+                                        <td className="px-4 py-3">
+                                          <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
+                                            s.status === 'published'
+                                              ? 'bg-green-100 text-green-700'
+                                              : new Date(s.scheduledAt) < new Date()
+                                              ? 'bg-amber-100 text-amber-700'
+                                              : 'bg-blue-100 text-blue-700'
+                                          }`}>
+                                            {s.status === 'published' ? 'Published' : new Date(s.scheduledAt) < new Date() ? 'Due' : 'Pending'}
+                                          </span>
+                                        </td>
+                                        <td className="px-4 py-3">
+                                          <PriorityBadge priority={s.priority} />
+                                        </td>
+                                        <td className="px-4 py-3 text-xs text-gray-500 whitespace-nowrap">
+                                          {s.publishedAt ? formatDateTime(s.publishedAt) : '—'}
+                                        </td>
+                                        <td className="px-4 py-3 text-xs text-gray-500 whitespace-nowrap">
+                                          {formatDateTime(s.createdAt)}
+                                        </td>
+                                      </tr>
+                                    ))
+                                )}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {/* Cron log */}
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <h2 className="text-sm font-semibold text-gray-700">
+                        Cron Log <span className="font-normal text-gray-400">(last 100 lines)</span>
+                      </h2>
+                      <button
+                        onClick={() => setVpsLogs([])}
+                        className="text-xs text-[#0d6e6e] hover:text-[#0a5a5a] font-medium"
+                      >
+                        Refresh
+                      </button>
+                    </div>
+                    {vpsLogsLoading ? (
+                      <div className="text-sm text-gray-400">Loading logs…</div>
+                    ) : (
+                      <div className="bg-gray-950 rounded-xl overflow-hidden">
+                        <div className="overflow-y-auto max-h-96 p-4 font-mono text-xs text-gray-300 space-y-0.5">
+                          {vpsLogs.length === 0 ? (
+                            <p className="text-gray-500">No log entries found.</p>
+                          ) : (
+                            [...vpsLogs].reverse().map((line, i) => (
+                              <p
+                                key={i}
+                                className={
+                                  line.includes('PUBLISHED') || line.includes('published')
+                                    ? 'text-green-400'
+                                    : line.includes('ERROR') || line.includes('error')
+                                    ? 'text-red-400'
+                                    : line.includes('WARNING') || line.includes('skipping')
+                                    ? 'text-amber-400'
+                                    : line.includes('Cloning') || line.includes('pipeline')
+                                    ? 'text-blue-300'
+                                    : 'text-gray-300'
+                                }
+                              >
+                                {line}
+                              </p>
+                            ))
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}

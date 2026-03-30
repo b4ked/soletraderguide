@@ -12,6 +12,8 @@ app.use(express.json())
 const PORT = process.env.PORT || 3001
 const API_KEY = process.env.VPS_API_KEY
 const DATA_FILE = path.join(__dirname, 'schedules.json')
+const STATUS_FILE = path.join(__dirname, 'status.json')
+const LOG_FILE = '/var/log/stg-publish.log'
 
 // ─── Auth middleware ────────────────────────────────────────────────────────
 
@@ -43,17 +45,82 @@ function persistSchedules(schedules) {
   fs.writeFileSync(DATA_FILE, JSON.stringify(schedules, null, 2), 'utf8')
 }
 
+function loadStatus() {
+  try {
+    if (fs.existsSync(STATUS_FILE)) {
+      return JSON.parse(fs.readFileSync(STATUS_FILE, 'utf8'))
+    }
+  } catch {}
+  return { lastCheck: null, lastResult: null, checksTotal: 0, lastPublished: null, lastDraftPublished: null }
+}
+
+function persistStatus(status) {
+  fs.writeFileSync(STATUS_FILE, JSON.stringify(status, null, 2), 'utf8')
+}
+
 // ─── Routes ─────────────────────────────────────────────────────────────────
 
 // Health check (no auth required)
 app.get('/health', (_req, res) => {
   const all = loadSchedules()
+  const status = loadStatus()
   res.json({
     ok: true,
     total: all.length,
     pending: all.filter((s) => s.status === 'pending').length,
     published: all.filter((s) => s.status === 'published').length,
+    lastCheck: status.lastCheck,
   })
+})
+
+// GET /api/status — cron health, schedule counts, uptime
+app.get('/api/status', requireAuth, (_req, res) => {
+  const status = loadStatus()
+  const schedules = loadSchedules()
+  res.json({
+    ...status,
+    pending: schedules.filter((s) => s.status === 'pending').length,
+    published: schedules.filter((s) => s.status === 'published').length,
+    total: schedules.length,
+    uptimeSeconds: Math.floor(process.uptime()),
+    serverTime: new Date().toISOString(),
+  })
+})
+
+// POST /api/status/ping — called by cron at start and end of each run
+app.post('/api/status/ping', requireAuth, (req, res) => {
+  const { result, dueFound, draftPublished } = req.body
+  const current = loadStatus()
+  const updated = {
+    lastCheck: new Date().toISOString(),
+    lastResult: result || 'ok',
+    dueFound: dueFound ?? current.dueFound ?? 0,
+    checksTotal: (current.checksTotal || 0) + 1,
+    lastPublished: draftPublished ? new Date().toISOString() : current.lastPublished,
+    lastDraftPublished: draftPublished || current.lastDraftPublished,
+  }
+  persistStatus(updated)
+  res.json(updated)
+})
+
+// GET /api/logs — last N lines of the cron publish log
+app.get('/api/logs', requireAuth, (req, res) => {
+  const lines = Math.min(parseInt(req.query.lines) || 100, 500)
+  try {
+    if (!fs.existsSync(LOG_FILE)) {
+      return res.json({ lines: [], path: LOG_FILE, exists: false })
+    }
+    const content = fs.readFileSync(LOG_FILE, 'utf8')
+    const allLines = content.split('\n').filter((l) => l.trim())
+    res.json({
+      lines: allLines.slice(-lines),
+      total: allLines.length,
+      path: LOG_FILE,
+      exists: true,
+    })
+  } catch (err) {
+    res.status(500).json({ error: 'Could not read log file', detail: err.message })
+  }
 })
 
 // GET /api/schedules — list all schedules

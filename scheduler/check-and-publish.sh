@@ -61,6 +61,13 @@ DUE_JSON=$(curl -sf \
 COUNT=$(echo "$DUE_JSON" | python3 -c "import sys,json; print(len(json.load(sys.stdin)))" 2>/dev/null || echo "0")
 echo "[$LOG_DATE] Due drafts: $COUNT"
 
+# Ping status endpoint — record this cron check
+curl -sf -X POST \
+  -H "Authorization: Bearer ${VPS_API_KEY}" \
+  -H "Content-Type: application/json" \
+  -d "{\"result\":\"checking\",\"dueFound\":${COUNT}}" \
+  "${API_URL}/api/status/ping" > /dev/null 2>&1 || true
+
 if [ "$COUNT" -eq 0 ]; then
   echo "[$LOG_DATE] Nothing due. Exiting."
   exit 0
@@ -123,6 +130,12 @@ If the quality gate fails, DO NOT commit. Output QUALITY_GATE_FAIL in your summa
     LOG_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
     echo "[$LOG_DATE] PUBLISHED: $DRAFT_FILE"
     echo "[$LOG_DATE] Scheduler updated: $COMPLETE_RESULT"
+    # Ping status — record successful publish
+    curl -sf -X POST \
+      -H "Authorization: Bearer ${VPS_API_KEY}" \
+      -H "Content-Type: application/json" \
+      -d "{\"result\":\"published\",\"draftPublished\":\"${DRAFT_FILE}\"}" \
+      "${API_URL}/api/status/ping" > /dev/null 2>&1 || true
   else
     LOG_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
     echo "[$LOG_DATE] PIPELINE DID NOT COMPLETE for $DRAFT_FILE — not marked as published"

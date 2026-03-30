@@ -43,6 +43,7 @@ next-env.d.ts
 
 # scheduler — runtime data (never commit live schedule data)
 scheduler/schedules.json
+scheduler/status.json
 scheduler/node_modules
 # Allow the example file despite the .env* rule above
 !scheduler/.env.example
