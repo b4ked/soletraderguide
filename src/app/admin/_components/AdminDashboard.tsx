@@ -1163,13 +1163,12 @@ export default function AdminDashboard() {
                     </div>
                     {vpsLogsLoading ? (
                       <div className="text-sm text-gray-400">Loading logs…</div>
+                    ) : vpsLogs.length === 0 ? (
+                      <p className="text-sm text-gray-500">No log entries found.</p>
                     ) : (
                       <div className="bg-gray-950 rounded-xl overflow-hidden">
                         <div className="overflow-y-auto max-h-96 p-4 font-mono text-xs text-gray-300 space-y-0.5">
-                          {vpsLogs.length === 0 ? (
-                            <p className="text-gray-500">No log entries found.</p>
-                          ) : (
-                            [...vpsLogs].reverse().map((line, i) => (
+                          {[...vpsLogs].reverse().map((line, i) => (
                               <p
                                 key={i}
                                 className={
@@ -1187,7 +1186,7 @@ export default function AdminDashboard() {
                                 {line}
                               </p>
                             ))
-                          )}
+                          }
                         </div>
                       </div>
                     )}
