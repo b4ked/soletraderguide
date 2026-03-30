@@ -142,7 +142,7 @@ export const freeagent: Provider = {
   id: 'freeagent',
   name: 'FreeAgent',
   slug: 'freeagent',
-  logo: '/logos/freeagent.svg',
+  logo: '/logos/freeagent.png',
   tagline: 'Accounting built specifically for freelancers and sole traders',
   bestFor: [
     'Freelancers and sole traders who want all-in-one MTD + Self Assessment',
