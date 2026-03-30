@@ -133,6 +133,8 @@ export default function QuickBooksReviewPage() {
         verdict="QuickBooks is a comprehensive, HMRC-recognised MTD platform with one of the widest feature sets available for UK sole traders. The Self-Employed plan offers an affordable entry point, while the higher tiers are among the most capable accounting tools on the market. Its interface can feel busy, but the depth of functionality is hard to beat."
         bestFor="Sole traders wanting comprehensive features and strong reporting"
         price="From £8/month (Self-Employed)"
+        logo={quickbooks.logo}
+        name={quickbooks.name}
         className="mb-8"
       />
 

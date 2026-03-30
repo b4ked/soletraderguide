@@ -133,6 +133,8 @@ export default function SageReviewPage() {
         verdict="Sage Accounting is a reliable, HMRC-recognised MTD platform built by a well-established UK company. Its UK-based support is a genuine differentiator, and the Accounting Start plan is competitively priced for sole traders. However, the interface is less polished than Xero or QuickBooks, and the integrations ecosystem is smaller. Best for sole traders who value UK support and compliance confidence."
         bestFor="Established sole traders who value UK-based support"
         price="From £15/month (Accounting Start)"
+        logo={sage.logo}
+        name={sage.name}
         className="mb-8"
       />
 

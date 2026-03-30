@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Star } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -7,6 +8,10 @@ interface QuickVerdictProps {
   score: number
   bestFor: string
   price: string
+  /** Path to the provider logo file (e.g. provider.logo) */
+  logo?: string
+  /** Provider name used as alt text */
+  name?: string
   className?: string
 }
 
@@ -19,6 +24,8 @@ export function QuickVerdict({
   score,
   bestFor,
   price,
+  logo,
+  name,
   className,
 }: QuickVerdictProps) {
   return (
@@ -31,8 +38,18 @@ export function QuickVerdict({
       aria-label="Quick verdict"
     >
       <div className="flex flex-col sm:flex-row sm:items-start gap-4">
-        {/* Score */}
+        {/* Score + optional logo */}
         <div className="shrink-0 text-center">
+          {logo && (
+            <div className="relative mx-auto mb-3 size-14 overflow-hidden rounded-xl bg-white shadow-sm">
+              <Image
+                src={logo}
+                alt={name ? `${name} logo` : 'Provider logo'}
+                fill
+                className="object-contain p-1.5"
+              />
+            </div>
+          )}
           <div className="text-4xl font-bold text-brand leading-none">{score.toFixed(1)}</div>
           <div className="mt-1 flex justify-center gap-0.5">
             {Array.from({ length: 5 }).map((_, i) => (

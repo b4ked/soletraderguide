@@ -133,6 +133,8 @@ export default function FreeAgentReviewPage() {
         verdict="FreeAgent is our top pick for freelancers and sole traders. It was purpose-built for self-employed people from day one, and it shows. The tax timeline dashboard, self-assessment filing, and MTD submissions are all included — and if you bank with NatWest or RBS, you get the whole platform for free. For NatWest/RBS customers, it is simply the best deal in the market."
         bestFor="Freelancers and sole traders — especially NatWest/RBS customers"
         price="£19/month sole trader plan (free with NatWest/RBS)"
+        logo={freeagent.logo}
+        name={freeagent.name}
         className="mb-8"
       />
 

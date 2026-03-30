@@ -133,6 +133,8 @@ export default function XeroReviewPage() {
         verdict="Xero is a powerful, HMRC-recognised MTD platform that suits sole traders who need more than just the basics. Its bank feeds, invoicing, and integrations ecosystem are genuinely impressive — but it comes at a cost, and simpler alternatives may serve very small businesses better."
         bestFor="Growing sole traders who want powerful features"
         price="From £16/month (Starter)"
+        logo={xero.logo}
+        name={xero.name}
         className="mb-8"
       />
 
