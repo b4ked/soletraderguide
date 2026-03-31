@@ -15,7 +15,7 @@ export const metadata = buildMetadata({
     'MTD record-keeping requirements for sole traders — what income and expense records HMRC requires, what digital means in practice, how long to keep records, and whether photos of receipts count.',
   canonicalPath: '/mtd-for-sole-traders/records-you-need-to-keep/',
   pageType: 'guide',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const faqs: FAQ[] = [
@@ -79,7 +79,7 @@ export default function RecordsPage() {
           income and expenses. Here&apos;s exactly what HMRC expects, what counts as a digital
           record, and how long you need to keep everything.
         </p>
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </header>
 
       <InfoCallout type="info" title="Digital Records are Mandatory">

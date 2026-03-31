@@ -15,7 +15,7 @@ export const metadata = buildMetadata({
     'Find out if you need to comply with MTD for Income Tax. Understand the £50,000 threshold, what counts as qualifying income, landlord rules, exemptions, and how to check your obligations.',
   canonicalPath: '/mtd-for-sole-traders/am-i-affected/',
   pageType: 'guide',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const faqs: FAQ[] = [
@@ -79,7 +79,7 @@ export default function AmIAffectedPage() {
           a set threshold. Here&apos;s how to work out whether you&apos;re in scope, when you
           need to start, and what you can do if you think you might qualify for an exemption.
         </p>
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </header>
 
       <InfoCallout type="deadline" title="Mandatory from April 2026">

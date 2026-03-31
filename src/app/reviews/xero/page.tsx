@@ -26,7 +26,7 @@ export const metadata = genMeta({
     'An honest, in-depth Xero review for sole traders. We cover MTD compatibility, pricing, ease of use, pros and cons, and who Xero is really best for in 2025.',
   canonicalPath: '/reviews/xero',
   pageType: 'review',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const features = [
@@ -118,7 +118,7 @@ export default function XeroReviewPage() {
           Xero Review: MTD Software for Sole Traders (2025)
         </h1>
         <div className="flex flex-wrap items-center gap-3">
-          <LastUpdated date="2025-03-01" />
+          <LastUpdated date="2026-03-31" />
           <ReviewedBy
             name="SoleTraderGuide Editorial Team"
             role="UK Tax Content Specialists"

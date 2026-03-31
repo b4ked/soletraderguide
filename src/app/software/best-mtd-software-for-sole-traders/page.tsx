@@ -17,7 +17,7 @@ export const metadata = buildMetadata({
     'Our top-rated MTD-compatible software picks for sole traders in 2025. We review Xero, QuickBooks, Sage, and FreeAgent — ranked by price, features, and suitability for sole traders.',
   canonicalPath: '/software/best-mtd-software-for-sole-traders/',
   pageType: 'review',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const faqs: FAQ[] = [
@@ -75,7 +75,7 @@ export default function BestMtdSoftwarePage() {
           here are our top picks — with honest assessments of pricing, features, and who each
           product suits best.
         </p>
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </header>
 
       <AffiliateDisclosure variant="banner" className="mb-6 max-w-3xl" />
@@ -99,7 +99,7 @@ export default function BestMtdSoftwarePage() {
           these are clearly disclosed.
         </p>
         <p className="text-slate-600 leading-relaxed">
-          Pricing information is accurate as of March 2025. Software pricing changes frequently —
+          Pricing information is accurate as of March 2026. Software pricing changes frequently —
           always check the provider&apos;s website for the current price before subscribing.
         </p>
       </section>

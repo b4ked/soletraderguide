@@ -1,7 +1,7 @@
 import type { BreadcrumbItem } from '@/types'
 
 /**
- * Format a date string to the UK-preferred "18 March 2025" format.
+ * Format a date string to the UK-preferred "18 March 2026" format.
  * Accepts ISO strings (e.g. "2025-03-18") or any date string parseable by Date.
  */
 export function formatDate(dateString: string): string {

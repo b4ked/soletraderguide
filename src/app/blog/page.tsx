@@ -36,7 +36,7 @@ export default function BlogPage() {
       <BlogFilterClient posts={posts} />
 
       <div className="mt-12 border-t border-border pt-6">
-        <LastUpdated date={posts[0]?.publishedAt ?? '2025-03-01'} />
+        <LastUpdated date={posts[0]?.publishedAt ?? '2026-03-31'} />
       </div>
     </div>
   )

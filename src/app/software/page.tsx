@@ -18,7 +18,7 @@ export const metadata = buildMetadata({
     'Compare MTD-compatible accounting software for sole traders. Review Xero, QuickBooks, Sage, and FreeAgent — including pricing, features, and which is best for your situation.',
   canonicalPath: '/software/',
   pageType: 'hub',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const faqs: FAQ[] = [
@@ -74,7 +74,7 @@ export default function SoftwareHubPage() {
           keep digital records and submit quarterly updates. Here&apos;s a complete overview of
           your options — and how to choose the right one for your business.
         </p>
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </header>
 
       <AffiliateDisclosure variant="banner" className="mb-6 max-w-3xl" />

@@ -18,7 +18,7 @@ export const metadata = genMeta({
     'QuickBooks vs Sage compared for UK sole traders. QuickBooks leads on features and mobile; Sage wins on UK support and compliance. Find out which is right for you.',
   canonicalPath: '/comparisons/quickbooks-vs-sage',
   pageType: 'comparison',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const features: ComparisonFeature[] = [
@@ -116,11 +116,11 @@ export default function QuickBooksVsSagePage() {
           QuickBooks vs Sage for Sole Traders: MTD Software Compared (2025)
         </h1>
         <div className="flex flex-wrap items-center gap-3">
-          <LastUpdated date="2025-03-01" />
+          <LastUpdated date="2026-03-31" />
           <ReviewedBy
             name="SoleTraderGuide Editorial Team"
             role="MTD Software Analyst"
-            date="2025-03-01"
+            date="2026-03-31"
           />
         </div>
       </header>

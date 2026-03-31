@@ -26,7 +26,7 @@ export const metadata = genMeta({
     'A detailed FreeAgent review for UK sole traders and freelancers. Covers MTD compatibility, self-assessment filing, NatWest/RBS free access, pricing, pros and cons, and who it suits.',
   canonicalPath: '/reviews/freeagent',
   pageType: 'review',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const features = [
@@ -118,7 +118,7 @@ export default function FreeAgentReviewPage() {
           FreeAgent Review: MTD Software for Sole Traders and Freelancers (2025)
         </h1>
         <div className="flex flex-wrap items-center gap-3">
-          <LastUpdated date="2025-03-01" />
+          <LastUpdated date="2026-03-31" />
           <ReviewedBy
             name="SoleTraderGuide Editorial Team"
             role="UK Tax Content Specialists"

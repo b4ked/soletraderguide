@@ -26,7 +26,7 @@ export const metadata = genMeta({
     'An in-depth Sage Accounting review for UK sole traders. We cover MTD compatibility, pricing, UK support, pros and cons, and whether Sage is worth it in 2025.',
   canonicalPath: '/reviews/sage',
   pageType: 'review',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const features = [
@@ -118,7 +118,7 @@ export default function SageReviewPage() {
           Sage Accounting Review: MTD Software for Sole Traders (2025)
         </h1>
         <div className="flex flex-wrap items-center gap-3">
-          <LastUpdated date="2025-03-01" />
+          <LastUpdated date="2026-03-31" />
           <ReviewedBy
             name="SoleTraderGuide Editorial Team"
             role="UK Tax Content Specialists"

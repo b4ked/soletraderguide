@@ -32,7 +32,7 @@ export default function PrivacyPolicyPage() {
         Protection Act 2018.
       </p>
       <p className="mt-3 text-sm text-muted-foreground">
-        This policy was last updated March 2025. For legal advice specific to your situation,
+        This policy was last updated March 2026. For legal advice specific to your situation,
         consult a qualified solicitor.
       </p>
 
@@ -198,7 +198,7 @@ export default function PrivacyPolicyPage() {
       </div>
 
       <div className="mt-10 border-t border-border pt-6">
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </div>
     </div>
   )

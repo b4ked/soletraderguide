@@ -18,49 +18,49 @@ const sources = [
     title: 'HMRC: Making Tax Digital for Income Tax',
     url: 'https://www.gov.uk/guidance/using-making-tax-digital-for-income-tax',
     description: 'Official HMRC guidance on MTD ITSA, eligibility, signing up, and submitting updates.',
-    date: 'March 2025',
+    date: 'March 2026',
   },
   {
     title: 'HMRC: Find software suppliers for Making Tax Digital for Income Tax',
     url: 'https://www.gov.uk/guidance/find-software-thats-compatible-with-making-tax-digital-for-income-tax',
     description: 'HMRC\'s official list of recognised MTD-compatible software products.',
-    date: 'March 2025',
+    date: 'March 2026',
   },
   {
     title: 'Xero UK: Pricing and feature documentation',
     url: 'https://www.xero.com/uk/pricing-plans/',
     description: 'Xero\'s UK pricing pages and help centre documentation, used to verify features and costs.',
-    date: 'March 2025',
+    date: 'March 2026',
   },
   {
     title: 'QuickBooks UK: Documentation and pricing',
     url: 'https://quickbooks.intuit.com/uk/pricing/',
     description: 'Intuit QuickBooks UK pricing and feature documentation for the Self-Employed and Simple Start plans.',
-    date: 'March 2025',
+    date: 'March 2026',
   },
   {
     title: 'Sage UK: Accounting software documentation',
     url: 'https://www.sage.com/en-gb/accounting-software/',
     description: 'Sage UK product and pricing pages, including Sage Accounting Start for sole traders.',
-    date: 'March 2025',
+    date: 'March 2026',
   },
   {
     title: 'FreeAgent: Documentation and MTD guidance',
     url: 'https://www.freeagent.com/making-tax-digital/',
     description: 'FreeAgent\'s MTD guidance, pricing, and feature documentation.',
-    date: 'March 2025',
+    date: 'March 2026',
   },
   {
     title: 'AccountingWeb: Making Tax Digital coverage',
     url: 'https://www.accountingweb.co.uk/tax/personal-tax/making-tax-digital',
     description: 'UK accountancy trade publication covering MTD policy developments, HMRC consultations, and practitioner perspectives.',
-    date: 'March 2025',
+    date: 'March 2026',
   },
   {
     title: 'ICAEW: Making Tax Digital resources',
     url: 'https://www.icaew.com/technical/tax/making-tax-digital',
     description: 'Institute of Chartered Accountants in England and Wales MTD guidance and policy commentary.',
-    date: 'March 2025',
+    date: 'March 2026',
   },
 ]
 
@@ -225,7 +225,7 @@ export default function SourcesMethodologyPage() {
       </div>
 
       <div className="mt-10 border-t border-border pt-6">
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </div>
     </div>
   )

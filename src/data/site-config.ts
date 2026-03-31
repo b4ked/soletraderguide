@@ -8,7 +8,7 @@ export const siteConfig = {
   twitter: '',
   email: 'hello@soletraderguide.co.uk',
   publisherName: 'SoleTraderGuide',
-  lastReviewedDate: '2025-03-01',
+  lastReviewedDate: '2026-03-31',
   editorialEmail: 'editorial@soletraderguide.co.uk',
 }
 

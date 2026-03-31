@@ -18,7 +18,7 @@ export const metadata = genMeta({
     'Xero vs QuickBooks compared for UK sole traders in 2025. We look at MTD compatibility, pricing, ease of use, features, and who each platform is best for.',
   canonicalPath: '/comparisons/xero-vs-quickbooks',
   pageType: 'comparison',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const features: ComparisonFeature[] = [
@@ -116,11 +116,11 @@ export default function XeroVsQuickBooksPage() {
           Xero vs QuickBooks for Sole Traders: Which is Better for MTD? (2025)
         </h1>
         <div className="flex flex-wrap items-center gap-3">
-          <LastUpdated date="2025-03-01" />
+          <LastUpdated date="2026-03-31" />
           <ReviewedBy
             name="SoleTraderGuide Editorial Team"
             role="MTD Software Analyst"
-            date="2025-03-01"
+            date="2026-03-31"
           />
         </div>
       </header>

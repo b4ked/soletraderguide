@@ -117,7 +117,7 @@ export default function SoftwareChooserPage() {
       </div>
 
       <div className="mt-8 border-t border-border pt-6">
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </div>
     </div>
   )

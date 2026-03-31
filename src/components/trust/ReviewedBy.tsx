@@ -7,7 +7,7 @@ interface ReviewedByProps {
   name: string
   /** Professional role or qualification (e.g. "Chartered Accountant"). */
   role: string
-  /** ISO date string of the last review (e.g. "2025-03-01"). */
+  /** ISO date string of the last review (e.g. "2026-03-31"). */
   date: string
   className?: string
 }

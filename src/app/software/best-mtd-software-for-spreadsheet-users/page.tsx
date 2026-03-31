@@ -17,7 +17,7 @@ export const metadata = buildMetadata({
     'How to handle MTD if you currently use Excel or Google Sheets. Bridging software explained, which full accounting apps suit ex-spreadsheet users, and how to make the transition.',
   canonicalPath: '/software/best-mtd-software-for-spreadsheet-users/',
   pageType: 'review',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const faqs: FAQ[] = [
@@ -80,7 +80,7 @@ export default function BestMtdSoftwareForSpreadsheetUsersPage() {
           to handle the transition — whether you want to keep your spreadsheet or move to a
           dedicated accounting app.
         </p>
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </header>
 
       <AffiliateDisclosure variant="banner" className="mb-6 max-w-3xl" />

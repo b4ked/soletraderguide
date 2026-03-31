@@ -17,7 +17,7 @@ export const metadata = buildMetadata({
     'Compare entry-level MTD software prices for sole traders in 2025. Xero, QuickBooks, Sage, and FreeAgent ranked by cost — plus hidden costs to watch out for.',
   canonicalPath: '/software/cheapest-mtd-software/',
   pageType: 'review',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const faqs: FAQ[] = [
@@ -81,12 +81,12 @@ export default function CheapestMtdSoftwarePage() {
           MTD-compatible accounting software options for sole traders — including what you get at
           each entry-level price point and the hidden costs to watch out for.
         </p>
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </header>
 
       <AffiliateDisclosure variant="banner" className="mb-6 max-w-3xl" />
 
-      <InfoCallout type="info" title="Prices Correct as of March 2025">
+      <InfoCallout type="info" title="Prices Correct as of March 2026">
         All pricing shown is the standard monthly rate. Most providers offer discounts for annual
         billing and may run promotional offers for new subscribers. Always check the
         provider&apos;s website for the current price before subscribing.

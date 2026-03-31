@@ -17,7 +17,7 @@ export const metadata = buildMetadata({
     'Is there genuinely free MTD software for sole traders? We look at FreeAgent via NatWest/RBS, HMRC\'s basic tools, free trials, and what free usually means in practice.',
   canonicalPath: '/software/best-free-mtd-software/',
   pageType: 'review',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const faqs: FAQ[] = [
@@ -76,7 +76,7 @@ export default function BestFreeMtdSoftwarePage() {
           is one notable exception — and a few options worth knowing about if budget is your
           primary concern.
         </p>
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </header>
 
       <AffiliateDisclosure variant="banner" className="mb-6 max-w-3xl" />

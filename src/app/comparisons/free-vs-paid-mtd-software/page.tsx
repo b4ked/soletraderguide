@@ -14,7 +14,7 @@ export const metadata = genMeta({
     'Is there genuinely free MTD software for sole traders? We explain what HMRC offers, how to get FreeAgent for free via NatWest/RBS, and when paying for software is worth it.',
   canonicalPath: '/comparisons/free-vs-paid-mtd-software',
   pageType: 'comparison',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const faqs = [
@@ -64,11 +64,11 @@ export default function FreeVsPaidMtdSoftwarePage() {
           Free vs Paid MTD Software: What&apos;s the Difference for Sole Traders?
         </h1>
         <div className="flex flex-wrap items-center gap-3">
-          <LastUpdated date="2025-03-01" />
+          <LastUpdated date="2026-03-31" />
           <ReviewedBy
             name="SoleTraderGuide Editorial Team"
             role="MTD Software Analyst"
-            date="2025-03-01"
+            date="2026-03-31"
           />
         </div>
         <p className="mt-5 text-base text-muted-foreground leading-relaxed">

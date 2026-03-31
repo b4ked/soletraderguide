@@ -18,7 +18,7 @@ export const metadata = genMeta({
     'Xero vs FreeAgent compared for UK sole traders. FreeAgent is simpler and can be free via NatWest/RBS; Xero is more powerful for growth. Find out which suits you.',
   canonicalPath: '/comparisons/xero-vs-freeagent',
   pageType: 'comparison',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const features: ComparisonFeature[] = [
@@ -116,11 +116,11 @@ export default function XeroVsFreeAgentPage() {
           Xero vs FreeAgent for Sole Traders (2025): Which MTD Software Wins?
         </h1>
         <div className="flex flex-wrap items-center gap-3">
-          <LastUpdated date="2025-03-01" />
+          <LastUpdated date="2026-03-31" />
           <ReviewedBy
             name="SoleTraderGuide Editorial Team"
             role="MTD Software Analyst"
-            date="2025-03-01"
+            date="2026-03-31"
           />
         </div>
       </header>

@@ -12,7 +12,7 @@ export const metadata = genMeta({
     'Independent, in-depth reviews of MTD accounting software for UK sole traders. We cover Xero, QuickBooks, Sage, and FreeAgent — comparing features, pricing, and MTD suitability.',
   canonicalPath: '/reviews',
   pageType: 'hub',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 export default function ReviewsHubPage() {

@@ -11,7 +11,7 @@ export const metadata = genMeta({
     'Side-by-side comparisons of the best MTD accounting software for UK sole traders. Compare Xero, QuickBooks, Sage, and FreeAgent on features, price, and MTD suitability.',
   canonicalPath: '/comparisons',
   pageType: 'hub',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const comparisons = [

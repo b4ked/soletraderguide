@@ -15,7 +15,7 @@ export const metadata = buildMetadata({
     'A plain-English guide to MTD for Income Tax — what it is, why HMRC introduced it, how quarterly updates work, and how it differs from Self Assessment and MTD for VAT.',
   canonicalPath: '/mtd-for-sole-traders/what-is-mtd-income-tax/',
   pageType: 'guide',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const faqs: FAQ[] = [
@@ -79,7 +79,7 @@ export default function WhatIsMtdPage() {
           Assessment return with real-time digital reporting. Here&apos;s what it means in
           practice, why it exists, and what you&apos;ll actually need to do differently.
         </p>
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </header>
 
       <InfoCallout type="info" title="MTD for Income Tax vs MTD for VAT">

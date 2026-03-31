@@ -5,15 +5,17 @@ import { HeroSection } from '@/components/common/HeroSection'
 import { GuideCard } from '@/components/common/GuideCard'
 import { ProviderCard } from '@/components/comparison/ProviderCard'
 import { LastUpdated } from '@/components/trust/LastUpdated'
+import { TrustBar } from '@/components/trust/TrustBar'
+import { NewsletterSignup } from '@/components/common/NewsletterSignup'
 import { allProviders } from '@/data/providers'
 
 export const metadata = buildMetadata({
-  title: 'MTD for Income Tax: What Every Sole Trader Needs to Know',
+  title: "MTD Is Compulsory from April 2026 — Here's What to Do",
   description:
-    'Plain-English guidance on Making Tax Digital for Income Tax. Sole traders earning over £50,000 must use HMRC-approved software from April 2026. Compare MTD software, check your eligibility, and find the right solution.',
+    "Plain-English guidance on Making Tax Digital for Income Tax. Find out if you're affected, understand your deadlines, and compare MTD software — without needing an accountant to translate.",
   canonicalPath: '/',
   pageType: 'homepage',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 export default function HomePage() {
@@ -22,12 +24,42 @@ export default function HomePage() {
       {/* Hero */}
       <HeroSection
         badge="UK Making Tax Digital Guide"
-        heading="MTD for Income Tax: What Every Sole Trader Needs to Know"
-        subheading="Sole traders earning over £50,000 must use HMRC-approved software from April 2026. We help you understand the rules and find the right software."
+        heading="MTD Is Compulsory from April 2026. Here's What to Do."
+        subheading="Plain-English guidance so you know whether you're affected, what you need to change, and which software makes compliance straightforward — without needing an accountant to translate."
         primaryCta={{ label: 'Am I Affected?', href: '/mtd-for-sole-traders/am-i-affected/' }}
         secondaryCta={{ label: 'Compare Software', href: '/software/' }}
-        trustNote="Independent guidance. No financial advice. Updated March 2025."
+        trustNote="Independent guidance. No financial advice. Updated March 2026."
       />
+
+      {/* Trust bar — surfaces credibility before any commercial content */}
+      <TrustBar />
+
+      {/* Eligibility checker — position 2, the most common first question */}
+      <section className="bg-slate-50 border-b border-border py-12">
+        <div className="page-container">
+          <div className="max-w-2xl mx-auto rounded-2xl border-2 border-brand bg-white p-8 text-center shadow-sm">
+            <div className="mb-4 inline-flex size-12 items-center justify-center rounded-full bg-brand-light">
+              <CheckCircle className="size-6 text-brand" />
+            </div>
+            <h2 className="text-2xl font-bold text-slate-900 mb-3">
+              Not Sure if You&apos;re Affected?
+            </h2>
+            <p className="text-slate-600 mb-6 text-sm leading-relaxed">
+              Answer 3 quick questions about your income and we&apos;ll tell you exactly when MTD
+              applies to you — and what to do next.
+            </p>
+            <Link
+              href="/tools/mtd-eligibility-checker/"
+              className="inline-flex items-center gap-2 rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-white hover:bg-brand-dark transition-colors"
+            >
+              Check my eligibility <ArrowRight className="size-4" />
+            </Link>
+            <p className="mt-3 text-xs text-muted-foreground">
+              Takes 60 seconds. You&apos;ll know your deadline and next steps.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* What is MTD? Section */}
       <section className="page-container py-16" aria-labelledby="what-is-mtd">
@@ -77,31 +109,6 @@ export default function HomePage() {
             <p className="text-xs text-muted-foreground mt-1">
               Replace the single annual Self Assessment return
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick Eligibility Check CTA */}
-      <section className="bg-slate-50 border-y border-border py-12">
-        <div className="page-container">
-          <div className="max-w-2xl mx-auto rounded-2xl border-2 border-brand bg-white p-8 text-center shadow-sm">
-            <div className="mb-4 inline-flex size-12 items-center justify-center rounded-full bg-brand-light">
-              <CheckCircle className="size-6 text-brand" />
-            </div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-3">
-              Not Sure if You&apos;re Affected?
-            </h2>
-            <p className="text-slate-600 mb-6 text-sm leading-relaxed">
-              Answer 4 quick questions about your income and we&apos;ll tell you exactly when MTD
-              applies to you — and what you need to do next.
-            </p>
-            <Link
-              href="/tools/mtd-eligibility-checker/"
-              className="inline-flex items-center gap-2 rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-white hover:bg-brand-dark transition-colors"
-            >
-              Check my eligibility <ArrowRight className="size-4" />
-            </Link>
-            <p className="mt-3 text-xs text-muted-foreground">Free tool. No sign-up required.</p>
           </div>
         </div>
       </section>
@@ -167,6 +174,16 @@ export default function HomePage() {
           >
             View all MTD guides <ArrowRight className="size-4" />
           </Link>
+        </div>
+      </section>
+
+      {/* Newsletter signup */}
+      <section className="page-container py-12">
+        <div className="max-w-2xl mx-auto">
+          <NewsletterSignup
+            heading="Stay ahead of MTD deadlines"
+            subtext="Get the MTD compliance checklist, plus deadline reminders when the April 2027 registration window opens. No spam. Unsubscribe anytime."
+          />
         </div>
       </section>
 
@@ -348,7 +365,7 @@ export default function HomePage() {
 
       {/* Page footer meta */}
       <div className="page-container py-6 border-t border-border">
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </div>
     </>
   )

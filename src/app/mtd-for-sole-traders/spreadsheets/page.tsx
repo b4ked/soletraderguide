@@ -15,7 +15,7 @@ export const metadata = buildMetadata({
     'Find out whether you can continue using a spreadsheet for MTD for Income Tax. How bridging software works, which tools support it, and the pros and cons of the spreadsheet route.',
   canonicalPath: '/mtd-for-sole-traders/spreadsheets/',
   pageType: 'guide',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const faqs: FAQ[] = [
@@ -79,7 +79,7 @@ export default function SpreadsheetsPage() {
           continue to use a spreadsheet — but you&apos;ll need additional bridging software to
           submit your quarterly updates to HMRC. Here&apos;s how it works.
         </p>
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </header>
 
       <InfoCallout type="warning" title="Spreadsheets Alone Are Not Enough">

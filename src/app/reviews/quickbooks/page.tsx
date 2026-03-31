@@ -26,7 +26,7 @@ export const metadata = genMeta({
     'A detailed, honest QuickBooks review for UK sole traders. We assess MTD compatibility, pricing plans including the Self-Employed option, key features, pros and cons, and who it suits best.',
   canonicalPath: '/reviews/quickbooks',
   pageType: 'review',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const features = [
@@ -118,7 +118,7 @@ export default function QuickBooksReviewPage() {
           QuickBooks Review: MTD Software for Sole Traders (2025)
         </h1>
         <div className="flex flex-wrap items-center gap-3">
-          <LastUpdated date="2025-03-01" />
+          <LastUpdated date="2026-03-31" />
           <ReviewedBy
             name="SoleTraderGuide Editorial Team"
             role="UK Tax Content Specialists"

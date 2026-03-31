@@ -15,7 +15,7 @@ export const metadata = buildMetadata({
     'How MTD for Income Tax applies to sole traders who also have rental income. Threshold rules, separate reporting for each income stream, EOPS requirements, and software that supports both.',
   canonicalPath: '/mtd-for-sole-traders/sole-trader-and-landlord-income/',
   pageType: 'guide',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const faqs: FAQ[] = [
@@ -79,7 +79,7 @@ export default function SoleTraderLandlordPage() {
           property, MTD for Income Tax applies to both income streams. Here&apos;s how the rules
           work, how the threshold is calculated, and what you&apos;ll need to report.
         </p>
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </header>
 
       <InfoCallout type="info" title="Both Income Streams Count Towards the Threshold">

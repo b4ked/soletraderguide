@@ -16,7 +16,7 @@ export const metadata = buildMetadata({
     'All the key MTD for Income Tax deadlines explained — the mandatory start date, quarterly submission windows, End of Period Statement, Final Declaration, and penalties for late filing.',
   canonicalPath: '/mtd-for-sole-traders/deadlines/',
   pageType: 'guide',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const faqs: FAQ[] = [
@@ -80,7 +80,7 @@ export default function DeadlinesPage() {
           annual deadlines for your End of Period Statement and Final Declaration. Here&apos;s
           everything you need to know about when and what to submit.
         </p>
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </header>
 
       <InfoCallout type="deadline" title="Mandatory Start: April 2026">

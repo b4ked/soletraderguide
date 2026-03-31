@@ -3,7 +3,7 @@ import { formatDate } from '@/lib/content-utils'
 import { cn } from '@/lib/utils'
 
 interface LastUpdatedProps {
-  /** ISO date string (e.g. "2025-03-01"). */
+  /** ISO date string (e.g. "2026-03-31"). */
   date: string
   className?: string
 }

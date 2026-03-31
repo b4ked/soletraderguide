@@ -17,7 +17,7 @@ export const metadata = buildMetadata({
     'Everything sole traders need to know about Making Tax Digital for Income Tax — who is affected, key deadlines, record-keeping requirements, and how to choose the right software.',
   canonicalPath: '/mtd-for-sole-traders/',
   pageType: 'hub',
-  updatedDate: '2025-03-01',
+  updatedDate: '2026-03-31',
 })
 
 const faqs: FAQ[] = [
@@ -73,7 +73,7 @@ export default function MtdHubPage() {
           hub brings together everything you need to understand the rules, prepare your records, and
           choose the right software — all in one place.
         </p>
-        <LastUpdated date="2025-03-01" />
+        <LastUpdated date="2026-03-31" />
       </header>
 
       <InfoCallout type="deadline" title="April 2026: MTD Becomes Mandatory">
