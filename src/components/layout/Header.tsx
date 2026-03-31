@@ -91,7 +91,7 @@ export function Header() {
                 className={cn(
                   'inline-flex items-center rounded-lg px-4 py-2 text-sm font-semibold text-white',
                   'transition-colors focus-visible:outline-2 focus-visible:outline-offset-2',
-                  'bg-[var(--cta)] hover:bg-[var(--cta-hover)]'
+                  'bg-brand hover:bg-brand-dark'
                 )}
               >
                 Compare Software

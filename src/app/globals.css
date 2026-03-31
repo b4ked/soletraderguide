@@ -9,6 +9,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -53,8 +54,9 @@
   --color-brand: #0d6e6e;
   --color-brand-dark: #0a5858;
   --color-brand-light: #e0f2f1;
-  --color-cta: #2563eb;
-  --color-cta-hover: #1d4ed8;
+  --color-cta: #0d6e6e;
+  --color-cta-hover: #0a5858;
+  --color-deadline: #b91c1c;
 }
 
 /* ============================================================
@@ -64,8 +66,8 @@
    ============================================================ */
 
 :root {
-  /* Core background (#f8fafc — very slightly cool white) and text (#0f172a) */
-  --background: oklch(0.984 0.004 247.858);
+  /* Core background (#faf7f2 — warm parchment) and text (#0f172a) */
+  --background: oklch(0.978 0.007 75);
   --foreground: oklch(0.151 0.031 261.3);
 
   /* Surface (cards, popovers) */
@@ -126,8 +128,9 @@
   --brand: #0d6e6e;
   --brand-dark: #0a5858;
   --brand-light: #e0f2f1;
-  --cta: #2563eb;
-  --cta-hover: #1d4ed8;
+  --cta: #0d6e6e;
+  --cta-hover: #0a5858;
+  --deadline: #b91c1c;
 
   /* Semantic colours */
   --color-success: #059669;
@@ -182,12 +185,14 @@
     scroll-behavior: smooth;
   }
 
-  /* Heading styles — professional and approachable */
+  /* Heading styles — editorial serif for h1/h2, sans for h3-h6 */
   h1 {
     @apply text-3xl font-bold tracking-tight leading-tight;
+    font-family: var(--font-display), Georgia, serif;
   }
   h2 {
     @apply text-2xl font-semibold tracking-tight leading-snug;
+    font-family: var(--font-display), Georgia, serif;
   }
   h3 {
     @apply text-xl font-semibold leading-snug;
@@ -209,13 +214,13 @@
    errors with brand-specific classes.
    ============================================================ */
 
-/* Hero gradient — subtle cool-to-teal */
+/* Hero gradient — warm parchment to teal */
 .brand-gradient {
   background: linear-gradient(
     135deg,
-    oklch(0.984 0.004 247.858) 0%,
+    oklch(0.978 0.007 75) 0%,
     oklch(0.951 0.014 193.7) 50%,
-    oklch(0.984 0.004 247.858) 100%
+    oklch(0.978 0.007 75) 100%
   );
 }
 
@@ -244,8 +249,8 @@
 }
 
 .card-lift:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10);
 }
 
 /* ============================================================

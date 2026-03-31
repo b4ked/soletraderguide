@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Playfair_Display } from 'next/font/google'
 import { headers } from 'next/headers'
 import './globals.css'
 import { Header } from '@/components/layout/Header'
@@ -12,6 +12,12 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
+  display: 'swap',
+})
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-display',
   display: 'swap',
 })
 
@@ -88,7 +94,7 @@ export default async function RootLayout({
   const isAdmin = headersList.get('x-is-admin') === '1'
 
   return (
-    <html lang="en-GB" className={`${inter.variable} h-full antialiased`}>
+    <html lang="en-GB" className={`${inter.variable} ${playfair.variable} h-full antialiased`}>
       <head>
         {/* Organisation schema — appears on every page */}
         {!isAdmin && <OrganisationSchema />}
