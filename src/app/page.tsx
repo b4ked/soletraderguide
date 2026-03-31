@@ -23,7 +23,7 @@ export default function HomePage() {
     <>
       {/* Hero */}
       <HeroSection
-        badge="UK Making Tax Digital Guide"
+        badge="The independent MTD guide — no accountant required"
         heading="MTD Is Compulsory from April 2026. Here's What to Do."
         subheading="Plain-English guidance so you know whether you're affected, what you need to change, and which software makes compliance straightforward — without needing an accountant to translate."
         primaryCta={{ label: 'Am I Affected?', href: '/mtd-for-sole-traders/am-i-affected/' }}
@@ -76,8 +76,8 @@ export default function HomePage() {
           </p>
           <p className="text-slate-600 leading-relaxed mt-3">
             The change is mandatory for sole traders and landlords with qualifying income over
-            £50,000 from April 2026. A second wave follows in April 2027 for those with income
-            over £30,000.
+            £50,000 from April 2026. The April 2027 rollout extends this to sole traders and
+            landlords earning over £30,000.
           </p>
           <Link
             href="/mtd-for-sole-traders/what-is-mtd-income-tax/"
@@ -107,7 +107,7 @@ export default function HomePage() {
             <p className="text-4xl font-bold text-brand mb-2">4 per year</p>
             <p className="text-sm font-semibold text-slate-700">Quarterly updates</p>
             <p className="text-xs text-muted-foreground mt-1">
-              Replace the single annual Self Assessment return
+              You&apos;ll replace your annual Self Assessment return with 4 quarterly updates
             </p>
           </div>
         </div>
@@ -182,7 +182,7 @@ export default function HomePage() {
         <div className="max-w-2xl mx-auto">
           <NewsletterSignup
             heading="Stay ahead of MTD deadlines"
-            subtext="Get the MTD compliance checklist, plus deadline reminders when the April 2027 registration window opens. No spam. Unsubscribe anytime."
+            subtext="Your free MTD compliance checklist — plus a heads-up before every key deadline. We send it when it matters, not on a schedule. One click to leave, any time."
           />
         </div>
       </section>
@@ -199,7 +199,7 @@ export default function HomePage() {
             </h2>
             <p className="text-slate-600 max-w-2xl">
               HMRC requires you to use compatible software to submit quarterly updates. Here are
-              the four most popular options for sole traders, compared side by side.
+              four leading MTD options for sole traders, compared side by side.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -231,8 +231,12 @@ export default function HomePage() {
               </div>
               <h3 className="text-base font-semibold text-slate-900 mb-2">Fully Independent</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                We&apos;re not owned by any software company. Our editorial decisions are made
-                independently, and we always put reader value first.
+                We don&apos;t take payment from software companies to rank them higher. Every
+                recommendation is based on our published scoring criteria —{' '}
+                <Link href="/sources-methodology/" className="underline hover:text-brand">
+                  read the full methodology
+                </Link>
+                .
               </p>
             </div>
             <div className="text-center">

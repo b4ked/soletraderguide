@@ -20,8 +20,8 @@ export function TrustBar() {
           <div className="flex items-center gap-2.5">
             <RefreshCw className="size-4 shrink-0 text-brand" aria-hidden="true" />
             <span className="text-sm text-slate-700">
-              <span className="font-semibold">HMRC-verified content</span>
-              <span className="text-muted-foreground"> — reviewed against current HMRC guidance</span>
+              <span className="font-semibold">Written from HMRC guidance</span>
+              <span className="text-muted-foreground"> — we track every update as the rules change</span>
             </span>
           </div>
           <div className="hidden sm:block h-4 w-px bg-border" aria-hidden="true" />
