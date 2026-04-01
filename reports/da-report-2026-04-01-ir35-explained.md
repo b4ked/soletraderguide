@@ -116,7 +116,28 @@ ASSIGN_TO: Write-Up Agent
 ---
 
 ### Brand Mention Check
-No external brand mentions for soletraderguide.co.uk identified in this run (site is in Phase 1 — limited backlink profile expected).
+**Result: Zero external brand mentions found.** Web search for `"soletraderguide.co.uk" -site:soletraderguide.co.uk` returned no results — the search engine surfaced the unrelated footwear retailer soletrader.co.uk instead. This confirms the Phase 1 baseline: the site has no detectable backlink footprint or third-party citations as of April 2026. Expected for a new site; building citations from zero.
+
+### SERP Competitive Intelligence — "IR35 sole trader UK"
+
+Live SERP data (2026-04-01):
+
+| Competitor | Type | DA assessment | Link opportunity |
+|------------|------|---------------|-----------------|
+| kingsbridge.co.uk | Contractor insurance | Very high DA | Aspirational — editorial outreach |
+| ir35shield.co.uk | IR35 SaaS tool | Niche authority | Peer site — unlikely to link |
+| free-work.com | Contractor job board with editorial | High DA | Editorial — realistic pitch target |
+| itcontracting.com | Contractor advice site | Established | Editorial — realistic link target |
+| contracteye.co.uk | Contractor resource site | Medium DA | Editorial — realistic link target |
+| sigmachartered.co.uk | Accountancy firm | Medium DA | Firm blog — outreach opportunity |
+| markeluk.com | Major UK insurer | Very high DA | Aspirational — resource page outreach |
+| caroola.com | Umbrella/accountancy company | High DA | Commercial — unlikely to link |
+| gorillaaccounting.com | Contractor accountants | Medium DA | Accountancy blog — outreach opportunity |
+| brooksonlegal.co.uk | Contractor legal/accountancy | High DA | Commercial — unlikely to link |
+
+**Key observation:** Every competitor in this SERP is contractor/Ltd company-focused, not sole-trader-specific. SoleTraderGuide's angle — IR35 doesn't apply directly to sole traders, but HMRC employment status scrutiny does — is genuinely differentiated. None of these sites centre their audience around sole traders the way SoleTraderGuide does. This differentiation is the right positioning.
+
+**Priority link targets from this SERP:** itcontracting.com, contracteye.co.uk, free-work.com — all publish editorial content and link out to useful resources. These are realistic Phase 1/2 outreach targets once the post has the E-E-A-T improvements above.
 
 ### Digital PR Opportunity
-The "IR35 doesn't apply to sole traders — here's the real risk" angle has PR potential if framed as a correction to widespread public misunderstanding. Pitch targets: AccountingWEB, Freelancer UK, Small Business UK. However, the post needs the E-E-A-T improvements above before it is pitch-ready.
+The "IR35 doesn't apply to sole traders — here's the real risk" angle has PR potential if framed as a correction to widespread public misunderstanding (most competitor content conflates IR35 with employment status). Pitch targets once E-E-A-T improved: AccountingWEB, Freelancer UK, Small Business UK, free-work.com. The post needs the professional review note and CEST citation before it is pitch-ready.
