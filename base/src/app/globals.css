@@ -1,0 +1,396 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* ============================================================
+     BRAND COLOURS — registered in @theme for Tailwind v4 utility
+     generation (e.g. bg-brand, text-brand, border-brand-light)
+     Override these in your site's globals.css with your brand hex values.
+     ============================================================ */
+  --color-brand: #1d4ed8;
+  --color-brand-dark: #1e40af;
+  --color-brand-light: #eff6ff;
+  --color-cta: #1d4ed8;
+  --color-cta-hover: #1e40af;
+  --color-deadline: #b91c1c;
+}
+
+/* ============================================================
+   SHADCN / SITE PALETTE — Base defaults (neutral blue)
+   Override --primary, --brand, and --brand-* in your site's globals.css
+   ============================================================ */
+
+:root {
+  /* Core background (white) and text (near-black) */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.151 0.031 261.3);
+
+  /* Surface (cards, popovers) */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.151 0.031 261.3);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.151 0.031 261.3);
+
+  /* Primary = neutral blue (override per site) */
+  --primary: oklch(0.468 0.179 264.4);
+  --primary-foreground: oklch(1 0 0);
+
+  /* Secondary = light blue surface */
+  --secondary: oklch(0.951 0.025 264.4);
+  --secondary-foreground: oklch(0.468 0.179 264.4);
+
+  /* Muted surfaces */
+  --muted: oklch(0.968 0.006 247.858);
+  /* #64748b — slate-500 */
+  --muted-foreground: oklch(0.554 0.023 264.4);
+
+  /* Accent = bright blue tinted surface */
+  --accent: oklch(0.951 0.025 264.4);
+  --accent-foreground: oklch(0.397 0.142 264.4);
+
+  /* Destructive = #dc2626 */
+  --destructive: oklch(0.577 0.245 27.325);
+
+  /* Borders and inputs (#e2e8f0 — slate-200) */
+  --border: oklch(0.918 0.012 261.3);
+  --input: oklch(0.918 0.012 261.3);
+  --ring: oklch(0.468 0.179 264.4);
+
+  /* Radius */
+  --radius: 0.5rem;
+
+  /* Chart colours (keep existing) */
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+
+  /* Sidebar */
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.151 0.031 261.3);
+  --sidebar-primary: oklch(0.468 0.179 264.4);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.951 0.025 264.4);
+  --sidebar-accent-foreground: oklch(0.468 0.179 264.4);
+  --sidebar-border: oklch(0.918 0.012 261.3);
+  --sidebar-ring: oklch(0.468 0.179 264.4);
+
+  /* ============================================================
+     Brand CSS custom properties (used via arbitrary Tailwind values
+     like bg-[var(--brand)] or var() in component styles)
+     Override these in your site's globals.css
+     ============================================================ */
+  --brand: #1d4ed8;
+  --brand-dark: #1e40af;
+  --brand-light: #eff6ff;
+  --cta: #1d4ed8;
+  --cta-hover: #1e40af;
+  --deadline: #b91c1c;
+
+  /* Semantic colours */
+  --color-success: #059669;
+  --color-warning: #d97706;
+  --color-danger: #dc2626;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.578 0.179 264.4);
+  --primary-foreground: oklch(0.145 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.578 0.179 264.4);
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.578 0.179 264.4);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.578 0.179 264.4);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+
+  /* Heading styles — editorial serif for h1/h2, sans for h3-h6 */
+  h1 {
+    @apply text-3xl font-bold tracking-tight leading-tight;
+    font-family: var(--font-display), Georgia, serif;
+  }
+  h2 {
+    @apply text-2xl font-semibold tracking-tight leading-snug;
+    font-family: var(--font-display), Georgia, serif;
+  }
+  h3 {
+    @apply text-xl font-semibold leading-snug;
+  }
+  h4 {
+    @apply text-lg font-medium;
+  }
+  h5 {
+    @apply text-base font-medium;
+  }
+  h6 {
+    @apply text-sm font-medium;
+  }
+}
+
+/* ============================================================
+   CUSTOM COMPONENT STYLES
+   Written in plain CSS (not @apply) to avoid unknown utility
+   errors with brand-specific classes.
+   ============================================================ */
+
+/* Hero gradient — light to brand-light. Override per site if needed. */
+.brand-gradient {
+  background: linear-gradient(
+    135deg,
+    oklch(1 0 0) 0%,
+    oklch(0.951 0.025 264.4) 50%,
+    oklch(1 0 0) 100%
+  );
+}
+
+/* Skip to content — visible on focus for screen readers */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background-color: var(--brand);
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 1rem;
+}
+
+/* Card hover lift */
+.card-lift {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10);
+}
+
+/* ============================================================
+   PROSE-LIKE — MDX article body styles
+   Applied via .prose-like wrapper on blog post bodies
+   ============================================================ */
+
+/* ---- Paragraphs ---- */
+.prose-like p {
+  line-height: 1.75;
+  color: oklch(0.22 0.025 264);
+}
+
+/* ---- Heading visual accents within article body ---- */
+.prose-like h2 {
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid oklch(0.951 0.025 264.4);
+  color: oklch(0.151 0.031 261.3);
+}
+
+.prose-like h3 {
+  color: oklch(0.22 0.025 264);
+}
+
+/* ---- Lists (CRITICAL — Tailwind preflight resets these to nothing) ---- */
+.prose-like ul {
+  list-style-type: disc;
+  padding-left: 1.625rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-like ol {
+  list-style-type: decimal;
+  padding-left: 1.625rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-like li {
+  margin-top: 0.375rem;
+  margin-bottom: 0.375rem;
+  line-height: 1.7;
+  color: oklch(0.22 0.025 264);
+}
+
+.prose-like li > ul,
+.prose-like li > ol {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+/* ---- Links ---- */
+.prose-like a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, var(--brand) 35%, transparent);
+  text-underline-offset: 3px;
+  font-weight: 500;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.prose-like a:hover {
+  color: var(--brand-dark);
+  text-decoration-color: var(--brand-dark);
+}
+
+/* ---- Strong ---- */
+.prose-like strong {
+  font-weight: 600;
+  color: oklch(0.151 0.031 261.3);
+}
+
+/* ---- Blockquote ---- */
+.prose-like blockquote {
+  border-left: 3px solid oklch(0.951 0.025 264.4);
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  color: oklch(0.554 0.023 264.4);
+  font-style: italic;
+}
+
+/* ---- HR ---- */
+.prose-like hr {
+  border: none;
+  border-top: 1px solid oklch(0.918 0.012 261.3);
+  margin: 2rem 0;
+}
+
+/* ---- Tables ---- */
+.prose-like table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose-like thead tr {
+  background-color: oklch(0.951 0.025 264.4);
+}
+
+.prose-like th {
+  text-align: left;
+  font-weight: 600;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid oklch(0.918 0.012 261.3);
+  color: oklch(0.151 0.031 261.3);
+}
+
+.prose-like td {
+  padding: 0.5rem 0.875rem;
+  border: 1px solid oklch(0.918 0.012 261.3);
+  vertical-align: top;
+}
+
+.prose-like tbody tr:nth-child(even) {
+  background-color: oklch(0.984 0.004 247.858);
+}
+
+/* Page container shorthand */
+.page-container {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .page-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}

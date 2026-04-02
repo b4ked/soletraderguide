@@ -2,6 +2,7 @@
   "name": "soletraderguide",
   "version": "0.1.0",
   "private": true,
+  "_baseVersion": "affiliate-portfolio-dna@main — synced 2026-04-02",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

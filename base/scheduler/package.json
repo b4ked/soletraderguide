@@ -1,0 +1,14 @@
+{
+  "name": "stg-scheduler",
+  "version": "1.0.0",
+  "description": "VPS scheduling API for SoleTraderGuide.co.uk — stores draft publish schedules and exposes a due-check endpoint for the cron runner",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}
