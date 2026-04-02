@@ -1,15 +1,21 @@
-export const siteConfig = {
+import type { SiteConfig } from '@/types'
+
+export const siteConfig: SiteConfig = {
   name: 'SoleTraderGuide',
   domain: 'soletraderguide.co.uk',
   url: 'https://soletraderguide.co.uk',
   description:
     'Plain-English guidance on Making Tax Digital for sole traders. Compare MTD software, check your eligibility, and find the right solution for your business.',
+  tagline: 'MTD for Sole Traders, Explained Simply',
+  domainSuffix: '.co.uk',
   ogImage: '/og-image.jpg',
   twitter: '',
   email: 'hello@soletraderguide.co.uk',
   publisherName: 'SoleTraderGuide',
   lastReviewedDate: '2026-03-31',
   editorialEmail: 'editorial@soletraderguide.co.uk',
+  mobileCta: { label: 'Compare Software', href: '/comparisons' },
+  headerCta: { label: 'Compare Software', href: '/comparisons' },
 }
 
 export const mtdConfig = {
@@ -40,8 +46,7 @@ export const mtdConfig = {
     { period: 'Q4', covers: '1 January – 31 March', deadline: '7 May' },
   ],
   finalDeclarationDeadline: '31 January (following the tax year)',
-  eopsDeadline: '31 January (following the tax year)', // kept for backward compat
-  // 2026/27 soft landing: no penalty points convert to financial penalties for first four quarterly updates
+  eopsDeadline: '31 January (following the tax year)',
   softLandingYear: '2026/27',
   qualifyingIncomeNote: 'Qualifying income is gross self-employment turnover plus gross UK property income — before expenses. PAYE wages, dividends, and savings interest do NOT count toward the threshold.',
 }

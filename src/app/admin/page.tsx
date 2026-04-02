@@ -1,5 +1,1 @@
-import AdminDashboard from './_components/AdminDashboard'
-
-export default function AdminPage() {
-  return <AdminDashboard />
-}
+export { default } from '../../../base/src/app/admin/page'

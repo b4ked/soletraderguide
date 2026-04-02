@@ -19,7 +19,12 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/components/*": ["./base/src/components/*", "./src/components/*"],
+      "@/lib/*": ["./base/src/lib/*"],
+      "@/types": ["./base/src/types/index.ts"],
+      "@/types/*": ["./base/src/types/*"],
+      "@/data/*": ["./src/data/*"],
+      "@/content/*": ["./src/content/*"]
     }
   },
   "include": [

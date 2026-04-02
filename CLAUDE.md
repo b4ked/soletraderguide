@@ -12,7 +12,7 @@ Read this file in full before writing any code.
 **Purpose:** UK-focused, SEO-first editorial website helping sole traders, freelancers, and landlords understand Making Tax Digital (MTD) for Income Tax and compare accounting software options.
 **Domain:** soletraderguide.co.uk
 **Repo:** https://github.com/b4ked/soletraderguide
-**Status:** Phase 1 COMPLETE — Phase 2 in progress
+**Status:** DNA refactor on `feature/dna-refactor` — base subtree embedded
 
 The site is:
 - A trusted, practical, SEO-led resource for UK sole traders
@@ -40,24 +40,61 @@ The site is:
 
 ## Architecture
 
+This repo uses the **affiliate-portfolio-dna** pattern. Shared infrastructure lives in `base/` (a git subtree from `b4ked/affiliate-portfolio-dna`). Site-specific content lives in `src/`.
+
+### Critical rule for AI agents
+**Never edit, create, or delete files inside `base/`.** The `base/` directory is read-only from this repo. Changes to shared infrastructure must be made in `b4ked/affiliate-portfolio-dna`, then pulled in via `git subtree pull --prefix=base`.
+
+### What lives where
+| Layer | Location | Notes |
+|-------|----------|-------|
+| Shared components | `base/src/components/` | Read-only |
+| Shared utilities | `base/src/lib/` | Read-only |
+| Shared types | `base/src/types/` | Read-only |
+| Shared API routes | `base/src/app/api/` | Read-only |
+| Shared admin | `base/src/app/admin/` | Read-only |
+| Shared blog routes | `base/src/app/blog/` | Read-only |
+| Site config | `src/data/site-config.ts` | Edit freely |
+| Navigation + footer | `src/data/navigation.ts` | Edit freely |
+| Provider data | `src/data/providers/` | Edit freely |
+| Homepage | `src/app/page.tsx` | Edit freely |
+| Guide pages | `src/app/mtd-for-sole-traders/` | Edit freely |
+| Software pages | `src/app/software/` | Edit freely |
+| Tools pages | `src/app/tools/` | Edit freely |
+| Comparisons | `src/app/comparisons/` | Edit freely |
+| Legal pages | `src/app/about/`, `privacy-policy/`, etc. | Edit freely |
+| Blog posts (MDX) | `src/content/blog/` | Edit freely |
+| Brand CSS overrides | `src/app/globals.css` | Edit freely |
+| Base route re-exports | `src/app/layout.tsx`, `blog/`, `admin/`, `api/`, `robots.ts`, `sitemap.ts` | Thin re-exports only — do not add logic |
+
+### Path aliases (tsconfig.json)
+- `@/components/*` → `base/src/components/*`
+- `@/lib/*` → `base/src/lib/*`
+- `@/types` → `base/src/types/index.ts`
+- `@/data/*` → `src/data/*` (site-specific)
+- `@/content/*` → `src/content/*` (site-specific)
+
 ```
 soletraderguide/
+├── base/                       # DNA subtree (read-only)
 ├── src/
 │   ├── app/                    # Next.js App Router pages and route handlers
-│   │   ├── layout.tsx          # Root layout (header, footer, fonts, OrganisationSchema)
-│   │   ├── page.tsx            # Homepage
-│   │   ├── sitemap.ts          # Sitemap route handler (dynamic — includes MDX posts)
-│   │   ├── robots.ts           # Robots route handler
-│   │   ├── blog/               # Blog hub + [slug] dynamic MDX route
-│   │   ├── tools/              # Interactive tool pages
-│   │   ├── mtd-for-sole-traders/ # Guide pages
-│   │   ├── software/           # Software hub and comparison pages
-│   │   ├── reviews/            # Provider review pages
-│   │   ├── comparisons/        # Comparison pages
-│   │   └── [legal pages]/      # about, privacy-policy, terms-and-conditions, etc.
-│   ├── components/
-│   │   ├── common/             # CTABlock, FAQAccordion, InfoCallout, HeroSection, etc.
-│   │   ├── layout/             # Header, Footer, Breadcrumbs
+│   │   ├── layout.tsx          # Re-exports from base + imports brand CSS
+│   │   ├── page.tsx            # Homepage (site-specific)
+│   │   ├── sitemap.ts          # Re-export from base
+│   │   ├── robots.ts           # Re-export from base
+│   │   ├── blog/               # Thin re-exports → base
+│   │   ├── admin/              # Thin re-exports → base
+│   │   ├── api/                # Thin re-exports → base
+│   │   ├── tools/              # Interactive tool pages (site-specific)
+│   │   ├── mtd-for-sole-traders/ # Guide pages (site-specific)
+│   │   ├── software/           # Software hub (site-specific)
+│   │   ├── reviews/            # Provider review pages (site-specific)
+│   │   ├── comparisons/        # Comparison pages (site-specific)
+│   │   └── [legal pages]/      # about, privacy-policy, etc. (site-specific)
+│   ├── components/             # DELETED — use @/components/* → base/src/components/
+│   ├── lib/                    # DELETED — use @/lib/* → base/src/lib/
+│   ├── types/                  # DELETED — use @/types → base/src/types/index.ts
 │   │   ├── seo/                # JsonLd, FAQSchema, ArticleSchema, OrganisationSchema
 │   │   ├── comparison/         # ComparisonTable, ProviderCard, ProsConsList, QuickVerdict
 │   │   ├── tools/              # EligibilityCheckerForm, SoftwareChooserForm
