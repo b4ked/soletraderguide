@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
         html: htmlContent,
       }),
     })
-    if (res.ok) sent++ else failed++
+    if (res.ok) { sent++ } else { failed++ }
   }
 
   return NextResponse.json({ sent, failed, total: contacts.length })
