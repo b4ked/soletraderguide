@@ -24,7 +24,8 @@
       "@/types": ["./base/src/types/index.ts"],
       "@/types/*": ["./base/src/types/*"],
       "@/data/*": ["./src/data/*"],
-      "@/content/*": ["./src/content/*"]
+      "@/content/*": ["./src/content/*"],
+      "@/app/*": ["./base/src/app/*", "./src/app/*"]
     }
   },
   "include": [
