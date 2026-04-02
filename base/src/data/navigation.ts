@@ -8,7 +8,7 @@ import type { NavItem, FooterNav } from '@/types'
 
 // ─── Header navigation ────────────────────────────────────────────────────────
 
-export const navItems: NavItem[] = [
+export const primaryNav: NavItem[] = [
   { label: 'Guides', href: '/guides' },
   { label: 'Comparisons', href: '/comparisons' },
   { label: 'Blog', href: '/blog' },
