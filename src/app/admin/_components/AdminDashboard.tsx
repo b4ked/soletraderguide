@@ -1230,12 +1230,6 @@ export default function AdminDashboard() {
                       },
                       {
                         label: 'Google Search Console',
-                        desc: 'Search performance, indexing',
-                        href: 'https://search.google.com/search-console',
-                        icon: '🔍',
-                      },
-                      {
-                        label: 'Google Search Console',
                         desc: 'Search performance for this site',
                         href: `https://search.google.com/search-console/overview?resource_id=${encodeURIComponent(siteConfig.url)}`,
                         icon: '🏛',
