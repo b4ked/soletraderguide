@@ -85,7 +85,7 @@ function SummaryProviderCard({
               key={i}
               className={cn(
                 'size-3',
-                i < provider.suitabilityScore ?? 0
+                i < (provider.suitabilityScore ?? 0)
                   ? 'fill-amber-400 text-amber-400'
                   : 'fill-muted text-muted-foreground'
               )}
@@ -184,7 +184,7 @@ function FullProviderCard({
                     key={i}
                     className={cn(
                       'size-3.5',
-                      i < provider.suitabilityScore ?? 0
+                      i < (provider.suitabilityScore ?? 0)
                         ? 'fill-amber-400 text-amber-400'
                         : 'fill-muted text-muted-foreground'
                     )}
