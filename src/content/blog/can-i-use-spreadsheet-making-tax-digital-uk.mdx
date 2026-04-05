@@ -1,0 +1,113 @@
+---
+title: "Spreadsheets for Making Tax Digital UK"
+description: "Sole traders can use spreadsheets for Making Tax Digital with bridging software. Learn HMRC digital links rules and when to switch to accounting software."
+publishedAt: "2026-04-05"
+updatedAt: "2026-04-05"
+author: "SoleTraderGuide Editorial Team"
+category: "mtd-guides"
+tags: ["MTD spreadsheets", "bridging software", "Making Tax Digital", "Excel MTD", "sole traders"]
+readingTime: "5 min read"
+affiliateDisclosure: true
+cta:
+  heading: "Not sure which approach is right for you?"
+  description: "Use our free Software Chooser to find the right MTD solution based on your income, transaction volume, and how hands-on you want to be."
+  primaryLabel: "Find the right software"
+  primaryHref: "/tools/mtd-software-chooser"
+  secondaryLabel: "Compare all MTD options"
+  secondaryHref: "/software/best-mtd-software-for-sole-traders"
+faqs:
+  - question: "Can I use Excel or Google Sheets for Making Tax Digital?"
+    answer: "Yes, but not on their own. Spreadsheets satisfy HMRC's digital record-keeping requirement, but you need bridging software to actually submit your quarterly updates to HMRC. Bridging software connects your spreadsheet to HMRC's MTD systems and typically costs around £10–£30 per year."
+  - question: "What is MTD bridging software?"
+    answer: "Bridging software sits between your spreadsheet and HMRC. You continue recording income and expenses in your spreadsheet as normal; when a quarterly update is due, the bridging software reads your figures and submits them to HMRC digitally. It maintains the continuous digital link that HMRC requires — manual re-entry or copy-paste between systems is not permitted."
+  - question: "Do I have to switch from my spreadsheet to accounting software for MTD?"
+    answer: "No. Using a spreadsheet with compatible bridging software is a fully HMRC-compliant approach to Making Tax Digital. You are not required to use dedicated accounting software. Many sole traders with simple finances will find the spreadsheet-plus-bridge approach cheaper and sufficient, provided the bridging software maintains the required digital link throughout."
+  - question: "What are HMRC's digital links rules?"
+    answer: "HMRC requires that data flows digitally from your records all the way through to your MTD submission — you cannot manually type figures from one system into another, and copy-paste is not permitted. Your bridging software must read your spreadsheet data directly, either via a file export, an add-in, or an API connection. Any break in that digital chain means the submission does not comply."
+  - question: "What's cheaper — bridging software or full accounting software?"
+    answer: "Bridging software is significantly cheaper, typically around £10–£30 per year compared to £120–£350 per year for full accounting software. The trade-off is that bridging software only handles the HMRC submission step — it does not give you automatic bank feeds, running tax estimates, Self Assessment filing, or automated transaction categorisation. For simple finances, bridging is often sufficient; for higher-volume businesses, the time saved by full accounting software often justifies the cost."
+relatedPosts:
+  - title: "MTD Software Options Explained: Which Type is Right for You?"
+    href: "/blog/mtd-software-options-explained"
+  - title: "Free vs Paid MTD Software: Is There a Genuinely Free Option?"
+    href: "/blog/free-vs-paid-mtd-software"
+---
+
+Many sole traders have used a spreadsheet to track income and expenses for years. When Making Tax Digital (MTD) for Income Tax arrives, does that all have to change? The short answer is no — you can keep using a spreadsheet for Making Tax Digital, but you will need bridging software to submit your quarterly updates to HMRC. Here is what that means in practice.
+
+<InfoCallout type="info" title="MTD for Income Tax: who is affected?">
+  MTD for Income Tax applies to sole traders and landlords with qualifying income over £50,000 from April 2026, over £30,000 from April 2027, and over £20,000 from April 2028. Qualifying income is gross self-employment turnover plus gross UK property income — PAYE and dividends do not count. Not sure if you are affected? [Check your eligibility](/tools/mtd-eligibility-checker).
+</InfoCallout>
+
+## What HMRC Requires for MTD — and Where Spreadsheets Fit
+
+[Making Tax Digital for Income Tax](/mtd-for-sole-traders/what-is-mtd-income-tax) places three core obligations on sole traders:
+
+1. Keep **digital records** of all business income and expenses
+2. Submit **quarterly updates** to HMRC through HMRC-recognised software
+3. Submit an **end-of-period statement** and final declaration at the end of the tax year
+
+A spreadsheet — whether that is Excel, Google Sheets, or Apple Numbers — satisfies the first requirement. Your records are digital. The problem is the second requirement. A spreadsheet has no connection to HMRC's MTD API, so it cannot submit anything. That gap is what bridging software fills.
+
+## How MTD Bridging Software Works with Spreadsheets
+
+Bridging software is a dedicated tool that sits between your spreadsheet and HMRC. Your day-to-day bookkeeping process stays exactly the same — you continue recording income and expenses in your spreadsheet as you always have. When a quarterly submission is due, the bridging software steps in.
+
+The process works like this:
+
+1. The bridging software reads the summary figures from designated cells in your spreadsheet
+2. It formats those figures in the structure HMRC's MTD system requires
+3. It submits them to HMRC via the MTD API on your behalf
+
+You do not change how you manage your records. You simply add the bridging step four times a year at each [quarterly submission deadline](/mtd-for-sole-traders/deadlines).
+
+Examples of bridging tools include Absolute Bridging, BTCSoftware, and DataDear (an Excel add-in). Pricing for bridging software is typically £10–£30 per year for a sole trader — significantly cheaper than full accounting software. Check provider websites for current pricing as offers change.
+
+For a broader overview of all the ways you can comply with MTD, see our [MTD software options explained](/blog/mtd-software-options-explained) guide. If you want to understand exactly what records your spreadsheet needs to capture, read our [records you need to keep for MTD](/mtd-for-sole-traders/records-you-need-to-keep) guide, or see our dedicated [spreadsheets and MTD](/mtd-for-sole-traders/spreadsheets) overview.
+
+## HMRC's Digital Links Requirement
+
+There is an important technical requirement you must understand before setting up a spreadsheet-plus-bridge approach: HMRC requires **digital links** throughout your entire record-keeping and submission chain.
+
+This means data must flow digitally from your spreadsheet records to your MTD submission without any manual intervention. Specifically:
+
+- You **cannot** manually type figures from your spreadsheet into your bridging software
+- You **cannot** copy-paste totals between systems
+- Your bridging software must read your spreadsheet data directly — via a file export, a built-in add-in, or an API connection
+
+Any break in that digital chain means the submission does not comply with HMRC's rules. When evaluating bridging software, confirm explicitly that it maintains a full digital link from your spreadsheet cells to the HMRC submission — do not assume.
+
+<InfoCallout type="warning" title="Copy-paste is not a digital link">
+  A common misconception is that copying figures from a spreadsheet and pasting them into another tool counts as a digital link. HMRC's rules are clear: it does not. The connection between systems must be automated, not manual. Choose bridging software that reads your spreadsheet directly.
+</InfoCallout>
+
+## When the Spreadsheet-Plus-Bridge Approach Works Well
+
+Continuing with a spreadsheet and adding bridging software is a sensible, HMRC-compliant option for many sole traders. It works best when:
+
+- Your **transaction volume is low** — you have a manageable number of income and expense entries each month
+- You already have a **well-organised spreadsheet** that captures income and expenses in clear categories
+- **Cost is a priority** — at roughly £10–£30 per year, bridging software is far cheaper than a full accounting subscription
+- You are **comfortable maintaining the spreadsheet yourself** and do not need invoicing, financial reports, or bank feeds
+
+If your spreadsheet already captures income and expenses clearly, the bridging software simply adds the submission step. Your annual compliance cost could be under £30.
+
+## When Full Accounting Software Makes More Sense
+
+Dedicated accounting software — such as [FreeAgent](/reviews/freeagent), [Xero](/reviews/xero), [QuickBooks](/reviews/quickbooks), or [Sage](/reviews/sage) — handles records, quarterly submissions, and Self Assessment in one place. It is worth considering if any of the following apply to you:
+
+- Your **transaction volume is high or growing** — manually entering transactions into a spreadsheet takes meaningful time each month
+- You want **automatic bank feeds** that import and categorise transactions from your bank account without any manual entry
+- You want to **file Self Assessment from within the same software** (FreeAgent does this; a spreadsheet does not)
+- You want a **running tax estimate** so you know roughly what you owe throughout the year — useful as you approach quarterly deadlines
+- The bridging submission process feels like friction you would rather eliminate
+
+The cost difference is real. Bridging software costs roughly £25 per year; full accounting software for a sole trader typically runs £120–£350 per year, depending on the provider and plan. But the time saved — particularly from bank feeds that can automatically categorise dozens of transactions per month — often justifies the difference for busier sole traders. See our [free vs paid MTD software guide](/blog/free-vs-paid-mtd-software) for a full cost comparison.
+
+## The Honest Summary
+
+If you are well-organised, have a low transaction volume, and your spreadsheet works well for you — there is no obligation to change. Continue using it and add bridging software for the quarterly submission step. MTD does not require full accounting software.
+
+If your spreadsheet is already a source of frustration, or your business is growing and manual entry is becoming a burden, the switch to accounting software is worth the cost. The time you save and the reduced risk of errors often pays for the subscription many times over.
+
+Not sure which route suits your situation? Use our [MTD Software Chooser](/tools/mtd-software-chooser) — it takes about two minutes and gives you a tailored recommendation based on your income, transaction volume, and workflow preferences.
