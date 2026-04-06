@@ -11,7 +11,14 @@
   --color-cta: #0d6e6e;
   --color-cta-hover: #0a5858;
 
-  /* ── Background: warm parchment ── */
+  /* Bare --brand vars used by base prose/component styles */
+  --brand: #0d6e6e;
+  --brand-dark: #0a5858;
+  --brand-light: #e0f2f1;
+  --cta: #0d6e6e;
+  --cta-hover: #0a5858;
+
+  /* ── Background: warm parchment (keep) ── */
   --background: oklch(0.978 0.007 75);
 
   /* ── Shadcn primary tokens (teal) ── */
@@ -19,4 +26,45 @@
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.951 0.014 193.7);
   --secondary-foreground: oklch(0.468 0.087 193.7);
+
+  /* Ring/focus: teal instead of blue */
+  --ring: oklch(0.468 0.087 193.7);
+
+  /* Muted: warm neutral (matches parchment background) */
+  --muted: oklch(0.964 0.006 75);
+  --muted-foreground: oklch(0.554 0.012 120);
+
+  /* Accent: teal-tinted surface */
+  --accent: oklch(0.951 0.014 193.7);
+  --accent-foreground: oklch(0.468 0.087 193.7);
+}
+
+/* Brand gradient: teal instead of base blue */
+.brand-gradient {
+  background: linear-gradient(
+    135deg,
+    oklch(0.978 0.007 75) 0%,
+    oklch(0.951 0.014 193.7) 50%,
+    oklch(0.978 0.007 75) 100%
+  );
+}
+
+/* Prose: replace hardcoded blue oklch hues with teal/warm equivalents */
+.prose-like h2 {
+  border-bottom-color: oklch(0.88 0.04 193.7);
+}
+
+.prose-like blockquote {
+  border-left-color: oklch(0.68 0.087 193.7);
+  color: oklch(0.554 0.012 120);
+}
+
+.prose-like thead tr {
+  background-color: oklch(0.93 0.03 193.7);
+}
+
+.prose-like p,
+.prose-like li,
+.prose-like h3 {
+  color: oklch(0.22 0.015 120);
 }
