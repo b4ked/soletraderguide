@@ -1,6 +1,12 @@
 /**
  * SoleTraderGuide brand overrides.
- * Loaded after base/src/app/globals.css — overrides CSS custom properties only.
+ * Loaded after base/src/app/globals.css.
+ *
+ * @theme block re-declares brand/primary tokens so Tailwind regenerates
+ * utilities (bg-brand, text-primary, etc.) with teal values instead of
+ * the base blue defaults. CSS variable overrides in :root alone are not
+ * enough because Tailwind bakes static values into utility classes at
+ * build time when @theme inline uses a literal colour.
  */
 
 :root {
