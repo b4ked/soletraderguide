@@ -131,9 +131,9 @@ export const sage: Provider = {
     'UK payroll add-on available',
   ],
   mtdNotes: 'HMRC-recognised. Sage Sole Trader free tier handles MTD quarterly updates. Paid tier adds AI categorisation and more features.',
-  pricingUrl: 'https://www.sage.com/en-gb/making-tax-digital/sole-trader/',
+  pricingUrl: 'https://sageuklimited.sjv.io/9VeqNW',
   affiliateEnabled: true,
-  affiliateLink: '#',
+  affiliateLink: 'https://sageuklimited.sjv.io/9VeqNW',
   notes: '',
   category: 'full-accounting',
 }
