@@ -4,5 +4,19 @@
       "path": "/api/newsletter/send",
       "schedule": "0 8 27 * *"
     }
+  ],
+  "headers": [
+    {
+      "source": "/_next/static/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(.+\\.(?:svg|png|jpg|jpeg|gif|ico|webp|woff2|woff|ttf))",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
+    }
   ]
 }

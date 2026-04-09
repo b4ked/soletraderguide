@@ -21,9 +21,17 @@ export function Header() {
   const pathname = usePathname()
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 8)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    const sentinel = document.createElement('div')
+    sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:9px;pointer-events:none;visibility:hidden'
+    document.body.prepend(sentinel)
+    const observer = new IntersectionObserver(
+      ([entry]) => setScrolled(!entry.isIntersecting)
+    )
+    observer.observe(sentinel)
+    return () => {
+      observer.disconnect()
+      sentinel.remove()
+    }
   }, [])
 
   // Close mobile menu on route change

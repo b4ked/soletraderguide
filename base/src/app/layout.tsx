@@ -1,13 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
-import { headers } from 'next/headers'
 import './globals.css'
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
-import { OrganisationSchema } from '@/components/seo/OrganisationSchema'
 import { siteConfig } from '@/data/site-config'
-import { Analytics } from '@vercel/analytics/next'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -75,36 +69,15 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const headersList = await headers()
-  const isAdmin = headersList.get('x-is-admin') === '1'
-
   return (
     <html lang="en-GB" className={`${inter.variable} ${playfair.variable} h-full antialiased`}>
-      <head>
-        {/* Organisation schema — appears on every page */}
-        {!isAdmin && <OrganisationSchema />}
-      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        {!isAdmin && (
-          <a href="#main-content" className="skip-link">
-            Skip to main content
-          </a>
-        )}
-
-        {!isAdmin && <Header />}
-
-        <main id="main-content" className="flex-1">
-          {children}
-        </main>
-
-        {!isAdmin && <Footer />}
-        {!isAdmin && <Analytics />}
-        {!isAdmin && <SpeedInsights />}
+        {children}
       </body>
     </html>
   )
