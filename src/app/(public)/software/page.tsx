@@ -136,7 +136,7 @@ export default function SoftwareHubPage() {
               key={provider.id}
               provider={provider}
               variant="summary"
-              highlighted={i === 3} // FreeAgent highlighted as top pick for sole traders
+              highlighted={i === 2} // Sage highlighted as top pick for sole traders
             />
           ))}
         </div>

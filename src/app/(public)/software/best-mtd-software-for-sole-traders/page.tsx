@@ -129,7 +129,7 @@ export default function BestMtdSoftwarePage() {
               <ProviderCard
                 provider={provider}
                 variant="full"
-                highlighted={i === 3}
+                highlighted={i === 2}
               />
             </div>
           ))}
