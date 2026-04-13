@@ -15,7 +15,7 @@ export const metadata = buildMetadata({
   title: 'Best MTD Software for Sole Traders Who Use Spreadsheets',
   description:
     'How to handle MTD if you currently use Excel or Google Sheets. Bridging software explained, which full accounting apps suit ex-spreadsheet users, and how to make the transition.',
-  canonicalPath: '/software/best-mtd-software-for-spreadsheet-users/',
+  canonicalPath: '/software/best-mtd-software-for-spreadsheet-users',
   pageType: 'review',
   updatedDate: '2026-03-31',
 })
@@ -59,7 +59,7 @@ export default function BestMtdSoftwareForSpreadsheetUsersPage() {
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/' },
-          { label: 'MTD Software', href: '/software/' },
+          { label: 'MTD Software', href: '/software' },
           { label: 'Best MTD Software for Spreadsheet Users' },
         ]}
       />
@@ -128,7 +128,7 @@ export default function BestMtdSoftwareForSpreadsheetUsersPage() {
           bank feeds and invoicing.
         </p>
         <Link
-          href="/mtd-for-sole-traders/spreadsheets/"
+          href="/mtd-for-sole-traders/spreadsheets"
           className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
         >
           Full guide: Spreadsheets and MTD explained <ArrowRight className="size-4" />
@@ -282,9 +282,9 @@ export default function BestMtdSoftwareForSpreadsheetUsersPage() {
           description="Our detailed guide covers bridging software, how the submission process works, and whether sticking with your spreadsheet is the right choice."
           primaryCta={{
             label: 'Spreadsheets and MTD: Full Guide',
-            href: '/mtd-for-sole-traders/spreadsheets/',
+            href: '/mtd-for-sole-traders/spreadsheets',
           }}
-          secondaryCta={{ label: 'Compare All MTD Software', href: '/software/' }}
+          secondaryCta={{ label: 'Compare All MTD Software', href: '/software' }}
           variant="brand"
         />
       </div>
@@ -305,7 +305,7 @@ export default function BestMtdSoftwareForSpreadsheetUsersPage() {
         <ul className="space-y-2">
           <li>
             <Link
-              href="/mtd-for-sole-traders/spreadsheets/"
+              href="/mtd-for-sole-traders/spreadsheets"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Can You Use Spreadsheets for MTD? Bridging
@@ -314,7 +314,7 @@ export default function BestMtdSoftwareForSpreadsheetUsersPage() {
           </li>
           <li>
             <Link
-              href="/software/best-mtd-software-for-sole-traders/"
+              href="/software/best-mtd-software-for-sole-traders"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Best MTD Software for Sole Traders (2025 Guide)
@@ -322,7 +322,7 @@ export default function BestMtdSoftwareForSpreadsheetUsersPage() {
           </li>
           <li>
             <Link
-              href="/software/cheapest-mtd-software/"
+              href="/software/cheapest-mtd-software"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Cheapest MTD Software for Sole Traders
@@ -330,7 +330,7 @@ export default function BestMtdSoftwareForSpreadsheetUsersPage() {
           </li>
           <li>
             <Link
-              href="/software/"
+              href="/software"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> All MTD Software Options Compared

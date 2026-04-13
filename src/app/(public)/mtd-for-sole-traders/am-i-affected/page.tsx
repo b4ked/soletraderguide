@@ -13,7 +13,7 @@ export const metadata = buildMetadata({
   title: 'Am I Affected by Making Tax Digital for Income Tax?',
   description:
     'Find out if you need to comply with MTD for Income Tax. Understand the £50,000 threshold, what counts as qualifying income, landlord rules, exemptions, and how to check your obligations.',
-  canonicalPath: '/mtd-for-sole-traders/am-i-affected/',
+  canonicalPath: '/mtd-for-sole-traders/am-i-affected',
   pageType: 'guide',
   updatedDate: '2026-03-31',
 })
@@ -52,7 +52,7 @@ export default function AmIAffectedPage() {
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/' },
-          { label: 'MTD for Sole Traders', href: '/mtd-for-sole-traders/' },
+          { label: 'MTD for Sole Traders', href: '/mtd-for-sole-traders' },
           { label: 'Am I Affected?' },
         ]}
       />
@@ -209,7 +209,7 @@ export default function AmIAffectedPage() {
           distinct reporting categories, so you cannot combine them into a single update.
         </p>
         <Link
-          href="/mtd-for-sole-traders/sole-trader-and-landlord-income/"
+          href="/mtd-for-sole-traders/sole-trader-and-landlord-income"
           className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
         >
           Full guide: MTD for sole traders with both trading and property income{' '}
@@ -263,8 +263,8 @@ export default function AmIAffectedPage() {
         <CTABlock
           heading="Check Your MTD Eligibility in 2 Minutes"
           description="Answer a few simple questions about your income sources and we'll give you a clear answer about your MTD obligations."
-          primaryCta={{ label: 'Use the Eligibility Checker', href: '/tools/mtd-eligibility-checker/' }}
-          secondaryCta={{ label: 'Read: What is MTD?', href: '/mtd-for-sole-traders/what-is-mtd-income-tax/' }}
+          primaryCta={{ label: 'Use the Eligibility Checker', href: '/tools/mtd-eligibility-checker' }}
+          secondaryCta={{ label: 'Read: What is MTD?', href: '/mtd-for-sole-traders/what-is-mtd-income-tax' }}
           variant="brand"
         />
       </div>
@@ -285,7 +285,7 @@ export default function AmIAffectedPage() {
         <ul className="space-y-2">
           <li>
             <Link
-              href="/mtd-for-sole-traders/what-is-mtd-income-tax/"
+              href="/mtd-for-sole-traders/what-is-mtd-income-tax"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> What is Making Tax Digital for Income Tax?
@@ -293,7 +293,7 @@ export default function AmIAffectedPage() {
           </li>
           <li>
             <Link
-              href="/mtd-for-sole-traders/deadlines/"
+              href="/mtd-for-sole-traders/deadlines"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> MTD for Income Tax: Deadlines and Key Dates
@@ -301,7 +301,7 @@ export default function AmIAffectedPage() {
           </li>
           <li>
             <Link
-              href="/mtd-for-sole-traders/sole-trader-and-landlord-income/"
+              href="/mtd-for-sole-traders/sole-trader-and-landlord-income"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> MTD for Sole Traders with Both Trading and
@@ -310,7 +310,7 @@ export default function AmIAffectedPage() {
           </li>
           <li>
             <Link
-              href="/software/"
+              href="/software"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Compare MTD Software for Sole Traders

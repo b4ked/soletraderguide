@@ -26,8 +26,8 @@ export default function HomePage() {
         badge="The independent MTD guide — no accountant required"
         heading="MTD Is Compulsory from April 2026. Here's What to Do."
         subheading="Plain-English guidance so you know whether you're affected, what you need to change, and which software makes compliance straightforward — without needing an accountant to translate."
-        primaryCta={{ label: 'Am I Affected?', href: '/mtd-for-sole-traders/am-i-affected/' }}
-        secondaryCta={{ label: 'Compare Software', href: '/software/' }}
+        primaryCta={{ label: 'Am I Affected?', href: '/mtd-for-sole-traders/am-i-affected' }}
+        secondaryCta={{ label: 'Compare Software', href: '/software' }}
         trustNote="Independent guidance. No financial advice. Updated March 2026."
       />
 
@@ -49,7 +49,7 @@ export default function HomePage() {
               applies to you — and what to do next.
             </p>
             <Link
-              href="/tools/mtd-eligibility-checker/"
+              href="/tools/mtd-eligibility-checker"
               className="inline-flex items-center gap-2 rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-white hover:bg-brand-dark transition-colors"
             >
               Check my eligibility <ArrowRight className="size-4" />
@@ -80,7 +80,7 @@ export default function HomePage() {
             landlords earning over £30,000.
           </p>
           <Link
-            href="/mtd-for-sole-traders/what-is-mtd-income-tax/"
+            href="/mtd-for-sole-traders/what-is-mtd-income-tax"
             className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
           >
             Read the full MTD guide <ArrowRight className="size-4" />
@@ -128,48 +128,48 @@ export default function HomePage() {
           <GuideCard
             title="What is MTD for Income Tax?"
             description="A plain-English explanation of what Making Tax Digital for Income Tax means, how it works, and how it differs from Self Assessment."
-            href="/mtd-for-sole-traders/what-is-mtd-income-tax/"
+            href="/mtd-for-sole-traders/what-is-mtd-income-tax"
             category="MTD Guides"
             icon={BookOpen}
           />
           <GuideCard
             title="Am I Affected by MTD?"
             description="Find out whether you need to comply with MTD, what counts towards the £50,000 threshold, and when you'll need to start."
-            href="/mtd-for-sole-traders/am-i-affected/"
+            href="/mtd-for-sole-traders/am-i-affected"
             category="MTD Guides"
             icon={CheckCircle}
           />
           <GuideCard
             title="MTD Deadlines Explained"
             description="Key dates for quarterly submissions, End of Period Statements, and your Final Declaration — with a clear quarterly timeline."
-            href="/mtd-for-sole-traders/deadlines/"
+            href="/mtd-for-sole-traders/deadlines"
             category="MTD Guides"
             icon={Calendar}
           />
           <GuideCard
             title="Records You Need to Keep"
             description="What digital records HMRC requires, how long to keep them, and whether photos of receipts count as digital records."
-            href="/mtd-for-sole-traders/records-you-need-to-keep/"
+            href="/mtd-for-sole-traders/records-you-need-to-keep"
             category="MTD Guides"
             icon={FileText}
           />
           <GuideCard
             title="MTD and Spreadsheets"
             description="Can you still use a spreadsheet? Yes — but you'll need bridging software. Find out how bridging works and whether it's right for you."
-            href="/mtd-for-sole-traders/spreadsheets/"
+            href="/mtd-for-sole-traders/spreadsheets"
             category="MTD Guides"
             badge="Popular"
           />
           <GuideCard
             title="Sole Trader and Landlord Income"
             description="If you have both self-employment and property income, find out how MTD applies and how to report both income streams correctly."
-            href="/mtd-for-sole-traders/sole-trader-and-landlord-income/"
+            href="/mtd-for-sole-traders/sole-trader-and-landlord-income"
             category="MTD Guides"
           />
         </div>
         <div className="mt-8 text-center">
           <Link
-            href="/mtd-for-sole-traders/"
+            href="/mtd-for-sole-traders"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
           >
             View all MTD guides <ArrowRight className="size-4" />
@@ -209,7 +209,7 @@ export default function HomePage() {
           </div>
           <div className="mt-8 text-center">
             <Link
-              href="/comparisons/"
+              href="/comparisons"
               className="inline-flex items-center gap-2 rounded-lg border border-brand px-6 py-2.5 text-sm font-semibold text-brand hover:bg-brand-light transition-colors"
             >
               See Full Comparison <ArrowRight className="size-4" />
@@ -233,7 +233,7 @@ export default function HomePage() {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 We don&apos;t take payment from software companies to rank them higher. Every
                 recommendation is based on our published scoring criteria —{' '}
-                <Link href="/sources-methodology/" className="underline hover:text-brand">
+                <Link href="/sources-methodology" className="underline hover:text-brand">
                   read the full methodology
                 </Link>
                 .
@@ -264,11 +264,11 @@ export default function HomePage() {
           </div>
           <p className="mt-8 text-center text-sm text-muted-foreground">
             Read our{' '}
-            <Link href="/editorial-policy/" className="text-brand hover:underline">
+            <Link href="/editorial-policy" className="text-brand hover:underline">
               editorial policy
             </Link>{' '}
             and{' '}
-            <Link href="/sources/" className="text-brand hover:underline">
+            <Link href="/sources-methodology" className="text-brand hover:underline">
               sources &amp; methodology
             </Link>
             .
@@ -292,7 +292,7 @@ export default function HomePage() {
               </p>
             </div>
             <Link
-              href="/blog/"
+              href="/blog"
               className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
             >
               All articles <ArrowRight className="size-4" />
@@ -311,7 +311,7 @@ export default function HomePage() {
                 mandatory start date — from registration deadlines to software choices.
               </p>
               <Link
-                href="/blog/"
+                href="/blog"
                 className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-brand hover:underline"
               >
                 Read more <ArrowRight className="size-3.5" />
@@ -330,7 +330,7 @@ export default function HomePage() {
                 submission — covering software setup, record organisation, and what to submit.
               </p>
               <Link
-                href="/blog/"
+                href="/blog"
                 className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-brand hover:underline"
               >
                 Read more <ArrowRight className="size-3.5" />
@@ -349,7 +349,7 @@ export default function HomePage() {
                 actually include, what they leave out, and when it makes sense to pay.
               </p>
               <Link
-                href="/blog/"
+                href="/blog"
                 className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-brand hover:underline"
               >
                 Read more <ArrowRight className="size-3.5" />
@@ -358,7 +358,7 @@ export default function HomePage() {
           </div>
           <div className="mt-8 text-center sm:hidden">
             <Link
-              href="/blog/"
+              href="/blog"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
             >
               All articles <ArrowRight className="size-4" />

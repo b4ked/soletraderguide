@@ -16,7 +16,7 @@ export const metadata = buildMetadata({
   title: 'MTD Software for Sole Traders: All Options Compared',
   description:
     'Compare MTD-compatible accounting software for sole traders. Review Xero, QuickBooks, Sage, and FreeAgent — including pricing, features, and which is best for your situation.',
-  canonicalPath: '/software/',
+  canonicalPath: '/software',
   pageType: 'hub',
   updatedDate: '2026-03-31',
 })
@@ -141,7 +141,7 @@ export default function SoftwareHubPage() {
           ))}
         </div>
         <Link
-          href="/software/best-mtd-software-for-sole-traders/"
+          href="/software/best-mtd-software-for-sole-traders"
           className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
         >
           Full guide: Best MTD software for sole traders <ArrowRight className="size-4" />
@@ -157,26 +157,26 @@ export default function SoftwareHubPage() {
           <GuideCard
             title="Best MTD Software for Sole Traders"
             description="Our top-rated MTD software picks for sole traders in 2025 — ranked, reviewed, and compared by price, features, and ease of use."
-            href="/software/best-mtd-software-for-sole-traders/"
+            href="/software/best-mtd-software-for-sole-traders"
             category="Software Guide"
             badge="Top Guide"
           />
           <GuideCard
             title="Best Free MTD Software"
             description="Is there genuinely free MTD software for sole traders? We look at FreeAgent via NatWest/RBS, HMRC's own tools, and what 'free' usually means in practice."
-            href="/software/best-free-mtd-software/"
+            href="/software/best-free-mtd-software"
             category="Software Guide"
           />
           <GuideCard
             title="Cheapest MTD Software"
             description="Entry-level plans from Xero, QuickBooks, Sage, and FreeAgent compared by price — and which hidden costs to watch out for."
-            href="/software/cheapest-mtd-software/"
+            href="/software/cheapest-mtd-software"
             category="Software Guide"
           />
           <GuideCard
             title="Best MTD Software for Spreadsheet Users"
             description="Already using Excel or Google Sheets? Here's how to add MTD compliance without giving up your spreadsheet workflow."
-            href="/software/best-mtd-software-for-spreadsheet-users/"
+            href="/software/best-mtd-software-for-spreadsheet-users"
             category="Software Guide"
           />
         </div>
@@ -203,7 +203,7 @@ export default function SoftwareHubPage() {
           total cost-benefit equation depends on how much time you spend on your books each month.
         </p>
         <Link
-          href="/software/best-free-mtd-software/"
+          href="/software/best-free-mtd-software"
           className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
         >
           Full guide: Best free MTD software <ArrowRight className="size-4" />
@@ -215,10 +215,10 @@ export default function SoftwareHubPage() {
         <CTABlock
           heading="Not Sure Which Software to Choose?"
           description="Use our MTD eligibility checker to confirm whether you're affected — then compare software based on your needs."
-          primaryCta={{ label: 'Compare All Software', href: '/comparisons/' }}
+          primaryCta={{ label: 'Compare All Software', href: '/comparisons' }}
           secondaryCta={{
             label: 'Check My Eligibility',
-            href: '/tools/mtd-eligibility-checker/',
+            href: '/tools/mtd-eligibility-checker',
           }}
           variant="brand"
         />
@@ -240,7 +240,7 @@ export default function SoftwareHubPage() {
         <ul className="space-y-2">
           <li>
             <Link
-              href="/mtd-for-sole-traders/"
+              href="/mtd-for-sole-traders"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> MTD for Sole Traders: Complete Guide Hub
@@ -248,7 +248,7 @@ export default function SoftwareHubPage() {
           </li>
           <li>
             <Link
-              href="/mtd-for-sole-traders/spreadsheets/"
+              href="/mtd-for-sole-traders/spreadsheets"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Can You Use Spreadsheets for MTD?
@@ -256,7 +256,7 @@ export default function SoftwareHubPage() {
           </li>
           <li>
             <Link
-              href="/comparisons/"
+              href="/comparisons"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Compare All MTD Software Side by Side
@@ -264,7 +264,7 @@ export default function SoftwareHubPage() {
           </li>
           <li>
             <Link
-              href="/tools/mtd-eligibility-checker/"
+              href="/tools/mtd-eligibility-checker"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> MTD Eligibility Checker Tool

@@ -13,7 +13,7 @@ export const metadata = buildMetadata({
   title: 'MTD for Sole Traders with Both Trading and Property Income',
   description:
     'How MTD for Income Tax applies to sole traders who also have rental income. Threshold rules, separate reporting for each income stream, EOPS requirements, and software that supports both.',
-  canonicalPath: '/mtd-for-sole-traders/sole-trader-and-landlord-income/',
+  canonicalPath: '/mtd-for-sole-traders/sole-trader-and-landlord-income',
   pageType: 'guide',
   updatedDate: '2026-03-31',
 })
@@ -52,7 +52,7 @@ export default function SoleTraderLandlordPage() {
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/' },
-          { label: 'MTD for Sole Traders', href: '/mtd-for-sole-traders/' },
+          { label: 'MTD for Sole Traders', href: '/mtd-for-sole-traders' },
           { label: 'Sole Trader and Landlord Income' },
         ]}
       />
@@ -214,7 +214,7 @@ export default function SoleTraderLandlordPage() {
           Capability is changing — always check directly with a provider before subscribing.
         </p>
         <Link
-          href="/software/"
+          href="/software"
           className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
         >
           Compare all MTD software options <ArrowRight className="size-4" />
@@ -315,9 +315,9 @@ export default function SoleTraderLandlordPage() {
           description="Find out whether your combined income puts you in scope for MTD from April 2026 — and what steps to take next."
           primaryCta={{
             label: 'Use the Eligibility Checker',
-            href: '/tools/mtd-eligibility-checker/',
+            href: '/tools/mtd-eligibility-checker',
           }}
-          secondaryCta={{ label: 'Compare MTD Software', href: '/software/' }}
+          secondaryCta={{ label: 'Compare MTD Software', href: '/software' }}
           variant="brand"
         />
       </div>
@@ -338,7 +338,7 @@ export default function SoleTraderLandlordPage() {
         <ul className="space-y-2">
           <li>
             <Link
-              href="/mtd-for-sole-traders/am-i-affected/"
+              href="/mtd-for-sole-traders/am-i-affected"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Am I Affected by MTD for Income Tax?
@@ -346,7 +346,7 @@ export default function SoleTraderLandlordPage() {
           </li>
           <li>
             <Link
-              href="/mtd-for-sole-traders/deadlines/"
+              href="/mtd-for-sole-traders/deadlines"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> MTD for Income Tax: Deadlines and Key Dates
@@ -354,7 +354,7 @@ export default function SoleTraderLandlordPage() {
           </li>
           <li>
             <Link
-              href="/software/best-mtd-software-for-sole-traders/"
+              href="/software/best-mtd-software-for-sole-traders"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Best MTD Software for Sole Traders
@@ -362,7 +362,7 @@ export default function SoleTraderLandlordPage() {
           </li>
           <li>
             <Link
-              href="/mtd-for-sole-traders/"
+              href="/mtd-for-sole-traders"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> MTD for Sole Traders: Complete Guide Hub

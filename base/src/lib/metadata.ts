@@ -53,7 +53,7 @@ export function generateMetadata(opts: GenerateMetadataOptions): Metadata {
     .join(', ')
 
   const metadata: Metadata = {
-    title: `${title} | ${siteConfig.name}`,
+    title,
     description,
     keywords,
     authors: [{ name: siteConfig.publisherName, url: siteConfig.url }],
@@ -63,7 +63,7 @@ export function generateMetadata(opts: GenerateMetadataOptions): Metadata {
       ? { index: false, follow: false }
       : { index: true, follow: true },
     openGraph: {
-      title: `${title} | ${siteConfig.name}`,
+      title,
       description,
       url: canonicalUrl || siteConfig.url,
       siteName: siteConfig.name,
@@ -80,7 +80,7 @@ export function generateMetadata(opts: GenerateMetadataOptions): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${title} | ${siteConfig.name}`,
+      title,
       description,
       images: [ogImageUrl],
     },

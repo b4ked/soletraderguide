@@ -13,7 +13,7 @@ export const metadata = buildMetadata({
   title: 'What is Making Tax Digital for Income Tax?',
   description:
     'A plain-English guide to MTD for Income Tax — what it is, why HMRC introduced it, how quarterly updates work, and how it differs from Self Assessment and MTD for VAT.',
-  canonicalPath: '/mtd-for-sole-traders/what-is-mtd-income-tax/',
+  canonicalPath: '/mtd-for-sole-traders/what-is-mtd-income-tax',
   pageType: 'guide',
   updatedDate: '2026-03-31',
 })
@@ -52,7 +52,7 @@ export default function WhatIsMtdPage() {
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/' },
-          { label: 'MTD for Sole Traders', href: '/mtd-for-sole-traders/' },
+          { label: 'MTD for Sole Traders', href: '/mtd-for-sole-traders' },
           { label: 'What is MTD for Income Tax?' },
         ]}
       />
@@ -278,8 +278,8 @@ export default function WhatIsMtdPage() {
         <CTABlock
           heading="Find Out if You're Affected by MTD"
           description="Use our free eligibility checker to find out exactly when you need to comply and what you need to do first."
-          primaryCta={{ label: 'Check My Eligibility', href: '/tools/mtd-eligibility-checker/' }}
-          secondaryCta={{ label: 'Compare MTD Software', href: '/software/' }}
+          primaryCta={{ label: 'Check My Eligibility', href: '/tools/mtd-eligibility-checker' }}
+          secondaryCta={{ label: 'Compare MTD Software', href: '/software' }}
           variant="brand"
         />
       </div>
@@ -300,7 +300,7 @@ export default function WhatIsMtdPage() {
         <ul className="space-y-2">
           <li>
             <Link
-              href="/mtd-for-sole-traders/am-i-affected/"
+              href="/mtd-for-sole-traders/am-i-affected"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Am I Affected by MTD for Income Tax?
@@ -308,7 +308,7 @@ export default function WhatIsMtdPage() {
           </li>
           <li>
             <Link
-              href="/mtd-for-sole-traders/deadlines/"
+              href="/mtd-for-sole-traders/deadlines"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> MTD for Income Tax: Deadlines and Key Dates
@@ -316,7 +316,7 @@ export default function WhatIsMtdPage() {
           </li>
           <li>
             <Link
-              href="/mtd-for-sole-traders/records-you-need-to-keep/"
+              href="/mtd-for-sole-traders/records-you-need-to-keep"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> What Records Do You Need to Keep for MTD?
@@ -324,7 +324,7 @@ export default function WhatIsMtdPage() {
           </li>
           <li>
             <Link
-              href="/software/"
+              href="/software"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> MTD Software for Sole Traders: All Options

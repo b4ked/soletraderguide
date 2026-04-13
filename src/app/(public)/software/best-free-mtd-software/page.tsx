@@ -15,7 +15,7 @@ export const metadata = buildMetadata({
   title: 'Best Free MTD Software for Sole Traders',
   description:
     'Is there genuinely free MTD software for sole traders? We look at FreeAgent via NatWest/RBS, HMRC\'s basic tools, free trials, and what free usually means in practice.',
-  canonicalPath: '/software/best-free-mtd-software/',
+  canonicalPath: '/software/best-free-mtd-software',
   pageType: 'review',
   updatedDate: '2026-03-31',
 })
@@ -56,7 +56,7 @@ export default function BestFreeMtdSoftwarePage() {
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/' },
-          { label: 'MTD Software', href: '/software/' },
+          { label: 'MTD Software', href: '/software' },
           { label: 'Best Free MTD Software' },
         ]}
       />
@@ -237,10 +237,10 @@ export default function BestFreeMtdSoftwarePage() {
         <CTABlock
           heading="Compare All MTD Software Options"
           description="See how free and paid MTD software compares across price, features, and sole-trader suitability."
-          primaryCta={{ label: 'Compare All Software', href: '/software/' }}
+          primaryCta={{ label: 'Compare All Software', href: '/software' }}
           secondaryCta={{
             label: 'Best MTD Software (Full Guide)',
-            href: '/software/best-mtd-software-for-sole-traders/',
+            href: '/software/best-mtd-software-for-sole-traders',
           }}
           variant="brand"
         />
@@ -262,7 +262,7 @@ export default function BestFreeMtdSoftwarePage() {
         <ul className="space-y-2">
           <li>
             <Link
-              href="/software/cheapest-mtd-software/"
+              href="/software/cheapest-mtd-software"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Cheapest MTD Software for Sole Traders
@@ -270,7 +270,7 @@ export default function BestFreeMtdSoftwarePage() {
           </li>
           <li>
             <Link
-              href="/software/best-mtd-software-for-sole-traders/"
+              href="/software/best-mtd-software-for-sole-traders"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Best MTD Software for Sole Traders (2025 Guide)
@@ -278,7 +278,7 @@ export default function BestFreeMtdSoftwarePage() {
           </li>
           <li>
             <Link
-              href="/mtd-for-sole-traders/spreadsheets/"
+              href="/mtd-for-sole-traders/spreadsheets"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Can You Use Spreadsheets for MTD?
@@ -286,7 +286,7 @@ export default function BestFreeMtdSoftwarePage() {
           </li>
           <li>
             <Link
-              href="/software/"
+              href="/software"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> MTD Software Hub: All Options Compared

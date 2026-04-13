@@ -15,7 +15,7 @@ export const metadata = buildMetadata({
   title: 'Best MTD Software for Sole Traders (2025 Guide)',
   description:
     'Our top-rated MTD-compatible software picks for sole traders in 2025. We review Xero, QuickBooks, Sage, and FreeAgent — ranked by price, features, and suitability for sole traders.',
-  canonicalPath: '/software/best-mtd-software-for-sole-traders/',
+  canonicalPath: '/software/best-mtd-software-for-sole-traders',
   pageType: 'review',
   updatedDate: '2026-03-31',
 })
@@ -54,7 +54,7 @@ export default function BestMtdSoftwarePage() {
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/' },
-          { label: 'MTD Software', href: '/software/' },
+          { label: 'MTD Software', href: '/software' },
           { label: 'Best MTD Software for Sole Traders' },
         ]}
       />
@@ -232,7 +232,7 @@ export default function BestMtdSoftwarePage() {
           traders, so the net cost after tax relief is lower than the headline price.
         </p>
         <Link
-          href="/software/best-free-mtd-software/"
+          href="/software/best-free-mtd-software"
           className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
         >
           See our full guide: Best free MTD software <ArrowRight className="size-4" />
@@ -250,8 +250,8 @@ export default function BestMtdSoftwarePage() {
         <CTABlock
           heading="Ready to Choose Your MTD Software?"
           description="Compare all four recommended providers side by side — pricing, features, and MTD compatibility in one view."
-          primaryCta={{ label: 'Compare All Software', href: '/comparisons/' }}
-          secondaryCta={{ label: 'Check Free Options', href: '/software/best-free-mtd-software/' }}
+          primaryCta={{ label: 'Compare All Software', href: '/comparisons' }}
+          secondaryCta={{ label: 'Check Free Options', href: '/software/best-free-mtd-software' }}
           variant="brand"
         />
       </div>
@@ -272,7 +272,7 @@ export default function BestMtdSoftwarePage() {
         <ul className="space-y-2">
           <li>
             <Link
-              href="/software/best-free-mtd-software/"
+              href="/software/best-free-mtd-software"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Best Free MTD Software for Sole Traders
@@ -280,7 +280,7 @@ export default function BestMtdSoftwarePage() {
           </li>
           <li>
             <Link
-              href="/software/cheapest-mtd-software/"
+              href="/software/cheapest-mtd-software"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Cheapest MTD Software for Sole Traders
@@ -288,7 +288,7 @@ export default function BestMtdSoftwarePage() {
           </li>
           <li>
             <Link
-              href="/software/best-mtd-software-for-spreadsheet-users/"
+              href="/software/best-mtd-software-for-spreadsheet-users"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Best MTD Software for Spreadsheet Users
@@ -296,7 +296,7 @@ export default function BestMtdSoftwarePage() {
           </li>
           <li>
             <Link
-              href="/mtd-for-sole-traders/"
+              href="/mtd-for-sole-traders"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> MTD for Sole Traders: Complete Guide

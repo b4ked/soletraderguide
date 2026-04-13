@@ -6,7 +6,6 @@ import { GuideCard } from '@/components/common/GuideCard'
 import { CTABlock } from '@/components/common/CTABlock'
 import { FAQAccordion } from '@/components/common/FAQAccordion'
 import { InfoCallout } from '@/components/common/InfoCallout'
-import { NewsletterSignup } from '@/components/common/NewsletterSignup'
 import { LastUpdated } from '@/components/trust/LastUpdated'
 import { mtdConfig } from '@/data/site-config'
 import type { FAQ } from '@/types'
@@ -15,7 +14,7 @@ export const metadata = buildMetadata({
   title: 'MTD for Sole Traders: Complete Guide',
   description:
     'Everything sole traders need to know about Making Tax Digital for Income Tax — who is affected, key deadlines, record-keeping requirements, and how to choose the right software.',
-  canonicalPath: '/mtd-for-sole-traders/',
+  canonicalPath: '/mtd-for-sole-traders',
   pageType: 'hub',
   updatedDate: '2026-03-31',
 })
@@ -106,7 +105,7 @@ export default function MtdHubPage() {
           throughout the year.
         </p>
         <Link
-          href="/mtd-for-sole-traders/what-is-mtd-income-tax/"
+          href="/mtd-for-sole-traders/what-is-mtd-income-tax"
           className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
         >
           Read the full guide: What is MTD for Income Tax? <ArrowRight className="size-4" />
@@ -134,7 +133,7 @@ export default function MtdHubPage() {
           exclusion, or religious grounds. HMRC can grant deferrals in exceptional cases.
         </p>
         <Link
-          href="/mtd-for-sole-traders/am-i-affected/"
+          href="/mtd-for-sole-traders/am-i-affected"
           className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
         >
           Check if you&apos;re affected: full eligibility guide <ArrowRight className="size-4" />
@@ -178,7 +177,7 @@ export default function MtdHubPage() {
           Final Declaration.
         </p>
         <Link
-          href="/mtd-for-sole-traders/deadlines/"
+          href="/mtd-for-sole-traders/deadlines"
           className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
         >
           Full deadlines guide <ArrowRight className="size-4" />
@@ -200,42 +199,42 @@ export default function MtdHubPage() {
           <GuideCard
             title="What is MTD for Income Tax?"
             description="A plain-English explanation of MTD ITSA — what it is, how it works, and how it differs from Self Assessment."
-            href="/mtd-for-sole-traders/what-is-mtd-income-tax/"
+            href="/mtd-for-sole-traders/what-is-mtd-income-tax"
             category="MTD Guides"
             icon={BookOpen}
           />
           <GuideCard
             title="Am I Affected by MTD?"
             description="Find out if your income crosses the threshold, what counts, and how multiple income sources are treated."
-            href="/mtd-for-sole-traders/am-i-affected/"
+            href="/mtd-for-sole-traders/am-i-affected"
             category="MTD Guides"
             icon={CheckCircle}
           />
           <GuideCard
             title="MTD Deadlines Explained"
             description="All four quarterly deadlines, EOPS dates, and the Final Declaration — with a clear timeline and penalty information."
-            href="/mtd-for-sole-traders/deadlines/"
+            href="/mtd-for-sole-traders/deadlines"
             category="MTD Guides"
             icon={Calendar}
           />
           <GuideCard
             title="Records You Need to Keep"
             description="What HMRC considers a digital record, what income and expense data you must store, and for how long."
-            href="/mtd-for-sole-traders/records-you-need-to-keep/"
+            href="/mtd-for-sole-traders/records-you-need-to-keep"
             category="MTD Guides"
             icon={FileText}
           />
           <GuideCard
             title="MTD and Spreadsheets"
             description="How bridging software lets you continue using spreadsheets for MTD — and whether that's the right choice for you."
-            href="/mtd-for-sole-traders/spreadsheets/"
+            href="/mtd-for-sole-traders/spreadsheets"
             category="MTD Guides"
             badge="Popular"
           />
           <GuideCard
             title="Sole Trader and Landlord Income"
             description="How MTD handles combined self-employment and property income, and how to report both income streams correctly."
-            href="/mtd-for-sole-traders/sole-trader-and-landlord-income/"
+            href="/mtd-for-sole-traders/sole-trader-and-landlord-income"
             category="MTD Guides"
           />
         </div>
@@ -246,8 +245,8 @@ export default function MtdHubPage() {
         <CTABlock
           heading="Check if You're Affected by MTD"
           description="Answer a few quick questions and get a personalised answer about your MTD obligations and timeline."
-          primaryCta={{ label: 'Use the Eligibility Checker', href: '/tools/mtd-eligibility-checker/' }}
-          secondaryCta={{ label: 'Compare MTD Software', href: '/software/' }}
+          primaryCta={{ label: 'Use the Eligibility Checker', href: '/tools/mtd-eligibility-checker' }}
+          secondaryCta={{ label: 'Compare MTD Software', href: '/software' }}
           variant="brand"
         />
       </div>
@@ -268,7 +267,7 @@ export default function MtdHubPage() {
         <ul className="space-y-2">
           <li>
             <Link
-              href="/software/"
+              href="/software"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> MTD Software for Sole Traders: All Options
@@ -277,7 +276,7 @@ export default function MtdHubPage() {
           </li>
           <li>
             <Link
-              href="/software/best-mtd-software-for-sole-traders/"
+              href="/software/best-mtd-software-for-sole-traders"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Best MTD Software for Sole Traders (2025 Guide)
@@ -285,7 +284,7 @@ export default function MtdHubPage() {
           </li>
           <li>
             <Link
-              href="/tools/mtd-eligibility-checker/"
+              href="/tools/mtd-eligibility-checker"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> MTD Eligibility Checker Tool
@@ -293,7 +292,7 @@ export default function MtdHubPage() {
           </li>
           <li>
             <Link
-              href="/comparisons/"
+              href="/comparisons"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Compare All MTD Software

@@ -13,7 +13,7 @@ export const metadata = buildMetadata({
   title: 'What Records Do You Need to Keep for MTD?',
   description:
     'MTD record-keeping requirements for sole traders — what income and expense records HMRC requires, what digital means in practice, how long to keep records, and whether photos of receipts count.',
-  canonicalPath: '/mtd-for-sole-traders/records-you-need-to-keep/',
+  canonicalPath: '/mtd-for-sole-traders/records-you-need-to-keep',
   pageType: 'guide',
   updatedDate: '2026-03-31',
 })
@@ -52,7 +52,7 @@ export default function RecordsPage() {
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/' },
-          { label: 'MTD for Sole Traders', href: '/mtd-for-sole-traders/' },
+          { label: 'MTD for Sole Traders', href: '/mtd-for-sole-traders' },
           { label: 'Records You Need to Keep' },
         ]}
       />
@@ -251,7 +251,7 @@ export default function RecordsPage() {
           to act as your MTD agent with HMRC.
         </p>
         <Link
-          href="/software/"
+          href="/software"
           className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
         >
           Compare MTD software options <ArrowRight className="size-4" />
@@ -303,8 +303,8 @@ export default function RecordsPage() {
         <CTABlock
           heading="Ready to Get Your Records in Order?"
           description="The right MTD software makes digital record-keeping straightforward. Compare your options and find the best fit for your business."
-          primaryCta={{ label: 'Compare MTD Software', href: '/software/' }}
-          secondaryCta={{ label: 'MTD Deadlines Guide', href: '/mtd-for-sole-traders/deadlines/' }}
+          primaryCta={{ label: 'Compare MTD Software', href: '/software' }}
+          secondaryCta={{ label: 'MTD Deadlines Guide', href: '/mtd-for-sole-traders/deadlines' }}
           variant="brand"
         />
       </div>
@@ -325,7 +325,7 @@ export default function RecordsPage() {
         <ul className="space-y-2">
           <li>
             <Link
-              href="/mtd-for-sole-traders/spreadsheets/"
+              href="/mtd-for-sole-traders/spreadsheets"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Can You Use Spreadsheets for MTD? Bridging
@@ -334,7 +334,7 @@ export default function RecordsPage() {
           </li>
           <li>
             <Link
-              href="/mtd-for-sole-traders/deadlines/"
+              href="/mtd-for-sole-traders/deadlines"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> MTD for Income Tax: Deadlines and Key Dates
@@ -342,7 +342,7 @@ export default function RecordsPage() {
           </li>
           <li>
             <Link
-              href="/software/best-mtd-software-for-sole-traders/"
+              href="/software/best-mtd-software-for-sole-traders"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> Best MTD Software for Sole Traders
@@ -350,7 +350,7 @@ export default function RecordsPage() {
           </li>
           <li>
             <Link
-              href="/mtd-for-sole-traders/"
+              href="/mtd-for-sole-traders"
               className="text-sm text-brand hover:underline inline-flex items-center gap-1"
             >
               <ArrowRight className="size-3.5" /> MTD for Sole Traders: Complete Guide Hub
