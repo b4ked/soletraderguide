@@ -27,6 +27,9 @@ This skill replaces the old split between SEO review and QA review. The same age
 - Affiliate disclosure setting is correct
 - Core MTD facts match repo facts
 - Tables, if any, are valid multi-line markdown tables
+- Formatting choices fit the draft and improve clarity rather than adding noise
+- Dense material is reformatted where needed into clearer prose, lists, steps, tables, or callouts
+- No useful structural device is missing where the article clearly needs one
 
 ### Quality Gate
 
@@ -59,6 +62,7 @@ Lint handling rule:
 - Fix directly and rerun checks.
 - Do not produce a review-only report while leaving fixable issues behind.
 - Only stop when the post is either approved or clearly blocked by a hard quality issue.
+- Review formatting choices editorially, not mechanically. The goal is the best presentation for this draft, not the presence of a table or callout quota.
 
 ## Approval Output
 

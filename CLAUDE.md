@@ -48,6 +48,8 @@ The scheduler prompt should only name the draft and tell Claude to publish it. T
 
 - Output file: `src/content/blog/[slug].mdx`
 - The slug should come from the draft if supplied; otherwise derive it from the topic.
+- Drafts may arrive as plain text, rough markdown, or partly formatted MDX. The agent is responsible for deciding what structure and formatting the final post needs.
+- Do not force fixed formatting patterns onto every draft. Use tables, lists, callouts, and other supported markdown structures only where they materially improve clarity.
 - Frontmatter must include:
   - `title`
   - `description`
@@ -63,6 +65,7 @@ The scheduler prompt should only name the draft and tell Claude to publish it. T
   - `relatedPosts`
 - MDX body must not contain an H1.
 - `<InfoCallout>` is the only JSX allowed in blog body content.
+- Prefer structural clarity over decorative formatting. Formatting choices must follow the content, not a template quota.
 - Internal links must use direct site-relative paths such as `/tools/mtd-eligibility-checker`.
 - Use UK English throughout.
 
