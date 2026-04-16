@@ -105,17 +105,11 @@ for s in data:
   # ── Run Claude blog pipeline ───────────────────────────────────────────────
   cd "$WORK_DIR"
   PIPELINE_OUTPUT=$("$CLAUDE_BIN" --print \
-    "You are the blog pipeline orchestrator for SoleTraderGuide.co.uk.
+    "Read CLAUDE.md in the repo root, then publish the blog draft drafts/${DRAFT_FILE}.
 
-Read CLAUDE.md at the repo root in full before proceeding.
-Run /blog-pipeline on the following specific draft: drafts/${DRAFT_FILE}
-
-IMPORTANT OVERRIDE for Step 0: Skip the automatic draft selection logic.
-The draft to process has been pre-selected: drafts/${DRAFT_FILE}
-Proceed directly to Step 1 (Write-Up Agent) with this file.
-
-Complete the full pipeline: Write-Up → SEO → QA → Commit/Push → DA Agent.
-If the quality gate fails, DO NOT commit. Output QUALITY_GATE_FAIL in your summary." \
+Only this supplied draft is in scope.
+Do not auto-select any other draft.
+If the quality gate fails, do not commit or push, and include QUALITY_GATE_FAIL in your summary." \
     --dangerously-skip-permissions \
     2>&1)
 

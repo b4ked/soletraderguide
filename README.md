@@ -69,7 +69,7 @@ soletraderguide/
 │       └── utils.ts                 # cn() Tailwind utility
 │
 ├── drafts/                          # Raw draft markdown files (input to blog pipeline)
-├── reports/                         # DA Agent reports (auto-generated, post-publish)
+├── reports/                         # Post-publish DA reports (auto-generated)
 │
 ├── scheduler/                       # VPS scheduler backend (runs on the VPS)
 │   ├── server.js                    # Express API — schedule CRUD + due-check
@@ -122,7 +122,7 @@ Cron (*/15 * * * *) on VPS
   └── check-and-publish.sh
         ├── GET /api/schedules/due
         ├── git clone repo → /home/parryh/stg-publish-work/
-        ├── claude --print "run /blog-pipeline on drafts/<file>" --dangerously-skip-permissions
+        ├── claude --print "publish the blog draft drafts/<file>" --dangerously-skip-permissions
         ├── POST /api/schedules/:id/complete
         └── rm -rf /home/parryh/stg-publish-work/
 ```
@@ -181,15 +181,18 @@ For `check-and-publish.sh`, a `git pull` is sufficient — no restart needed.
 
 ## Blog Pipeline (Agentic Workflow)
 
-Blog posts are published via Claude Code running the `/blog-pipeline` skill defined in `CLAUDE.md`. The pipeline runs 5 agents sequentially:
+Blog posts are published by one Claude Code session using the repo-defined sequential workflow in `CLAUDE.md`.
 
-| Step | Agent | Action |
+The workflow now uses four repo skills:
+
+| Step | Skill | Action |
 |------|-------|--------|
-| 1 | Write-Up Agent | Converts `drafts/<file>.md` → `src/content/blog/<slug>.mdx` |
-| 2 | SEO Agent | Validates frontmatter, internal links, structured data |
-| 3 | QA/Reviewer Agent | `npm run build` + `npm run lint` |
-| 4 | Commit/Push | Commits MDX + pushes to `main` → Vercel auto-deploys |
-| 5 | DA Agent | On-push domain authority assessment |
+| 1 | `/publish-blog` | Entry point for one specified draft file |
+| 2 | `/draft-to-post` | Converts raw draft content into polished MDX with frontmatter, links, FAQs, CTA, and disclosure logic |
+| 3 | `/blog-qa` | Fixes and verifies content quality, SEO checks, `npm run build`, and `npm run lint` in the same session |
+| 4 | `/post-publish-da` | Writes an advisory DA report after the post is pushed |
+
+The cron prompt no longer describes the workflow. It only names the draft to publish, and the repo instructions define the rest.
 
 ### Scheduling a post
 
