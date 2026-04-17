@@ -60,6 +60,14 @@ interface VpsStatus {
   total: number
   uptimeSeconds: number
   serverTime: string
+  cron?: {
+    configured: boolean
+    running: boolean
+    expression: string
+    intervalMinutes: number | null
+    label: string
+    command: string
+  }
 }
 
 interface VpsData {
@@ -247,7 +255,11 @@ function ScheduleModal({
           </button>
           <button
             onClick={() => {
-              onSave(draft.slug, { targetDate, notes, priority })
+              onSave(draft.scheduleKey ?? draft.filename.replace(/\.(mdx?)$/, ''), {
+                targetDate,
+                notes,
+                priority,
+              })
               onClose()
             }}
             disabled={!targetDate}
@@ -264,7 +276,7 @@ function ScheduleModal({
 // ─── Main Dashboard ────────────────────────────────────────────────────────────
 
 export default function AdminDashboard() {
-  const [tab, setTab] = useState<Tab>('overview')
+  const [tab, setTab] = useState<Tab>('vps')
   const [drafts, setDrafts] = useState<DraftMeta[]>([])
   const [published, setPublished] = useState<PublishedMeta[]>([])
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null)
@@ -273,6 +285,9 @@ export default function AdminDashboard() {
   const [vpsLoading, setVpsLoading] = useState(false)
   const [vpsLogs, setVpsLogs] = useState<string[]>([])
   const [vpsLogsLoading, setVpsLogsLoading] = useState(false)
+  const [showAllSchedules, setShowAllSchedules] = useState(false)
+  const [cronActionLoading, setCronActionLoading] = useState<string | null>(null)
+  const [scheduleShiftLoading, setScheduleShiftLoading] = useState<string | null>(null)
   const [schedule, setSchedule] = useState<Schedule>({})
   const [schedulingDraft, setSchedulingDraft] = useState<DraftMeta | null>(null)
   const [draftSearch, setDraftSearch] = useState('')
@@ -282,31 +297,31 @@ export default function AdminDashboard() {
     return draft.scheduleKey ?? draft.filename.replace(/\.(mdx?)$/, '')
   }
 
-  // Load schedules from VPS API on mount
-  useEffect(() => {
-    async function loadSchedules() {
-      try {
-        const res = await fetch('/api/admin/schedules')
-        if (!res.ok) return
-        const data = await res.json()
-        const map: Schedule = {}
-        for (const s of data.schedules ?? []) {
-          const scheduleKey = (s.draftFile as string).replace(/\.(mdx?)$/, '')
-          map[scheduleKey] = {
-            id: s.id,
-            targetDate: (s.scheduledAt as string).split('T')[0],
-            notes: s.notes ?? '',
-            priority: s.priority ?? 'medium',
-            status: s.status,
-          }
+  const loadSchedules = useCallback(async () => {
+    try {
+      const res = await fetch('/api/admin/schedules')
+      if (!res.ok) return
+      const data = await res.json()
+      const map: Schedule = {}
+      for (const s of data.schedules ?? []) {
+        const scheduleKey = (s.draftFile as string).replace(/\.(mdx?)$/, '')
+        map[scheduleKey] = {
+          id: s.id,
+          targetDate: (s.scheduledAt as string).split('T')[0],
+          notes: s.notes ?? '',
+          priority: s.priority ?? 'medium',
+          status: s.status,
         }
-        setSchedule(map)
-      } catch {
-        // VPS not configured — schedules unavailable
       }
+      setSchedule(map)
+    } catch {
+      // VPS not configured — schedules unavailable
     }
-    loadSchedules()
   }, [])
+
+  useEffect(() => {
+    loadSchedules()
+  }, [loadSchedules])
 
   // Fetch drafts + published on mount
   useEffect(() => {
@@ -349,8 +364,8 @@ export default function AdminDashboard() {
     if (tab === 'analytics') loadAnalytics()
   }, [tab, loadAnalytics])
 
-  const loadVpsData = useCallback(async () => {
-    if (vpsData || vpsLoading) return
+  const loadVpsData = useCallback(async (force = false) => {
+    if (!force && (vpsData || vpsLoading)) return
     setVpsLoading(true)
     try {
       const res = await fetch('/api/admin/vps')
@@ -363,11 +378,11 @@ export default function AdminDashboard() {
     }
   }, [vpsData, vpsLoading])
 
-  const loadVpsLogs = useCallback(async () => {
-    if (vpsLogs.length || vpsLogsLoading) return
+  const loadVpsLogs = useCallback(async (force = false) => {
+    if (!force && (vpsLogs.length || vpsLogsLoading)) return
     setVpsLogsLoading(true)
     try {
-      const res = await fetch('/api/admin/vps/logs?lines=100')
+      const res = await fetch('/api/admin/vps/logs?lines=250')
       const data = await res.json()
       setVpsLogs(data.lines ?? [])
     } catch {
@@ -377,12 +392,63 @@ export default function AdminDashboard() {
     }
   }, [vpsLogs.length, vpsLogsLoading])
 
+  const refreshVpsView = useCallback(async () => {
+    await Promise.all([loadVpsData(true), loadVpsLogs(true), loadSchedules()])
+  }, [loadSchedules, loadVpsData, loadVpsLogs])
+
   useEffect(() => {
     if (tab === 'vps') {
       loadVpsData()
       loadVpsLogs()
     }
   }, [tab, loadVpsData, loadVpsLogs])
+
+  async function toggleCronRunning() {
+    const action = vpsData?.status?.cron?.running ? 'pause' : 'resume'
+    setCronActionLoading('toggle')
+    try {
+      await fetch('/api/admin/vps/cron', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action }),
+      })
+    } finally {
+      await refreshVpsView()
+      setCronActionLoading(null)
+    }
+  }
+
+  async function shiftAllSchedules(days: number) {
+    setScheduleShiftLoading(days > 0 ? 'forward' : 'back')
+    try {
+      await fetch('/api/admin/schedules/shift', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ days }),
+      })
+    } finally {
+      await refreshVpsView()
+      setScheduleShiftLoading(null)
+    }
+  }
+
+  async function changeCronInterval(delta: number) {
+    const current = vpsData?.status?.cron?.intervalMinutes ?? 15
+    const next = Math.max(1, Math.min(59, current + delta))
+    if (next === current) return
+
+    setCronActionLoading(delta > 0 ? 'interval-up' : 'interval-down')
+    try {
+      await fetch('/api/admin/vps/cron', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'set-interval', minutes: next }),
+      })
+    } finally {
+      await refreshVpsView()
+      setCronActionLoading(null)
+    }
+  }
 
   async function saveSchedule(scheduleKey: string, data: Schedule[string]) {
     const draft = drafts.find((d) => draftScheduleKey(d) === scheduleKey)
@@ -460,6 +526,12 @@ export default function AdminDashboard() {
     return sched?.targetDate && sched.status !== 'published'
   })
   const lastPublished = published[0]
+  const sortedVpsSchedules = [...(vpsData?.schedules ?? [])].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  )
+  const visibleVpsSchedules = showAllSchedules
+    ? sortedVpsSchedules
+    : sortedVpsSchedules.slice(0, 10)
 
   const filteredDrafts = drafts.filter(
     (d) =>
@@ -1023,7 +1095,7 @@ export default function AdminDashboard() {
                         <div className="flex items-center justify-between mb-3">
                           <h2 className="text-sm font-semibold text-gray-700">Scheduler Status</h2>
                           <button
-                            onClick={() => { setVpsData(null); setVpsLogs([]) }}
+                            onClick={() => { void refreshVpsView() }}
                             className="text-xs text-[#0d6e6e] hover:text-[#0a5a5a] font-medium"
                           >
                             Refresh
@@ -1082,6 +1154,20 @@ export default function AdminDashboard() {
                                 : '—',
                               colour: 'text-gray-900',
                             },
+                            {
+                              label: 'Cron state',
+                              value: vpsData?.status?.cron?.running ? 'Running' : 'Paused',
+                              sub: vpsData?.status?.cron?.configured === false ? 'Not configured' : vpsData?.status?.cron?.expression,
+                              colour: vpsData?.status?.cron?.running ? 'text-green-600' : 'text-amber-700',
+                            },
+                            {
+                              label: 'Cron check time',
+                              value: vpsData?.status?.cron?.label ?? '—',
+                              sub: vpsData?.status?.cron?.intervalMinutes
+                                ? `${vpsData.status.cron.intervalMinutes} minute interval`
+                                : undefined,
+                              colour: 'text-gray-900',
+                            },
                           ].map((s) => (
                             <div key={s.label} className="bg-gray-50 rounded-xl border border-gray-200 px-4 py-3">
                               <p className="text-xs font-medium text-gray-500">{s.label}</p>
@@ -1094,7 +1180,66 @@ export default function AdminDashboard() {
 
                       {/* All schedules */}
                       <div>
-                        <h2 className="text-sm font-semibold text-gray-700 mb-3">All Schedules</h2>
+                        <div className="flex flex-col gap-3 mb-3">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <h2 className="text-sm font-semibold text-gray-700 mr-auto">All Schedules</h2>
+                            <button
+                              onClick={() => void toggleCronRunning()}
+                              disabled={cronActionLoading === 'toggle'}
+                              className={`rounded-lg px-3 py-2 text-xs font-semibold transition-colors disabled:opacity-50 ${
+                                vpsData?.status?.cron?.running
+                                  ? 'bg-amber-100 text-amber-800 hover:bg-amber-200'
+                                  : 'bg-green-100 text-green-800 hover:bg-green-200'
+                              }`}
+                            >
+                              {cronActionLoading === 'toggle'
+                                ? 'Updating…'
+                                : vpsData?.status?.cron?.running
+                                ? 'Pause Cron Checks'
+                                : 'Resume Cron Checks'}
+                            </button>
+                            <button
+                              onClick={() => void shiftAllSchedules(-1)}
+                              disabled={scheduleShiftLoading === 'back'}
+                              className="rounded-lg bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-200 disabled:opacity-50"
+                            >
+                              {scheduleShiftLoading === 'back' ? 'Updating…' : 'Move All Scheduled Blogs -1 Day'}
+                            </button>
+                            <button
+                              onClick={() => void shiftAllSchedules(1)}
+                              disabled={scheduleShiftLoading === 'forward'}
+                              className="rounded-lg bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-200 disabled:opacity-50"
+                            >
+                              {scheduleShiftLoading === 'forward' ? 'Updating…' : 'Move All Scheduled Blogs +1 Day'}
+                            </button>
+                          </div>
+
+                          <div className="flex flex-wrap items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-3 py-3">
+                            <div className="mr-auto">
+                              <p className="text-xs font-medium text-gray-500">Cron interval</p>
+                              <p className="text-sm font-semibold text-gray-900">
+                                {vpsData?.status?.cron?.label ?? '—'}
+                              </p>
+                              <p className="text-xs text-gray-400">
+                                {vpsData?.status?.cron?.expression ?? 'No cron expression found'}
+                              </p>
+                            </div>
+                            <button
+                              onClick={() => void changeCronInterval(-5)}
+                              disabled={cronActionLoading === 'interval-down'}
+                              className="rounded-lg bg-white px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-100 disabled:opacity-50"
+                            >
+                              {cronActionLoading === 'interval-down' ? 'Updating…' : '-5 min'}
+                            </button>
+                            <button
+                              onClick={() => void changeCronInterval(5)}
+                              disabled={cronActionLoading === 'interval-up'}
+                              className="rounded-lg bg-white px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-100 disabled:opacity-50"
+                            >
+                              {cronActionLoading === 'interval-up' ? 'Updating…' : '+5 min'}
+                            </button>
+                          </div>
+                        </div>
                         <div className="rounded-xl border border-gray-200 overflow-hidden">
                           <div className="overflow-x-auto">
                             <table className="w-full text-sm min-w-[600px]">
@@ -1109,16 +1254,14 @@ export default function AdminDashboard() {
                                 </tr>
                               </thead>
                               <tbody className="divide-y divide-gray-100">
-                                {(vpsData?.schedules ?? []).length === 0 ? (
+                                {sortedVpsSchedules.length === 0 ? (
                                   <tr>
                                     <td colSpan={6} className="px-4 py-8 text-center text-gray-400">
                                       No schedules found
                                     </td>
                                   </tr>
                                 ) : (
-                                  [...(vpsData?.schedules ?? [])]
-                                    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-                                    .map((s) => (
+                                  visibleVpsSchedules.map((s) => (
                                       <tr key={s.id} className="hover:bg-gray-50 transition-colors">
                                         <td className="px-4 py-3">
                                           <p className="font-medium text-gray-900 max-w-xs truncate">{s.draftTitle}</p>
@@ -1153,6 +1296,18 @@ export default function AdminDashboard() {
                               </tbody>
                             </table>
                           </div>
+                          {sortedVpsSchedules.length > 10 && (
+                            <div className="border-t border-gray-200 bg-gray-50 px-4 py-3">
+                              <button
+                                onClick={() => setShowAllSchedules((current) => !current)}
+                                className="text-xs font-medium text-[#0d6e6e] hover:text-[#0a5a5a]"
+                              >
+                                {showAllSchedules
+                                  ? 'Show fewer schedules'
+                                  : `Show all schedules (${sortedVpsSchedules.length})`}
+                              </button>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </>
@@ -1162,10 +1317,10 @@ export default function AdminDashboard() {
                   <div>
                     <div className="flex items-center justify-between mb-3">
                       <h2 className="text-sm font-semibold text-gray-700">
-                        Cron Log <span className="font-normal text-gray-400">(last 100 lines)</span>
+                        Cron Log <span className="font-normal text-gray-400">(last 250 lines)</span>
                       </h2>
                       <button
-                        onClick={() => setVpsLogs([])}
+                        onClick={() => { void loadVpsLogs(true) }}
                         className="text-xs text-[#0d6e6e] hover:text-[#0a5a5a] font-medium"
                       >
                         Refresh
