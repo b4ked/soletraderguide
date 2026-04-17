@@ -111,7 +111,7 @@ Only this supplied draft is in scope.
 Do not auto-select any other draft.
 If the quality gate fails, do not commit or push, and include QUALITY_GATE_FAIL in your summary." \
     --dangerously-skip-permissions \
-    2>&1)
+    < /dev/null 2>&1)
 
   PIPELINE_EXIT=$?
   echo "$PIPELINE_OUTPUT"
