@@ -195,9 +195,10 @@ function persistCronState({ expression, running }) {
 }
 
 function triggerManualCronRun() {
-  const child = spawn('bash', ['-lc', `${SCRIPT_PATH} >> ${LOG_FILE} 2>&1`], {
+  const logFd = fs.openSync(LOG_FILE, 'a')
+  const child = spawn(SCRIPT_PATH, [], {
     detached: true,
-    stdio: 'ignore',
+    stdio: ['ignore', logFd, logFd],
   })
   child.unref()
 
