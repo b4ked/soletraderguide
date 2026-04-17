@@ -5,7 +5,7 @@ const express = require('express')
 const fs = require('fs')
 const path = require('path')
 const crypto = require('crypto')
-const { execSync } = require('child_process')
+const { execSync, spawn } = require('child_process')
 
 const app = express()
 app.use(express.json())
@@ -81,18 +81,54 @@ function readCrontabLines() {
 
 function parseIntervalMinutes(expression) {
   if (expression === '* * * * *') return 1
-  const match = expression.match(/^\*\/(\d+)\s+\*\s+\*\s+\*\s+\*$/)
-  return match ? parseInt(match[1], 10) : null
+  if (expression === '0 * * * *') return 60
+
+  const minuteMatch = expression.match(/^\*\/(\d+)\s+\*\s+\*\s+\*\s+\*$/)
+  if (minuteMatch) return parseInt(minuteMatch[1], 10)
+
+  const hourMatch = expression.match(/^0\s+\*\/(\d+)\s+\*\s+\*\s+\*$/)
+  if (hourMatch) return parseInt(hourMatch[1], 10) * 60
+
+  const dailyMatch = expression.match(/^0\s+0\s+\*\/(\d+)\s+\*\s+\*$/)
+  if (dailyMatch) return parseInt(dailyMatch[1], 10) * 1440
+
+  return null
 }
 
 function formatCronLabel(expression) {
   const intervalMinutes = parseIntervalMinutes(expression)
   if (intervalMinutes) {
-    return intervalMinutes === 1
-      ? 'Every minute'
-      : `Every ${intervalMinutes} minutes`
+    if (intervalMinutes === 1) return 'Every minute'
+    if (intervalMinutes < 60) return `Every ${intervalMinutes} minutes`
+    if (intervalMinutes % 1440 === 0) {
+      const days = intervalMinutes / 1440
+      return days === 1 ? 'Every day' : `Every ${days} days`
+    }
+    if (intervalMinutes % 60 === 0) {
+      const hours = intervalMinutes / 60
+      return hours === 1 ? 'Every hour' : `Every ${hours} hours`
+    }
+    return `Every ${intervalMinutes} minutes`
   }
   return expression
+}
+
+function expressionForIntervalMinutes(minutes) {
+  if (!Number.isInteger(minutes) || minutes < 1 || minutes > 720) {
+    throw new Error('minutes must be an integer between 1 and 720')
+  }
+
+  if (minutes === 1) return '* * * * *'
+  if (minutes < 60) return `*/${minutes} * * * *`
+  if (minutes === 60) return '0 * * * *'
+  if (minutes % 60 === 0) {
+    const hours = minutes / 60
+    if (hours <= 23) {
+      return `0 */${hours} * * *`
+    }
+  }
+
+  throw new Error('intervals above 59 minutes must be whole hours')
 }
 
 function parseManagedCronLine(line) {
@@ -156,6 +192,20 @@ function persistCronState({ expression, running }) {
   })
 
   return getCronState()
+}
+
+function triggerManualCronRun() {
+  const child = spawn(SCRIPT_PATH, [], {
+    detached: true,
+    stdio: 'ignore',
+  })
+  child.unref()
+
+  return {
+    ok: true,
+    pid: child.pid,
+    startedAt: new Date().toISOString(),
+  }
 }
 
 // ─── Routes ─────────────────────────────────────────────────────────────────
@@ -256,16 +306,22 @@ app.post('/api/cron/resume', requireAuth, (_req, res) => {
 // POST /api/cron/interval — update how often cron checks run, preserving paused/running state
 app.post('/api/cron/interval', requireAuth, (req, res) => {
   const minutes = Number(req.body.minutes)
-  if (!Number.isInteger(minutes) || minutes < 1 || minutes > 59) {
-    return res.status(400).json({ error: 'minutes must be an integer between 1 and 59' })
-  }
 
   try {
     const current = getCronState()
-    const expression = minutes === 1 ? '* * * * *' : `*/${minutes} * * * *`
+    const expression = expressionForIntervalMinutes(minutes)
     res.json(persistCronState({ expression, running: current.running }))
   } catch (err) {
     res.status(500).json({ error: 'Could not update cron interval', detail: err.message })
+  }
+})
+
+// POST /api/cron/trigger — run the publish script immediately without changing cron state
+app.post('/api/cron/trigger', requireAuth, (_req, res) => {
+  try {
+    res.json(triggerManualCronRun())
+  } catch (err) {
+    res.status(500).json({ error: 'Could not trigger cron run', detail: err.message })
   }
 })
 

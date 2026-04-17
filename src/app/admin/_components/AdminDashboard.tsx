@@ -418,6 +418,20 @@ export default function AdminDashboard() {
     }
   }
 
+  async function triggerCronNow() {
+    setCronActionLoading('trigger')
+    try {
+      await fetch('/api/admin/vps/cron', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'trigger' }),
+      })
+    } finally {
+      await refreshVpsView()
+      setCronActionLoading(null)
+    }
+  }
+
   async function shiftAllSchedules(days: number) {
     setScheduleShiftLoading(days > 0 ? 'forward' : 'back')
     try {
@@ -434,10 +448,27 @@ export default function AdminDashboard() {
 
   async function changeCronInterval(delta: number) {
     const current = vpsData?.status?.cron?.intervalMinutes ?? 15
-    const next = Math.max(1, Math.min(59, current + delta))
+    let next = current + delta
+    if (Math.abs(delta) >= 60) {
+      if (delta > 0 && current < 60) {
+        next = 60
+      } else if (delta < 0 && current <= 60) {
+        next = 55
+      }
+    }
+    next = Math.max(1, Math.min(720, next))
     if (next === current) return
 
-    setCronActionLoading(delta > 0 ? 'interval-up' : 'interval-down')
+    const loadingKey =
+      Math.abs(delta) >= 60
+        ? delta > 0
+          ? 'interval-hour-up'
+          : 'interval-hour-down'
+        : delta > 0
+        ? 'interval-up'
+        : 'interval-down'
+
+    setCronActionLoading(loadingKey)
     try {
       await fetch('/api/admin/vps/cron', {
         method: 'POST',
@@ -1199,6 +1230,13 @@ export default function AdminDashboard() {
                                 : 'Resume Cron Checks'}
                             </button>
                             <button
+                              onClick={() => void triggerCronNow()}
+                              disabled={cronActionLoading === 'trigger'}
+                              className="rounded-lg bg-[#0d6e6e] px-3 py-2 text-xs font-semibold text-white hover:bg-[#0a5a5a] disabled:opacity-50"
+                            >
+                              {cronActionLoading === 'trigger' ? 'Starting…' : 'Run Cron Check Now'}
+                            </button>
+                            <button
                               onClick={() => void shiftAllSchedules(-1)}
                               disabled={scheduleShiftLoading === 'back'}
                               className="rounded-lg bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-200 disabled:opacity-50"
@@ -1237,6 +1275,20 @@ export default function AdminDashboard() {
                               className="rounded-lg bg-white px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-100 disabled:opacity-50"
                             >
                               {cronActionLoading === 'interval-up' ? 'Updating…' : '+5 min'}
+                            </button>
+                            <button
+                              onClick={() => void changeCronInterval(-60)}
+                              disabled={cronActionLoading === 'interval-hour-down'}
+                              className="rounded-lg bg-white px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-100 disabled:opacity-50"
+                            >
+                              {cronActionLoading === 'interval-hour-down' ? 'Updating…' : '-60 min'}
+                            </button>
+                            <button
+                              onClick={() => void changeCronInterval(60)}
+                              disabled={cronActionLoading === 'interval-hour-up'}
+                              className="rounded-lg bg-white px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-100 disabled:opacity-50"
+                            >
+                              {cronActionLoading === 'interval-hour-up' ? 'Updating…' : '+60 min'}
                             </button>
                           </div>
                         </div>

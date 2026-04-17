@@ -47,6 +47,8 @@ export async function POST(request: NextRequest) {
     } else if (action === 'set-interval') {
       endpoint = '/api/cron/interval'
       payload = JSON.stringify({ minutes: body.minutes })
+    } else if (action === 'trigger') {
+      endpoint = '/api/cron/trigger'
     } else {
       return NextResponse.json({ error: 'Unsupported cron action' }, { status: 400 })
     }
