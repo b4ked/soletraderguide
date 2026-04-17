@@ -6,6 +6,7 @@ import matter from 'gray-matter'
 export interface DraftMeta {
   slug: string
   filename: string
+  scheduleKey: string
   title: string
   description: string
   focusKeyword: string
@@ -63,6 +64,22 @@ function extractMeta(raw: string, filename: string) {
   return { title, description, focusKeyword, category: '', tags: [], wordCount }
 }
 
+function walkDraftFiles(rootDir: string, currentDir = rootDir): string[] {
+  return fs.readdirSync(currentDir, { withFileTypes: true }).flatMap((entry) => {
+    const fullPath = path.join(currentDir, entry.name)
+
+    if (entry.isDirectory()) {
+      return walkDraftFiles(rootDir, fullPath)
+    }
+
+    if (!entry.isFile() || !(entry.name.endsWith('.md') || entry.name.endsWith('.mdx'))) {
+      return []
+    }
+
+    return [path.relative(rootDir, fullPath)]
+  })
+}
+
 export async function GET() {
   try {
     const draftsDir = path.join(process.cwd(), 'drafts')
@@ -71,20 +88,21 @@ export async function GET() {
       return NextResponse.json({ drafts: [] })
     }
 
-    const files = fs
-      .readdirSync(draftsDir)
-      .filter((f) => f.endsWith('.md') || f.endsWith('.mdx'))
+    const files = walkDraftFiles(draftsDir)
 
     const drafts: DraftMeta[] = files.map((filename) => {
-      const slug = filename.replace(/\.(mdx?$)/, '').replace(/^\d+[a-z]?-/, '')
+      const basename = path.basename(filename)
+      const slug = basename.replace(/\.(mdx?)$/, '').replace(/^\d+[a-z]?-/, '')
+      const scheduleKey = filename.replace(/\.(mdx?)$/, '')
       const filePath = path.join(draftsDir, filename)
       const raw = fs.readFileSync(filePath, 'utf-8')
       const stat = fs.statSync(filePath)
-      const meta = extractMeta(raw, filename)
+      const meta = extractMeta(raw, basename)
 
       return {
         slug,
         filename,
+        scheduleKey,
         ...meta,
         lastModified: stat.mtime.toISOString(),
       }
