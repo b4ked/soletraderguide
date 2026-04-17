@@ -278,6 +278,10 @@ export default function AdminDashboard() {
   const [draftSearch, setDraftSearch] = useState('')
   const [loading, setLoading] = useState(true)
 
+  function draftScheduleKey(draft: DraftMeta): string {
+    return draft.scheduleKey ?? draft.filename.replace(/\.(mdx?)$/, '')
+  }
+
   // Load schedules from VPS API on mount
   useEffect(() => {
     async function loadSchedules() {
@@ -287,10 +291,8 @@ export default function AdminDashboard() {
         const data = await res.json()
         const map: Schedule = {}
         for (const s of data.schedules ?? []) {
-          const slug = (s.draftFile as string)
-            .replace(/\.(mdx?)$/, '')
-            .replace(/^\d+[a-z]?-/, '')
-          map[slug] = {
+          const scheduleKey = (s.draftFile as string).replace(/\.(mdx?)$/, '')
+          map[scheduleKey] = {
             id: s.id,
             targetDate: (s.scheduledAt as string).split('T')[0],
             notes: s.notes ?? '',
@@ -382,11 +384,11 @@ export default function AdminDashboard() {
     }
   }, [tab, loadVpsData, loadVpsLogs])
 
-  async function saveSchedule(slug: string, data: Schedule[string]) {
-    const draft = drafts.find((d) => d.slug === slug)
+  async function saveSchedule(scheduleKey: string, data: Schedule[string]) {
+    const draft = drafts.find((d) => draftScheduleKey(d) === scheduleKey)
     if (!draft) return
     if (!data.targetDate) return
-    const existing = schedule[slug]
+    const existing = schedule[scheduleKey]
     // datetime-local gives "YYYY-MM-DDTHH:mm" — append seconds+Z to treat as UTC
     const scheduledAt = data.targetDate.includes('T')
       ? data.targetDate + ':00.000Z'
@@ -402,7 +404,7 @@ export default function AdminDashboard() {
         if (!res.ok) return
         setSchedule((prev) => ({
           ...prev,
-          [slug]: { ...prev[slug], ...data },
+          [scheduleKey]: { ...prev[scheduleKey], ...data },
         }))
       } else {
         const res = await fetch('/api/admin/schedules', {
@@ -425,7 +427,7 @@ export default function AdminDashboard() {
         const created = await res.json()
         setSchedule((prev) => ({
           ...prev,
-          [slug]: { ...data, id: created.id, status: 'pending' },
+          [scheduleKey]: { ...data, id: created.id, status: 'pending' },
         }))
         // Refresh VPS data so the VPS tab shows the new schedule
         setVpsData(null)
@@ -435,8 +437,8 @@ export default function AdminDashboard() {
     }
   }
 
-  async function clearSchedule(slug: string) {
-    const existing = schedule[slug]
+  async function clearSchedule(scheduleKey: string) {
+    const existing = schedule[scheduleKey]
     if (existing?.id) {
       try {
         await fetch(`/api/admin/schedules/${existing.id}`, { method: 'DELETE' })
@@ -446,14 +448,17 @@ export default function AdminDashboard() {
     }
     setSchedule((prev) => {
       const updated = { ...prev }
-      delete updated[slug]
+      delete updated[scheduleKey]
       return updated
     })
   }
 
   const staleDrafts = drafts.filter((d) => daysSince(d.lastModified) > 30)
   const stalePublished = published.filter((p) => daysSince(p.updatedAt) > 60)
-  const scheduledDrafts = drafts.filter((d) => schedule[d.slug]?.targetDate && schedule[d.slug]?.status !== 'published')
+  const scheduledDrafts = drafts.filter((d) => {
+    const sched = schedule[draftScheduleKey(d)]
+    return sched?.targetDate && sched.status !== 'published'
+  })
   const lastPublished = published[0]
 
   const filteredDrafts = drafts.filter(
@@ -590,13 +595,13 @@ export default function AdminDashboard() {
                           <tbody className="divide-y divide-gray-100">
                             {scheduledDrafts
                               .sort((a, b) => {
-                                const da = schedule[a.slug]?.targetDate ?? ''
-                                const db = schedule[b.slug]?.targetDate ?? ''
+                                const da = schedule[draftScheduleKey(a)]?.targetDate ?? ''
+                                const db = schedule[draftScheduleKey(b)]?.targetDate ?? ''
                                 return da.localeCompare(db)
                               })
                               .map((d) => (
                                 <tr
-                                  key={d.slug}
+                                  key={d.scheduleKey}
                                   className="hover:bg-gray-50 transition-colors"
                                 >
                                   <td className="px-4 py-3 font-medium text-gray-900">
@@ -607,13 +612,13 @@ export default function AdminDashboard() {
                                   </td>
                                   <td className="px-4 py-3 text-gray-600">
                                     {formatDate(
-                                      schedule[d.slug]?.targetDate ?? ''
+                                      schedule[draftScheduleKey(d)]?.targetDate ?? ''
                                     )}
                                   </td>
                                   <td className="px-4 py-3">
                                     <PriorityBadge
                                       priority={
-                                        schedule[d.slug]?.priority ?? 'medium'
+                                        schedule[draftScheduleKey(d)]?.priority ?? 'medium'
                                       }
                                     />
                                   </td>
@@ -643,7 +648,7 @@ export default function AdminDashboard() {
                         <tbody className="divide-y divide-gray-100">
                           {drafts.slice(0, 8).map((d) => (
                             <tr
-                              key={d.slug}
+                              key={d.scheduleKey}
                               className="hover:bg-gray-50 transition-colors"
                             >
                               <td className="px-4 py-3 text-xs text-gray-500 font-mono max-w-[180px] truncate">
@@ -656,8 +661,8 @@ export default function AdminDashboard() {
                                 {d.wordCount.toLocaleString()}
                               </td>
                               <td className="px-4 py-3 text-xs text-gray-500">
-                                {schedule[d.slug]?.targetDate
-                                  ? formatDate(schedule[d.slug].targetDate)
+                                {schedule[draftScheduleKey(d)]?.targetDate
+                                  ? formatDate(schedule[draftScheduleKey(d)]!.targetDate)
                                   : '—'}
                               </td>
                             </tr>
@@ -706,10 +711,10 @@ export default function AdminDashboard() {
                             </tr>
                           ) : (
                             filteredDrafts.map((d) => {
-                              const sched = schedule[d.slug]
+                              const sched = schedule[draftScheduleKey(d)]
                               return (
                                 <tr
-                                  key={d.slug}
+                                  key={d.scheduleKey}
                                   className="hover:bg-gray-50 transition-colors"
                                 >
                                   <td className="px-4 py-3 text-xs text-gray-500 font-mono max-w-[180px] truncate">
@@ -767,7 +772,7 @@ export default function AdminDashboard() {
                                       </button>
                                       {sched && (
                                         <button
-                                          onClick={() => clearSchedule(d.slug)}
+                                          onClick={() => clearSchedule(draftScheduleKey(d))}
                                           className="text-xs text-gray-400 hover:text-red-500"
                                         >
                                           Clear
