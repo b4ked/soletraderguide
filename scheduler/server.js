@@ -195,7 +195,7 @@ function persistCronState({ expression, running }) {
 }
 
 function triggerManualCronRun() {
-  const child = spawn(SCRIPT_PATH, [], {
+  const child = spawn('bash', ['-lc', `${SCRIPT_PATH} >> ${LOG_FILE} 2>&1`], {
     detached: true,
     stdio: 'ignore',
   })
