@@ -14,8 +14,8 @@ export const siteConfig: SiteConfig = {
   publisherName: 'SoleTraderGuide',
   lastReviewedDate: '2026-03-31',
   editorialEmail: 'editorial@soletraderguide.co.uk',
-  mobileCta: { label: 'Compare Software', href: '/comparisons' },
-  headerCta: { label: 'Compare Software', href: '/comparisons' },
+  mobileCta: { label: 'Try Xero Free →', href: 'https://referrals.xero.com/0h37y3qct6a6' },
+  headerCta: { label: 'Try Xero Free →', href: 'https://referrals.xero.com/0h37y3qct6a6' },
 }
 
 export const mtdConfig = {
